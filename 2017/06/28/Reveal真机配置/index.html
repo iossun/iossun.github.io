@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Reveal安装 | 孙慕的博客</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###Reveal简介    Reveal是一个iOS程序界面调试工具。可以在Reveal上查看视图的层级和修改控件的属性，用来调试UI，同时还可以利用越狱手机查看其它应用的结构，做逆向分析，在应用开发过程中很有用处，本文介绍调试自己app时对app配置。 ###Reveal配置步骤已下载安装Reveal1.启动显示，并从Help→Show Reveal Library in Finder 菜单中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reveal安装">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/Reveal真机配置/index.html">
+<meta property="og:site_name" content="孙慕的博客">
+<meta property="og:description" content="###Reveal简介    Reveal是一个iOS程序界面调试工具。可以在Reveal上查看视图的层级和修改控件的属性，用来调试UI，同时还可以利用越狱手机查看其它应用的结构，做逆向分析，在应用开发过程中很有用处，本文介绍调试自己app时对app配置。 ###Reveal配置步骤已下载安装Reveal1.启动显示，并从Help→Show Reveal Library in Finder 菜单中">
+<meta property="og:image" content="http://img.blog.csdn.net/20170315114242920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170315114624486?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170315115827786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170315130103051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170315130719147?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-06-28T06:31:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reveal安装">
+<meta name="twitter:description" content="###Reveal简介    Reveal是一个iOS程序界面调试工具。可以在Reveal上查看视图的层级和修改控件的属性，用来调试UI，同时还可以利用越狱手机查看其它应用的结构，做逆向分析，在应用开发过程中很有用处，本文介绍调试自己app时对app配置。 ###Reveal配置步骤已下载安装Reveal1.启动显示，并从Help→Show Reveal Library in Finder 菜单中">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170315114242920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="孙慕的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">孙慕的博客</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">不断思考的IT男</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">孙慕的博客</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">孙慕的博客</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">不断思考的IT男</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Reveal真机配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/28/Reveal真机配置/" class="article-date">
+  	<time datetime="2017-06-28T06:20:13.000Z" itemprop="datePublished">2017-06-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Reveal安装
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###Reveal简介<br>    Reveal是一个iOS程序界面调试工具。可以在Reveal上查看视图的层级和修改控件的属性，用来调试UI，同时还可以利用越狱手机查看其它应用的结构，做逆向分析，在应用开发过程中很有用处，本文介绍调试自己app时对app配置。</p>
+<p>###Reveal配置步骤<br>已下载安装Reveal<br>1.启动显示，并从Help→Show Reveal Library in Finder 菜单中选择“iOS Library”或“tvOS Library” 。这将打开一个Finder窗口，并选择相应的框架。<img src="http://img.blog.csdn.net/20170315114242920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>2.在Finder中通过拖动选项（⌥）键将 RevealServer.framework 复制到项目的根目录。<br><img src="http://img.blog.csdn.net/20170315114624486?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">注意：将RevealServer.framework复制到项目中很重要。确保在拖动文件时按住Option键，否则Finder将创建别名，而不是副本。</div><div class="line"></div><div class="line">使用Finder执行此步骤也非常重要。使用Xcode的“嵌入二进制”或“链接框架和库”设置添加框架引入了我们将在本指南后面定制的构建设置。</div><div class="line"></div><div class="line">您还可以将框架放置在子目录中以保持组织。只需确保在运行脚本阶段（下面）相应地更新路径环境变量。</div></pre></td></tr></table></figure>
+<p>3.在工程中选择Build Settings选项卡，搜索<code>FRAMEWORK_SEARCH_PATHS</code>，Debug配置中添加    <code>$(inherited) $(SRCROOT)</code><br><img src="http://img.blog.csdn.net/20170315115827786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>4.在Build Settings选项卡中，将以下内容添加到Other Linker Flags（）设置的Debug配置中，添加<code>-ObjC -weak_framework RevealServer</code><br><img src="http://img.blog.csdn.net/20170315130103051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>5.在Build Settings选项卡中，搜索：<code>LD_RUNPATH_SEARCH_PATHS</code>，添加<code>$(inherited) @executable_path/Frameworks</code><br>6.选择Build Phases选项卡并添加new Run Script phase - 将其命名为“Integrate Reveal Server”或适当描述的内容。在以下shell脚本中粘贴：<br>export REVEAL_SERVER_FILENAME=”RevealServer.framework”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># Update this path to point to the location of RevealServer.framework in your project.</div><div class="line">export REVEAL_SERVER_PATH=&quot;$&#123;SRCROOT&#125;/$&#123;REVEAL_SERVER_FILENAME&#125;&quot;</div><div class="line"></div><div class="line"># If configuration is not Debug, skip this script.</div><div class="line">[ &quot;$&#123;CONFIGURATION&#125;&quot; != &quot;Debug&quot; ] &amp;&amp; exit 0</div><div class="line"></div><div class="line"># If RevealServer.framework exists at the specified path, run code signing script.</div><div class="line">if [ -d &quot;$&#123;REVEAL_SERVER_PATH&#125;&quot; ]; then</div><div class="line">  &quot;$&#123;REVEAL_SERVER_PATH&#125;/Scripts/copy_and_codesign_revealserver.sh&quot;</div><div class="line">else</div><div class="line">  echo &quot;Cannot find RevealServer.framework, so Reveal Server will not be started for your app.&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170315130719147?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>7.在Xcode中，使用设置为使用Debug配置的方案构建和运行应用程序。如果您在设备上运行iOS或tvOS应用程序，请确保它与Mac运行Reveal时所在的Wi-Fi网络相同，或者通过USB电缆连接到Mac。<br>8.再次运行应用程序，这次使用一个方案集来使用Release配置。验证Reveal无法连接到您的应用程序。如果您仍然可以连接，请检查以确保RevealServer.framework未列在构建阶段选项卡的 链接二进制和库部分 。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/06/28/两年iOS开发之路/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">两年ios开发之路</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="Reveal真机配置" data-title="Reveal安装" data-url="http://yoursite.com/2017/06/28/Reveal真机配置/"  data-images="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" data-content="Reveal安装">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2017 孙慕的博客
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

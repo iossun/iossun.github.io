@@ -9,16 +9,16 @@
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这几天用OC实现了下常见的几种排序算法 1.选择排序表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想 123456789-(void)rankArray:(NSMutableArray *)array&amp;#123;    for (int i = 0;">
+  <meta name="description" content="这几天用OC实现了下常见的几种排序算法 1.选择排序表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC实现常规排序算法">
 <meta property="og:url" content="http://yoursite.com/2017/06/28/iOS实现排序/index.html">
 <meta property="og:site_name" content="孙慕的博客">
-<meta property="og:description" content="这几天用OC实现了下常见的几种排序算法 1.选择排序表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想 123456789-(void)rankArray:(NSMutableArray *)array&amp;#123;    for (int i = 0;">
-<meta property="og:updated_time" content="2017-06-28T06:32:34.000Z">
+<meta property="og:description" content="这几天用OC实现了下常见的几种排序算法 1.选择排序表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想">
+<meta property="og:updated_time" content="2017-06-28T06:43:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC实现常规排序算法">
-<meta name="twitter:description" content="这几天用OC实现了下常见的几种排序算法 1.选择排序表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想 123456789-(void)rankArray:(NSMutableArray *)array&amp;#123;    for (int i = 0;">
+<meta name="twitter:description" content="这几天用OC实现了下常见的几种排序算法 1.选择排序表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想">
   
     <link rel="alternative" href="/atom.xml" title="孙慕的博客" type="application/atom+xml">
   
@@ -204,8 +204,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>这几天用OC实现了下常见的几种排序算法</p>
-<p><strong>1.选择排序</strong><br>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-(void)rankArray:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 0; i &lt; array.count; i ++) &#123;</div><div class="line">        for (int j = i + 1; j &lt; array.count; j ++) &#123;</div><div class="line">            if ([array[i] integerValue] &gt; [array[j] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:i withObjectAtIndex:j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>1.选择排序</strong><br>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想<br> <a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-(void)rankArray:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 0; i &lt; array.count; i ++) &#123;</div><div class="line">        for (int j = i + 1; j &lt; array.count; j ++) &#123;</div><div class="line">            if ([array[i] integerValue] &gt; [array[j] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:i withObjectAtIndex:j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong>2.冒泡排序 较慢 冒泡排序运行需要 O（N^2）时间级别</strong></p>
 <p>冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-(void)bubbleSort0:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 1; i &lt; array.count - 1; i ++) &#123;</div><div class="line">        for (int j = 0; j &lt; array.count - i; j ++) &#123;</div><div class="line">            if ([array[j] integerValue] &gt; [array[j + 1] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:j + 1 withObjectAtIndex:j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>

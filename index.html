@@ -196,15 +196,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>###Reveal简介<br>    Reveal是一个iOS程序界面调试工具。可以在Reveal上查看视图的层级和修改控件的属性，用来调试UI，同时还可以利用越狱手机查看其它应用的结构，做逆向分析，在应用开发过程中很有用处，本文介绍调试自己app时对app配置。</p>
-<p>###Reveal配置步骤<br>已下载安装Reveal<br>1.启动显示，并从Help→Show Reveal Library in Finder 菜单中选择“iOS Library”或“tvOS Library” 。这将打开一个Finder窗口，并选择相应的框架。<img src="http://img.blog.csdn.net/20170315114242920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>2.在Finder中通过拖动选项（⌥）键将 RevealServer.framework 复制到项目的根目录。<br><img src="http://img.blog.csdn.net/20170315114624486?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">注意：将RevealServer.framework复制到项目中很重要。确保在拖动文件时按住Option键，否则Finder将创建别名，而不是副本。</div><div class="line"></div><div class="line">使用Finder执行此步骤也非常重要。使用Xcode的“嵌入二进制”或“链接框架和库”设置添加框架引入了我们将在本指南后面定制的构建设置。</div><div class="line"></div><div class="line">您还可以将框架放置在子目录中以保持组织。只需确保在运行脚本阶段（下面）相应地更新路径环境变量。</div></pre></td></tr></table></figure>
-<p>3.在工程中选择Build Settings选项卡，搜索<code>FRAMEWORK_SEARCH_PATHS</code>，Debug配置中添加    <code>$(inherited) $(SRCROOT)</code><br><img src="http://img.blog.csdn.net/20170315115827786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>4.在Build Settings选项卡中，将以下内容添加到Other Linker Flags（）设置的Debug配置中，添加<code>-ObjC -weak_framework RevealServer</code><br><img src="http://img.blog.csdn.net/20170315130103051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>5.在Build Settings选项卡中，搜索：<code>LD_RUNPATH_SEARCH_PATHS</code>，添加<code>$(inherited) @executable_path/Frameworks</code><br>6.选择Build Phases选项卡并添加new Run Script phase - 将其命名为“Integrate Reveal Server”或适当描述的内容。在以下shell脚本中粘贴：<br>export REVEAL_SERVER_FILENAME=”RevealServer.framework”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"># Update this path to point to the location of RevealServer.framework in your project.</div><div class="line">export REVEAL_SERVER_PATH=&quot;$&#123;SRCROOT&#125;/$&#123;REVEAL_SERVER_FILENAME&#125;&quot;</div><div class="line"></div><div class="line"># If configuration is not Debug, skip this script.</div><div class="line">[ &quot;$&#123;CONFIGURATION&#125;&quot; != &quot;Debug&quot; ] &amp;&amp; exit 0</div><div class="line"></div><div class="line"># If RevealServer.framework exists at the specified path, run code signing script.</div><div class="line">if [ -d &quot;$&#123;REVEAL_SERVER_PATH&#125;&quot; ]; then</div><div class="line">  &quot;$&#123;REVEAL_SERVER_PATH&#125;/Scripts/copy_and_codesign_revealserver.sh&quot;</div><div class="line">else</div><div class="line">  echo &quot;Cannot find RevealServer.framework, so Reveal Server will not be started for your app.&quot;</div><div class="line">fi</div></pre></td></tr></table></figure>
-<p><img src="http://img.blog.csdn.net/20170315130719147?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>7.在Xcode中，使用设置为使用Debug配置的方案构建和运行应用程序。如果您在设备上运行iOS或tvOS应用程序，请确保它与Mac运行Reveal时所在的Wi-Fi网络相同，或者通过USB电缆连接到Mac。<br>8.再次运行应用程序，这次使用一个方案集来使用Release配置。验证Reveal无法连接到您的应用程序。如果您仍然可以连接，请检查以确保RevealServer.framework未列在构建阶段选项卡的 链接二进制和库部分 。</p>
-
+<p>###Reveal配置步骤<br>已下载安装Reveal<br>1.启动显示，并从Help→Show Reveal Library in Finder 菜单中选择“iOS Library”或“tvOS Library” 。这将打开一个Finder窗口，并选择相应的框架。<img src="http://img.blog.csdn.net/20170315114242920?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>
       
     </div>
     
@@ -216,6 +208,10 @@
       
       <div class="clearfix"></div>
     </div>
+      
+        <p class="article-more-link">
+          <a  href="/2017/06/28/Reveal真机配置/#more">more >></a>
+        </p>
       
     
   </div>
@@ -259,15 +255,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>大学学的化工专业，当时对未来对兴趣什么的统统不懂，就稀里糊涂的报了这个专业，谈不上喜不喜欢，知道实习的时候，才意识到未来的工作我并不喜欢…</p>
-<p>这样子就开始了转行的想法，我哥是做算法的，一直优秀的我难以超越，当时iOS开发还处在火爆的余热当中….他得知我的想法后，帮我报了iOS开发培训班。</p>
-<p>就这样，实习期间，我走上了这条未知之路。直到这里我对编程什么概念都没有，更谈不上兴趣不兴趣的。然而很快，我就爱上敲代码，展现一个简单UI，实现一个小逻辑，解决一个小bug都是满满的成就感，这感觉跟高中专研物理题得到是一样一样的，渐渐发现喜欢这一行，如今手指放在键盘上偶尔也会感觉会有自信的风吹来，哇，真凉快！</p>
-<p>沉寂在学习的世界里还是比较愉悦的，但是，培训完，找工作那段时间还是比较痛苦的，这时候iOS对于新手已经很不友好了，尤其我们这些非专科班，简历又如实写的，真的很难很难 …… </p>
-<p>总要生活吧，没办法，拿了个实习的工资去一家小公司干着，进公司一段时间发现，单单iOS开发，公司里的那些老鸟也就那样，还有些专科班的基础我都不想吐槽了，都没有我培训前自学的那点…..但是心里有不平衡的又有什么办法，我还那只小小鸟，扎扎实实学吧！公司虽然小，但是不坑，一般五六点就能走了，作为一个小追求的少年，显然这不行，我开始我的工作+自学模式。</p>
-<p>直到今年的年后，在这个公司呆了一年半了，在开发APP的同时，围绕着iOS开发，从UI控件掌控，内存优管理，数据缓存持久化，类封装设计，app架构，iOS逆向…..一系列学习之后，心想着现在iOS开发上熟悉了，加上我能力和主动性上都是A+级别的，换个待遇好点工作应该不成问题吧…….相信同为iOS你的已经想后面了，面试的时候聊的都很好，后面…..持续了一个多月吧，想要的工资也降了好几拨，找到一家公司，这边辞职，老板不放我走，SO还在这里干。</p>
-<p>感慨还是比较多的，有时候也有点不得志的感觉。不过，高兴的是这行我还比较喜欢干的</p>
-<p>前段时间恶补了计算机组成原理，计算机操作系统，软件工程导论，后面准备学习学习算法导论，准备一年时间，剑指阿里。</p>
-<p>一些杂谈，与君共勉！</p>
-
+<p>这样子就开始了转行的想法，我哥是做算法的，一直优秀的我难以超越，当时iOS开发还处在火爆的余热当中….他得知我的想法后，帮我报了iOS开发培训班。<br>
       
     </div>
     
@@ -279,6 +267,10 @@
       
       <div class="clearfix"></div>
     </div>
+      
+        <p class="article-more-link">
+          <a  href="/2017/06/28/两年iOS开发之路/#more">more >></a>
+        </p>
       
     
   </div>
@@ -322,27 +314,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>这几天用OC实现了下常见的几种排序算法</p>
-<p><strong>1.选择排序</strong><br>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-(void)rankArray:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 0; i &lt; array.count; i ++) &#123;</div><div class="line">        for (int j = i + 1; j &lt; array.count; j ++) &#123;</div><div class="line">            if ([array[i] integerValue] &gt; [array[j] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:i withObjectAtIndex:j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>2.冒泡排序 较慢 冒泡排序运行需要 O（N^2）时间级别</strong></p>
-<p>冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">-(void)bubbleSort0:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 1; i &lt; array.count - 1; i ++) &#123;</div><div class="line">        for (int j = 0; j &lt; array.count - i; j ++) &#123;</div><div class="line">            if ([array[j] integerValue] &gt; [array[j + 1] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:j + 1 withObjectAtIndex:j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>2.1改进冒泡算法</strong></p>
-<p>改进冒泡排序： 设置一标志性变量pos,用于记录每趟排序中最后一次进行交换的位置。由于pos位置之后的记录均已交换到位,故在进行下一趟排序时只要扫描到pos位置即可。<br>传统冒泡排序中每一趟排序操作只能找到一个最大值或最小值,我们考虑利用在每趟排序中进行正向和反向两遍冒泡的方法一次可以得到两个最终值(最大者和最小者) , 从而使排序趟数几乎减少了一半。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">-(void)bubbleSort:(NSMutableArray *)array&#123;</div><div class="line">    int low = 0;</div><div class="line">    int height = (int)array.count - 1;</div><div class="line">    while(low &lt; height)&#123;</div><div class="line">        for (int i = low; i &lt; height; i ++) &#123;</div><div class="line">            if ([array[i] integerValue] &gt; [array[i + 1] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:i + 1 withObjectAtIndex:i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        low++;</div><div class="line">        </div><div class="line">        for (int i = height; i &lt; low; i --) &#123;</div><div class="line">            if ([array[i -1] integerValue] &gt; [array[i] integerValue]) &#123;</div><div class="line">                [array exchangeObjectAtIndex:i -1 withObjectAtIndex:i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        height--;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>3.插入排序</strong></p>
-<p>插入排序的代码实现虽然没有冒泡排序和选择排序那么简单粗暴，但它的原理应该是最容易理解的了，因为只要打过扑克牌的人都应该能够秒懂。当然，如果你说你打扑克牌摸牌的时候从来不按牌的大小整理牌，那估计这辈子你对插入排序的算法都不会产生任何兴趣了…..</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-(void)insertionSort:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 1; i &lt; array.count; i ++) &#123;</div><div class="line">        int temp = [array[i] intValue];</div><div class="line">        int index = i;</div><div class="line">        while (index &gt; 0 &amp;&amp; [array[index -1] integerValue] &gt;= temp) &#123;</div><div class="line">            array[index] = array[index -1];</div><div class="line">            index --;</div><div class="line">        &#125;</div><div class="line">        array[index] = [NSNumber numberWithInt:temp];</div><div class="line">    &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<p><strong>3.1改进插入排序： 查找插入位置时使用二分查找的方式</strong></p>
-<p>关键用二级制找到要插入的位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">-(void)binaryInsertionSort:(NSMutableArray *)array&#123;</div><div class="line">    for (int i = 1; i &lt; array.count; i ++) &#123;</div><div class="line">        int key = [array[i] intValue];</div><div class="line">        int left = 0;</div><div class="line">        int right = i - 1;</div><div class="line">        </div><div class="line">        while (left &lt;= right) &#123;</div><div class="line">            int middle = (left + right)/2;</div><div class="line">            </div><div class="line">            if ([array[middle] integerValue] &lt; key) &#123;</div><div class="line">                left = middle + 1;</div><div class="line">            &#125;else&#123;</div><div class="line">                right = middle - 1;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        for (int j = i ; j &gt; left; j--) &#123;</div><div class="line">            array[j] = array[j - 1];</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        array[left] = [NSNumber numberWithInt:key];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>4.快速排序  </strong></p>
-<p>快速排序的思想，去一个基准值，将份数据根据基准值分为两份，做递归知道分到最小，最差情况是选择排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">-(void)quickSort:(NSMutableArray *)array leftIndex:(int)leftIndex right:(int)rightIndex&#123;</div><div class="line">    if (leftIndex &gt;= rightIndex) &#123;</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line">    int i = leftIndex;</div><div class="line">    int j = rightIndex;</div><div class="line">    </div><div class="line">    //基准值</div><div class="line">    NSInteger temp = [array[leftIndex] integerValue];</div><div class="line"></div><div class="line">    while (j &gt; i) &#123;</div><div class="line">        </div><div class="line">        while (j &gt; i &amp;&amp;  temp &lt;= [array[j] integerValue]) &#123;</div><div class="line">            j--;</div><div class="line">        &#125;</div><div class="line">        array[i] = array[j];</div><div class="line">        while (j &gt; i &amp;&amp;  temp &gt;= [array[i] integerValue]) &#123;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        array[j] = array[i];</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    array[i] = [NSNumber numberWithInteger:temp];</div><div class="line">    [self quickSort:array leftIndex:0 right:i-1];</div><div class="line">    [self quickSort:array leftIndex:i + 1 right:rightIndex];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>5.堆排序</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//将最大数找到，移到根节点</div><div class="line">-(void)heapSort:(NSMutableArray *)array index:(int)index length:(int)len&#123;</div><div class="line">    int f = 2 * index + 1;</div><div class="line">    int l = 2 * index + 2;</div><div class="line">    </div><div class="line">    if (f &lt; len &amp;&amp; [array[f] integerValue] &gt; [array[index] integerValue] ) &#123;</div><div class="line">        [array exchangeObjectAtIndex:index withObjectAtIndex:f];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if (l &lt; len &amp;&amp; [array[l] integerValue] &gt; [array[index] integerValue]) &#123;</div><div class="line">        [array exchangeObjectAtIndex:index withObjectAtIndex:l];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">-(void)heapSort:(NSMutableArray *)array&#123;</div><div class="line">    int i = 0;</div><div class="line">    int heapSize = 0;</div><div class="line">    for (heapSize = (int)array.count; heapSize &gt; 0 ; heapSize --) &#123;</div><div class="line">        //最后一个非叶子节点</div><div class="line">        for (i = heapSize/2 - 1; i &gt;= 0; --i) &#123;</div><div class="line">            </div><div class="line"></div><div class="line">            [self heapSort:array index:i length:heapSize];</div><div class="line">        &#125;</div><div class="line">        //将最大数移动到栈顶</div><div class="line">        [array exchangeObjectAtIndex:heapSize - 1 withObjectAtIndex:0];</div><div class="line"></div><div class="line">    &#125;</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码：&gt; <a href="https://github.com/iossun/iOS-" target="_blank" rel="external">https://github.com/iossun/iOS-</a></p>
-
+<p><strong>1.选择排序</strong><br>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n²)的时间复杂度…..所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了。理论上讲，选择排序可能也是平时排序一般人想<br>
       
     </div>
     
@@ -354,6 +326,10 @@
       
       <div class="clearfix"></div>
     </div>
+      
+        <p class="article-more-link">
+          <a  href="/2017/06/28/iOS实现排序/#more">more >></a>
+        </p>
       
     
   </div>
@@ -398,22 +374,6 @@
       
         <p>1、安装 homebrew—-&gt;nodejs—-&gt;hexo</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo npm install -g hexo</div></pre></td></tr></table></figure>
-<p>2.创建一个空的文件夹，CD到文件夹下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init</div></pre></td></tr></table></figure>
-<p>3.生成一套静态网页。运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div><div class="line">$ hexo server</div><div class="line">浏览器打开 http://localhost:4000 验证</div></pre></td></tr></table></figure>
-<p>4.博文提交，makedown编辑.md,移到~/source/_posts</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">.md 格式</div><div class="line">title:     定义了博文的标题</div><div class="line"></div><div class="line">date:   定义了创作博文的时间</div><div class="line"></div><div class="line">tags:   定义了博文的标签</div><div class="line"></div><div class="line">除了这个三个属性以外我们还可以扩展一些属性：</div><div class="line"></div><div class="line">update:  定义了最后修改的时间</div><div class="line"></div><div class="line">comments：定义能否评论此博文(默认为true)</div><div class="line"></div><div class="line">categories: 定义了博文的种类</div></pre></td></tr></table></figure>
-<p>重新<strong>$ hexo generate ，$ hexo server</strong></p>
-<p>5.部署，_config.yml让hexo帮助我们同步github，方便快捷，配置如下所示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">  _config.yml 中</div><div class="line">    deploy:  </div><div class="line">      type: git  </div><div class="line">      repo: https://github.com/xxx/xxx.github.io.git  </div><div class="line">      branch: master  </div><div class="line">      xxx为个人github的name  </div><div class="line">$ hexo -d</div></pre></td></tr></table></figure>
-<p>6.界面修改 ，修改配置内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"># Hexo Configuration  </div><div class="line">## Docs: https://hexo.io/docs/configuration.html  </div><div class="line">## Source: https://github.com/hexojs/hexo/  </div><div class="line">  </div><div class="line"># Site                 ##修改以适应搜索引擎的收录  </div><div class="line">title: Hexo            ##定义网站的标题  </div><div class="line">subtitle:              ##定义网站的副标题  </div><div class="line">description:           ##定义网站的描述  </div><div class="line">author: jason jwl      ##定义网站的负责人  </div><div class="line">language:              ##定义网站的语言,默认zh-Hans  </div><div class="line">timezone:              ##定义网站的时区  </div><div class="line">  </div><div class="line"># URL  </div><div class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; and root as &apos;/child/&apos;  </div><div class="line">url: http://yoursite.com   ##定义网站访问的域名  </div><div class="line">root: /      ##定义所在Web文件夹在哪个目录  </div><div class="line">permalink: :year/:month/:day/:title/  ##定义时间格式  </div><div class="line">permalink_defaults:  </div><div class="line">  </div><div class="line"># Directory  </div><div class="line">source_dir: source   ##定义从哪个文件夹获取博客资料  </div><div class="line">public_dir: public   ##定义生成静态网站到哪个文件夹  </div><div class="line">  </div><div class="line">archive_dir: archives  </div><div class="line">category_dir: categories  </div><div class="line">code_dir: downloads/code  </div><div class="line">i18n_dir: :lang  </div><div class="line">skip_render:  </div><div class="line">  </div><div class="line"># Writing  </div><div class="line">new_post_name: :title.md # File name of new posts  </div><div class="line">default_layout: post  </div><div class="line">titlecase: false # Transform title into titlecase  </div><div class="line">external_link: true # Open external links in new tab  </div><div class="line">filename_case: 0  </div><div class="line">render_drafts: false  </div><div class="line">post_asset_folder: false  </div><div class="line">relative_link: false  </div><div class="line">future: true  </div><div class="line">highlight:  </div><div class="line">  enable: true  </div><div class="line">  line_number: true  </div><div class="line">  auto_detect: false  </div><div class="line">  tab_replace:  </div><div class="line">  </div><div class="line"># Category &amp; Tag  </div><div class="line">default_category: uncategorized  </div><div class="line">category_map:  </div><div class="line">tag_map:  </div><div class="line">  </div><div class="line"># Date / Time format  </div><div class="line">## Hexo uses Moment.js to parse and display date  </div><div class="line">## You can customize the date format as defined in  </div><div class="line">## http://momentjs.com/docs/#/displaying/format/  </div><div class="line">date_format: YYYY-MM-DD  </div><div class="line">time_format: HH:mm:ss  </div><div class="line">  </div><div class="line"># Pagination  </div><div class="line">## Set per_page to 0 to disable pagination  </div><div class="line">per_page: 10  ##定义每一页多少条博客  </div><div class="line">pagination_dir: page  </div><div class="line">  </div><div class="line"># Extensions  </div><div class="line">## Plugins: https://hexo.io/plugins/  </div><div class="line">## Themes: https://hexo.io/themes/  </div><div class="line">theme: landscape  ##定义使用的主题  </div><div class="line">  </div><div class="line"># Deployment  </div><div class="line">## Docs: https://hexo.io/docs/deployment.html  </div><div class="line">deploy:  </div><div class="line">  type:</div></pre></td></tr></table></figure>
-<p>7.当你增加新的文章或者插件时，可以通过以下三个命令进行同步操作：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo clean  </div><div class="line">hexo generate  </div><div class="line">hexo deploy</div></pre></td></tr></table></figure>
-
       
     </div>
     
@@ -425,6 +385,10 @@
       
       <div class="clearfix"></div>
     </div>
+      
+        <p class="article-more-link">
+          <a  href="/2017/06/28/Hexo+GitHub搭建自己的博客/#more">more >></a>
+        </p>
       
     
   </div>
@@ -469,14 +433,6 @@
       
         <p>欢迎来到 <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! 首个测试微博. 查看更多信息 <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a>. 如果你有任何问题可以在这里得到解答<a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> 或者是 <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建条新的post"><a href="#创建条新的post" class="headerlink" title="创建条新的post"></a>创建条新的post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="编译服务"><a href="#编译服务" class="headerlink" title="编译服务"></a>编译服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="部署到服务器"><a href="#部署到服务器" class="headerlink" title="部署到服务器"></a>部署到服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
       
     </div>
     
@@ -488,6 +444,10 @@
       
       <div class="clearfix"></div>
     </div>
+      
+        <p class="article-more-link">
+          <a  href="/2017/06/28/hello-world/#more">more >></a>
+        </p>
       
     
   </div>

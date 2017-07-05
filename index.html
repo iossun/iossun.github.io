@@ -266,6 +266,327 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/06/24/动态规划/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙慕的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/24/动态规划/" itemprop="url">OC实现算法（四）- 动态规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T00:00:00+08:00">
+                2017-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/24/动态规划/" class="leancloud_visitors" data-flag-title="OC实现算法（四）- 动态规划">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）<br>个人两种心得</p>
+<p>1.大事化小，小事化了</p>
+<p>2.小事做起，扫地洗碗平天下</p>
+<p>简化的步骤进行设计：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.最优结构 </div><div class="line">2.边界 </div><div class="line">3.转态转移公式</div></pre></td></tr></table></figure>
+<p>【<strong>例子】如果我们有面值为1元、3元和5元的硬币若干枚，如何用最少的硬币凑够11元？</strong> </p>
+<p>一看，和前面贪心法例子一样，每次选最大的。但是当面值为2元，3元和5元的硬币，再用贪心法就不行了。为什么呢？按照贪心思路，我们同样先取2枚最大5元硬币，现在10元了，还差一元，接下来选第二大的，发现不行，再选第三大的，还是不行，这时用贪心方法永远凑不出11元，但是你仔细看看，其实我们可以凑出11元的，2枚3元硬币和1枚五元硬币就行了，这是人经过思考判断出来了的，但是怎么让计算机算出来呢？这就要用动态规划的思想：</p>
+<p>以下思路网上人写的，个人觉得画一张表很快得到转态转移公式</p>
+<p>让我们从最小的i开始吧。当i=0，即我们需要多少个硬币来凑够0元。由于1，3，5都大于0，即没有比0小的币值，因此凑够0元我们最少需要0个硬币。 (这个分析很傻是不是？别着急，这个思路有利于我们理清动态规划究竟在做些什么。) 这时候我们发现用一个标记来表示这句“凑够0元我们最少需要0个硬币。”会比较方便，如果一直用纯文字来表述，不出一会儿你就会觉得很绕了。那么，我们用d(i)=j来表示凑够i元最少需要j个硬币。于是我们已经得到了d(0)=0，表示凑够0元最小需要0个硬币。当i=1时，只有面值为1元的硬币可用，因此我们拿起一个面值为1的硬币，接下来只需要凑够0元即可，而这个是已经知道答案的，即d(0)=0。所以，d(1)=d(1-1)+1=d(0)+1=0+1=1。当i=2时，仍然只有面值为1的硬币可用，于是我拿起一个面值为1的硬币，接下来我只需要再凑够2-1=1元即可(记得要用最小的硬币数量)，而这个答案也已经知道了。所以d(2)=d(2-1)+1=d(1)+1=1+1=2。一直到这里，你都可能会觉得，好无聊，感觉像做小学生的题目似的。因为我们一直都只能操作面值为1的硬币！耐心点，让我们看看i=3时的情况。当i=3时，我们能用的硬币就有两种了：1元的和3元的( 5元的仍然没用，因为你需要凑的数目是3元！5元太多了亲)。既然能用的硬币有两种，我就有两种方案。如果我拿了一个1元的硬币，我的目标就变为了：凑够3-1=2元需要的最少硬币数量。即d(3)=d(3-1)+1=d(2)+1=2+1=3。这个方案说的是，我拿3个1元的硬币；第二种方案是我拿起一个3元的硬币，我的目标就变成：凑够3-3=0元需要的最少硬币数量。即d(3)=d(3-3)+1=d(0)+1=0+1=1. 这个方案说的是，我拿1个3元的硬币。好了，这两种方案哪种更优呢？记得我们可是要用最少的硬币数量来凑够3元的。所以，选择d(3)=1，怎么来的呢？具体是这样得到的：d(3)=min{d(3-1)+1, d(3-3)+1}</p>
+<p>直接上代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">-(void)minCount:(int)target&#123;</div><div class="line">    NSArray *m = @[@1,@3,@5];</div><div class="line">    </div><div class="line">    //构造二维数值存储</div><div class="line">    NSMutableArray *mutArray = [NSMutableArray array];</div><div class="line">     for (int i = 0; i &lt; m.count; i ++) &#123;</div><div class="line">        NSMutableArray *array = [NSMutableArray array];</div><div class="line">          for (int j = 0 ; j &lt; target; j ++) &#123;</div><div class="line">             [array addObject:[NSNumber numberWithInt:j]];</div><div class="line">         &#125;</div><div class="line">         [mutArray addObject:array];</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    for (int i = 1; i &lt; m.count; i ++) &#123;</div><div class="line">        for (int j = 0; j &lt; target; j ++) &#123;</div><div class="line">            int temp = target % [m[i] intValue];</div><div class="line">            int time = target / [m[i] intValue];</div><div class="line">            if ([mutArray[i - 1][j] intValue] &gt; time + [mutArray[i - 1][temp] intValue]) &#123;</div><div class="line">                mutArray[i][j] = [NSNumber numberWithInt:time + [mutArray[i - 1][temp] intValue]];</div><div class="line">            &#125;else&#123;</div><div class="line">                mutArray[i][j] = mutArray[i - 1][j];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">     NSLog(@&quot;最少需要%d枚&quot;,[mutArray[m.count -1][target - 1] intValue]);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>【例2】<strong>10阶的台阶一次可以跨一步或两步，上到十阶有多少种方案？</strong></p>
+<p>这题我们可以从大事化了的思想找到动态方程，f(10) = f(9) + f (8);f(10) = f(7) + f(9)…</p>
+<ul>
+<li>初始状态，f(1) = 1,f(2) = 2</li>
+<li>状态转移方程，即第n个问题的解和之前的 n - m 个问题解的关系。在这道题目里，我们已经有了状态转移方程F(n) = F(n - 1) + F(n - 2)</li>
+</ul>
+<p>所以代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-(int)methodCount:(int)target&#123;</div><div class="line">    if (target &lt;= 2) &#123;</div><div class="line">        return target;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return [self methodCount:target - 1] + [self methodCount:target -2];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>大家已经发现到这一步，我们已经重复计算两次F(98)了。而之后的计算中还会有大量的重复，这使得这个解法的复杂度非常之高。解决方法就是，用一个数组，将计算过的值存起来，这样可以用空间上的牺牲来换取时间上的效率提高</p>
+<p>动态转移方程，在递归是还要注意：</p>
+<ul>
+<li><strong>栈溢出</strong>：每一次递归，程序都会将当前的计算压入栈中。随着递归深度的加深，栈的高度也越来越高，直到超过计算机分配给当前进程的内存容量，程序就会崩溃。</li>
+<li><strong>数据溢出</strong>：因为动态规划是一种由简至繁的过程，其中积蓄的数据很有可能超过系统当前数据类型的最大值，导致崩溃。</li>
+</ul>
+<p>两道好理解的题目分析，先要深入学习还是需要大量题目</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/06/18/贪心算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙慕的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/18/贪心算法/" itemprop="url">OC实现算法（三）- 贪心算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T00:00:00+08:00">
+                2017-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/18/贪心算法/" class="leancloud_visitors" data-flag-title="OC实现算法（三）- 贪心算法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>贪心算法不是对所有问题都能得到整体最优解，但对范围相当广泛的许多问题都能产生整体最优解或整体最优解的近似解。 </p>
+<p><strong>贪心算法的基本思路如下：</strong></p>
+<p>1.建立数学模型来描述问题。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/18/贪心算法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/06/12/OC实现算法（二）- 广度优先搜索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -675,6 +996,273 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/03/01/面试汇总（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙慕的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/01/面试汇总（一）/" itemprop="url">iOS面试题（一）- 基础篇 [对knightsj iOS面试题简答](https://knightsj.github.io/2017/06/08/2017%E5%B9%B45%E6%9C%88iOS%E6%8B%9B%E4%BA%BA%E5%BF%83%E5%BE%97%EF%BC%88%E9%99%84%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%89/#more)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T00:00:00+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/03/01/面试汇总（一）/" class="leancloud_visitors" data-flag-title="iOS面试题（一）- 基础篇 [对knightsj iOS面试题简答](https://knightsj.github.io/2017/06/08/2017%E5%B9%B45%E6%9C%88iOS%E6%8B%9B%E4%BA%BA%E5%BF%83%E5%BE%97%EF%BC%88%E9%99%84%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%89/#more)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>都为个人总结回答,如有不妥还望邮件:ios_sunmu@cloud.com</p>
+<p><strong>1. 为什么说Objective-C是一门动态的语言？</strong></p>
+<ul>
+<li>(Dynamic programming Language -动态语言或动态编程语言)动态语言是指程序在运行时可以改变其结构，新的函数可以被引进，已有的函数可以被删除等在结构上的变化。比如Ruby，Python等就是动态语言，而c，c++等语言则不属于动态语言。</li>
+<li>Dynamically Typed Language（动态类型语言）所谓的动态类型语言，就是类型的检查是在运行时做的 </li>
+</ul>
+<p><strong>2. 讲一下MVC和MVVM，MVP？</strong></p>
+<ul>
+<li><p><strong>MVC</strong>  用户的对View操作以后，View捕获到这个操作，会把处理的权利交移给Controller（Pass calls）；Controller接着会执行相关的业务逻辑，这些业务逻辑可能需要对Model进行相应的操作；当Model变更了以后，会通过观察者模式（Observer Pattern）通知View；View通过观察者模式收到Model变更的消息以后，会向Model请求最新的数据，然后重新更新界面</p>
+</li>
+<li><p><strong>MVP</strong> 和MVC模式一样，用户对View的操作都会从View交移给Presenter。Presenter同样的会执行相应的业务逻辑，并且对Model进行相应的操作；而这时候Model也是通过观察者模式把自己变更的消息传递出去，但是是传给Presenter而不是View。Presenter获取到Model变更的消息以后，通过View提供的接口更新界面</p>
+</li>
+<li><p><strong>MVVM</strong> MVVM把View和Model的同步逻辑自动化了。以前Presenter负责的View和Model同步不再手动地进行操作，而是交由框架所提供的Binder进行负责。只需要告诉Binder，View显示的数据对应的是Model哪一部分即可</p>
+</li>
+</ul>
+<p><strong>3. 为什么代理要用weak</strong></p>
+<p>防止循环引用，假如，A类Strong修饰一个代理d对象，同是A对象是B的一个Strong的属性，那么此时我们再设置A.d = self,就形成了一个环。A -&gt; d -&gt; B -&gt; A</p>
+<p><strong>4. 代理的delegate和dataSource有什么区别？</strong></p>
+<p>delegate 是对数据的设置<br>dataSource 是操作的回调</p>
+<p><strong>5. block和代理的区别？</strong></p>
+<p>block：更简单,更轻型，代码整合可读性好，个人喜欢用<br>delegate：delegate能实现同样效果，delegate写协议较麻烦，1.当在一组方法相关方法，相对每个方法一个block，delegate更加简洁 2.写第三方控件时，delegate对循环引用的问题更加好控制些</p>
+<p><strong>6. 属性的实质是什么？包括哪几个部分？属性默认的关键字都有哪些？@dynamic关键字和@synthesize关键字是用来做什么的？</strong></p>
+<p> 属性的实质：实例变量+get方法+set方法     默认（atomic，strong）</p>
+<p> @dynamic 告诉编译器,属性的setter与getter方法由用户自己实现，不自动生成，动态绑定</p>
+<p> @synthesize<br>如果没有实现setter和getter方法，编译器将会自动在生产setter和getter方法。</p>
+<p><strong>7. NSString为什么要用copy关键字，如果用strong会有什么问题？</strong></p>
+<ul>
+<li>因为父类指针可以指向子类对象,使用copy的目的是为了让本对象的属性不受外界影响,使用copy无论给我传入是一个可变对象还是不可对象,我本身持有的就是一个不可变的副本.</li>
+<li>如果我们使用是strong,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性.</li>
+</ul>
+<p><strong>8.如何令自己所写的对象具有拷贝功能?</strong></p>
+<ul>
+<li>需声明该类遵从 NSCopying 协议</li>
+<li>实现 NSCopying 协议。该协议只有一个方法:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(id)copyWithZone:(NSZone *)zone;</div></pre></td></tr></table></figure>
+<p><strong>9. nonatomic和atomic的区别？atomic是绝对的线程安全么？为什么？如果不是，那应该如何实现？</strong></p>
+<p>atomic的本意是指属性的存取方法是线程安全的，并不保证整个对象是线程安全的。例如：objc.name需要在objc类中属性声明atomic</p>
+<p><strong>10. UICollectionView自定义layout如何实现？</strong></p>
+<ul>
+<li>覆写prepareLayout方法，并在里面事先就计算好必要的布局信息并存储起来。</li>
+<li>基于prepareLayout方法中的布局信息，使用collectionViewContentSize方法返回UICollectionView的内容尺寸。</li>
+<li>使用layoutAttributesForElementsInRect:方法返回指定区域cell、Supplementary View和Decoration View的布局属性</li>
+</ul>
+<p><strong>11. 为什么IBOutlet修饰的UIView也适用weak关键字？用StoryBoard开发界面有什么弊端？如何避免</strong></p>
+<ul>
+<li>因为父控件的subViews数组已经对它有一个强引用</li>
+</ul>
+<p><strong>12. 进程和线程的区别？同步异步的区别？并行和并发的区别？</strong></p>
+<ul>
+<li><p>地址空间：进程内的一个执行单元。进程至少有一个线程；它们共享进程的地址空间；而进程有自己独立的空间。</p>
+</li>
+<li><p>资源拥有：进程是资源分配和拥有的单位，同一个进程内的线程共享进程资源。</p>
+</li>
+<li><p>线程是处理器调度的基本单位，但是进程不是。</p>
+</li>
+<li><p>二者均可并发执行</p>
+</li>
+<li><p>同步：一个线程要等待上一个线程执行完之后才能执行当前的线程，生活中的例子（上厕所）。</p>
+</li>
+<li><p>异步：同时去做两件或者多件事。比如边听歌边看报。</p>
+</li>
+<li><p>并发性（Concurrence）：指两个或两个以上的事件或活动在同一时间间隔内发生。并发的实质是一个物理CPU(也可以多个物理CPU) 在若干道程序之间多路复用，并发性是<br>对有限物理资源强制行使多用户共享以提高效率。</p>
+</li>
+<li>并行性（parallelism）指两个或两个以上事件或活动在同一时刻发生。在多道程序环境下，并行性使多个程序同一时刻可在不同CPU上同时执行。</li>
+</ul>
+<p><strong>13. 线程间通信？</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_get_global_queue(0, 0);</div><div class="line">    // 1.下载图片(耗时)</div><div class="line">    dispatch_async(queue, ^&#123;</div><div class="line">        NSLog(@&quot;%@&quot;, [NSThread currentThread]);</div><div class="line">        // 1.创建URL</div><div class="line">        NSURL *url = [NSURL  URLWithString:@&quot;http://stimgcn1.s-msn.com/msnportal/ent/2015/08/04/7a59dbe7-3c18-4fae-bb56-305dab5e6951.jpg&quot;];</div><div class="line">        // 2.通过NSData下载图片</div><div class="line">        NSData *data = [NSData dataWithContentsOfURL:url];</div><div class="line">        // 3.将NSData转换为图片</div><div class="line">        UIImage *image = [UIImage imageWithData:data];</div><div class="line"></div><div class="line">        // 4.更新UI</div><div class="line">//        self.imageView.image = image;</div><div class="line">//        NSLog(@&quot;更新UI完毕&quot;);</div><div class="line">        // 如果是通过异步函数调用, 那么会先执行完所有的代码, 再更新UI</div><div class="line">        // 如果是同步函数调用, 那么会先更新UI, 再执行其它代码</div><div class="line">        dispatch_sync(dispatch_get_main_queue(), ^&#123;</div><div class="line">            NSLog(@&quot;%@&quot;, [NSThread currentThread]);</div><div class="line">            self.imageView.image = image;</div><div class="line">            NSLog(@&quot;更新UI完毕&quot;);</div><div class="line">        &#125;);</div><div class="line">        NSLog(@&quot;Other&quot;);</div><div class="line">    &#125;);</div></pre></td></tr></table></figure>
+<p><strong>14. GCD的一些常用的函数？</strong></p>
+<ul>
+<li>dispatch_async(dispatch_queue_t queue, ^(void)block)：异步执行队列</li>
+<li>dispatch_sync(dispatch_queue_t queue, ^(void)block) ：同步执行队列（主线程）</li>
+<li>dispatch_get_global_queue(long identifier, unsigned long flags)：获取指定优先级的全局队列（后台线程），加入该队列的代码以并行的方式执行  Concurrent（并发）</li>
+<li>dispatch_get_main_queue()：获取主队列，该队列的代码均在主线程执行  全局串行queue</li>
+<li>dispatch_queue_create(const char *label,  dispatch_queue_attr_t attr)：创建串行队列，该队列的代码在后台线程以串行的方式执行    Serial（串行）</li>
+</ul>
+<p><strong>15. 如何使用队列来避免资源抢夺？</strong></p>
+<ul>
+<li>将存储加在一个串行队列中</li>
+</ul>
+<p><strong>16. 数据持久化的几个方案</strong></p>
+<ul>
+<li>plist文件（属性列表）</li>
+<li>preference（偏好设置）</li>
+<li>NSKeyedArchiver（归档）</li>
+<li>SQLite 3</li>
+<li>CoreData</li>
+</ul>
+<p><strong>17. 说一下AppDelegate的几个方法？从后台到前台调用了哪些方法？第一次启动调用了哪些方法？从前台到后台调用了哪些方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">//当应用程序启动时（不包括已在后台的情况下转到前台），调用此回调launchOptions是启动参数，假如用户通过点击push通知启动的应用，这个参数里会存储一些push通知的信息。</div><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123; </div><div class="line">   return YES;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//当应用从活动状态主动到非活动状态的应用程序时会调用这个方法。这可导致产生某些类型的临时中断（如传入电话呼叫或SMS消息）。或者当用户退出应用程 序，它开始过渡到的背景状态。使用此方法可以暂停正在进行的任务，禁用定时器，降低OpenGL ES的帧速率。游戏应该使用这种方法来暂停游戏。</div><div class="line">//调用时机可能有以下几种：锁屏，按HOME键，下接状态栏，双击HOME键弹出低栏，等情况。</div><div class="line">- (void)applicationWillResignActive:(UIApplication *)application &#123;</div><div class="line">// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.</div><div class="line">// Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.</div><div class="line">&#125;</div><div class="line"></div><div class="line">//当用户从台前状态转入后台时，调用此方法。使用此方法来释放资源共享，保存用户数据，无效计时器，并储存足够的应用程序状态信息的情况下被终止后，将应用 程序恢复到目前的状态。如果您的应用程序支持后台运行，这种方法被调用，否则调用applicationWillTerminate：用户退出。</div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application &#123;</div><div class="line">// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.</div><div class="line">// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">//当应用在后台状态，将要进行动前台运行状态时，会调用此方法。</div><div class="line">//如果应用不在后台状态，而是直接启动，则不会回调此方法。</div><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application &#123;</div><div class="line">// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.</div><div class="line">&#125;</div><div class="line"></div><div class="line">//当应用程序全新启动，或者在后台转到前台，完全激活时，都会调用这个方法。如果应用程序是以前运行在后台，这时可以选择刷新用户界面。</div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application &#123;</div><div class="line">// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.</div><div class="line">&#125;</div><div class="line"></div><div class="line">//当应用退出，并且进程即将结束时会调到这个方法，一般很少主动调到，更多是内存不足时是被迫调到的，我们应该在这个方法里做一些数据存储操作。</div><div class="line">- (void)applicationWillTerminate:(UIApplication *)application &#123;</div><div class="line">// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.</div><div class="line">&#125;</div><div class="line"></div><div class="line">//当用户通过其它应用启动本应用时，会回调这个方法，url参数是其它应用调用openURL:方法时传过来的。</div><div class="line">- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url&#123;</div><div class="line">return nil;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>18. NSCache优于NSDictionary的几点</strong></p>
+<ul>
+<li>线程安全</li>
+<li>内存不足自动释放</li>
+<li>当我们使用NSCache来创建缓存池的时候,我们可以很灵活的设置缓存的限额,</li>
+</ul>
+<p><strong>19. 知不知道Designated Initializer？使用它的时候有什么需要注意的问题</strong></p>
+<ul>
+<li>你可以不自定义Designated Initializer(指定初始化器)，也可以重写父类的Designated Initializer，但需要调用直接父类的Designated Initializer。</li>
+</ul>
+<p><strong>20. 实现description方法能取到什么效果？</strong></p>
+<p>调试时默认description显示OC对象和内存地址，我们重写方法，返回OC对象内部变量信息，便于调试</p>
+<p><strong>21. objc使用什么机制管理对象内存？</strong></p>
+<ul>
+<li>MRC 手动引用计数</li>
+<li>ARC 自动引用计数,现在通常ARC</li>
+<li>通过 retainCount 的机制来决定对象是否需要释放。 每次 runloop 的时候，都会检查对象的 retainCount，如果retainCount 为 0，说明该对象没有地方需要继续使用了，可以释放掉了</li>
+</ul>
+<p><strong>21. +(void)load; +(void)initialize;有什么用处？</strong></p>
+<ul>
+<li>+(void)load;<pre><code>当类对象被引入项目时, runtime 会向每一个类对象发送 load 消息
+load 方法会在每一个类甚至分类被引入时仅调用一次,调用的顺序：父类优先于子类, 子类优先于分类
+由于 load 方法会在类被import 时调用一次,而这时往往是改变类的行为的最佳时机，在这里可以使用例如method swizlling 来修改原有的方法
+load 方法不会被类自动继承
+</code></pre></li>
+<li>+(void)initialize;<pre><code>也是在第一次使用这个类的时候会调用这个方法，也就是说 initialize也是懒加载
+</code></pre>  总结：<pre><code>在Objective-C中，runtime会自动调用每个类的这两个方法
++load会在类初始加载时调用
++initialize会在第一次调用类的类方法或实例方法之前被调用
+这两个方法是可选的，且只有在实现了它们时才会被调用
+两者的共同点：两个方法都只会被调用一次
+</code></pre></li>
+</ul>
+
+          
         
       
     </div>
@@ -1159,7 +1747,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1170,7 +1758,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

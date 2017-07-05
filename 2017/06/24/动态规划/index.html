@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）个人两种心得 1.大事化小，小事化了 2.小事做起，扫地洗碗平天下 简化的步骤进行设计： 1231.最优结构 2.边界 3.转态转移公式 【例子】如果我们有面值为1元、3元和5元的硬币若干枚，如何用最少的硬币凑够11元？  一看，和前面贪心法例子一样，每次选最大的。但是当面值为2元，3元和5元的硬币，再用贪心法就不行了。为什么呢？按">
+<meta name="description" content="介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）个人两种心得 1.大事化小，小事化了 2.小事做起，扫地洗碗平天下 简化的步骤进行设计：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OC实现算法（四）- 动态规划">
 <meta property="og:url" content="https://iossun.github.io/2017/06/24/动态规划/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）个人两种心得 1.大事化小，小事化了 2.小事做起，扫地洗碗平天下 简化的步骤进行设计： 1231.最优结构 2.边界 3.转态转移公式 【例子】如果我们有面值为1元、3元和5元的硬币若干枚，如何用最少的硬币凑够11元？  一看，和前面贪心法例子一样，每次选最大的。但是当面值为2元，3元和5元的硬币，再用贪心法就不行了。为什么呢？按">
-<meta property="og:updated_time" content="2017-07-04T06:38:59.000Z">
+<meta property="og:description" content="介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）个人两种心得 1.大事化小，小事化了 2.小事做起，扫地洗碗平天下 简化的步骤进行设计：">
+<meta property="og:updated_time" content="2017-07-05T09:57:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC实现算法（四）- 动态规划">
-<meta name="twitter:description" content="介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）个人两种心得 1.大事化小，小事化了 2.小事做起，扫地洗碗平天下 简化的步骤进行设计： 1231.最优结构 2.边界 3.转态转移公式 【例子】如果我们有面值为1元、3元和5元的硬币若干枚，如何用最少的硬币凑够11元？  一看，和前面贪心法例子一样，每次选最大的。但是当面值为2元，3元和5元的硬币，再用贪心法就不行了。为什么呢？按">
+<meta name="twitter:description" content="介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）个人两种心得 1.大事化小，小事化了 2.小事做起，扫地洗碗平天下 简化的步骤进行设计：">
 
 
 
@@ -365,8 +365,7 @@
         <p>介绍动态规划的初级问题，和解题思想（个人建议新手画表格的方式找到）<br>个人两种心得</p>
 <p>1.大事化小，小事化了</p>
 <p>2.小事做起，扫地洗碗平天下</p>
-<p>简化的步骤进行设计：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.最优结构 </div><div class="line">2.边界 </div><div class="line">3.转态转移公式</div></pre></td></tr></table></figure>
+<p>简化的步骤进行设计：<br> <a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.最优结构 </div><div class="line">2.边界 </div><div class="line">3.转态转移公式</div></pre></td></tr></table></figure></p>
 <p>【<strong>例子】如果我们有面值为1元、3元和5元的硬币若干枚，如何用最少的硬币凑够11元？</strong> </p>
 <p>一看，和前面贪心法例子一样，每次选最大的。但是当面值为2元，3元和5元的硬币，再用贪心法就不行了。为什么呢？按照贪心思路，我们同样先取2枚最大5元硬币，现在10元了，还差一元，接下来选第二大的，发现不行，再选第三大的，还是不行，这时用贪心方法永远凑不出11元，但是你仔细看看，其实我们可以凑出11元的，2枚3元硬币和1枚五元硬币就行了，这是人经过思考判断出来了的，但是怎么让计算机算出来呢？这就要用动态规划的思想：</p>
 <p>以下思路网上人写的，个人觉得画一张表很快得到转态转移公式</p>
@@ -495,7 +494,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -506,7 +505,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -517,7 +516,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

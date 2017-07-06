@@ -1533,12 +1533,12 @@
 <p>NSLog,po命令和普通断点调试相信每个iOS开发者都会，这里就不作介绍了。</p>
 <p>一、Memory Graph</p>
 <p>Xcode8新增：Memory Graph解决闭包引用循环问题</p>
-<p><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug1.jpg" alt=""></p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug1.jpg" alt=""></p>
 <p>有很多叹号说明就有问题了。看内存中object的名字，有一条是Closure captures leaked。展开后点击就可以看到这个issue对应的内存图形展示在中间的面板中。当然了，我们更多的时候是在debug页面下查看：</p>
-<p> <img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug2.jpg" alt=""></p>
-<p>所以，这里面引用循环了。点击紫色的叹号会出现Xcode分析出来的内存引用图形：<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug3.jpg" alt=""><br>有了这个图就很容易看出来了：这里有个引用循环</p>
+<p> <img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug2.jpg" alt=""></p>
+<p>所以，这里面引用循环了。点击紫色的叹号会出现Xcode分析出来的内存引用图形：<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug3.jpg" alt=""><br>有了这个图就很容易看出来了：这里有个引用循环</p>
 <p>顺便提一下，通过在Arguments中设置参数，打印出App加载的时长，包括整体加载时长，动态库加载时长等。</p>
-<p>在Environment Variables中添加DYLD_PRINT_STATISTICS字段，并设置为YES，在控制台就会打印加载时长。<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug4.jpg" alt=""><br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug5.jpg" alt=""><br>二、Xcode调试技巧之：LLDB</p>
+<p>在Environment Variables中添加DYLD_PRINT_STATISTICS字段，并设置为YES，在控制台就会打印加载时长。<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug4.jpg" alt=""><br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug5.jpg" alt=""><br>二、Xcode调试技巧之：LLDB</p>
 <p>1、po：print object的缩写，表示显示对象的文本描述，如果对象不存在则打印nil。</p>
 <p>简单的打印一个对象我们就不说了，我们来说说特殊的应用场景吧！</p>
 <p>应用场景：你想知道一个视图包含了哪些子视图。当然你可以循环打印子视图，但是下面只需要一个命令即可解决。</p>
@@ -1634,33 +1634,33 @@ Summary: BGMultimediaDemo`-[ViewController viewDidLoad] + 192 at ViewController.
 <p>Shell Command：接收命令文件及相应参数列表，Shell Command是异步执行的，只有勾选“Wait until done”才会等待Shell命令执行完在执行调试。</p>
 <p>Sound：断点触发时播放声音。</p>
 <p>这些功能平时在调试程序的过程中都可以进行尝试，说实话我用的设置Condition项会较多些。</p>
-<p>Options(Automatically continue after evaluating actions选项)：选中后，表示断点不会终止程序的运行。<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug5.jpg" alt=""></p>
+<p>Options(Automatically continue after evaluating actions选项)：选中后，表示断点不会终止程序的运行。<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug5.jpg" alt=""></p>
 <p>2、异常断点</p>
 <p>异常断点可以快速定位不满足特定条件的异常，比如常见的数组越界，这时候很难通过异常信息定位到错误所在位置。这个时候异常断点就可以发挥作用了。</p>
-<p>添加异常断点：<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug6.jpg" alt=""></p>
-<p>编辑异常断点：<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug7.jpg" alt=""></p>
+<p>添加异常断点：<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug6.jpg" alt=""></p>
+<p>编辑异常断点：<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug7.jpg" alt=""></p>
 <p>Exception：可以选择抛出异常对象类型：OC或C++。</p>
 <p>Break：选择断点接收的抛出异常来源是Throw还是Catch语句。</p>
 <p>3、符号断点</p>
 <p>符号断点的创建方式和异常断点一样一样的，在符号断点中可以指定要中断执行的方法：</p>
-<p>举个例子，常见的场景，我想让它执行到ViewController类中的viewWillAppear方法就中断执行：<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug8.jpg" alt=""></p>
+<p>举个例子，常见的场景，我想让它执行到ViewController类中的viewWillAppear方法就中断执行：<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug8.jpg" alt=""></p>
 <p>Symbol:[ViewController viewWillAppear:]即[类名 方法名]可以执行到指定类的指定方法中开始断点。如果只有viewWillAppear:即方法名，它会执行到所以类中的viewWillAppear:方法中开始断点。</p>
 <p>4、监控断点</p>
 <p>我们调试程序的大部分时候都是为了监控某个变量的变化，在代码中变量出现的地方添加断点不仅累而且还可能漏掉，事后还得一个一个删掉，实在很累。</p>
-<p>我们可以通过为变量添加监控断点来简单地做到这一点。找到变量第一次出现的地方，添加一个普通断点，进入 debug 模式后在 Variables View 中右键变量，选择 Watch 变量名。这样，每一次该变量被改变都会触发断点告知我们。<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug9.jpg" alt=""></p>
+<p>我们可以通过为变量添加监控断点来简单地做到这一点。找到变量第一次出现的地方，添加一个普通断点，进入 debug 模式后在 Variables View 中右键变量，选择 Watch 变量名。这样，每一次该变量被改变都会触发断点告知我们。<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug9.jpg" alt=""></p>
 <p>四、Xcode调试技巧之：EXC_BAD_ACCESS</p>
 <p>1、开启僵尸对象</p>
 <p>开启Zombie模式之后会导致内存上升，因为所以已经被释放（引用计数为0）的对象被僵尸对象取代，并未真的释放掉。这个时候再给僵尸对象发送消息，就会抛出异常，并打印出异常信息，你可以轻松的找到错误代码位置，结束Zombies时会释放。它的主要功能是检测野指针调用。</p>
 <p>使用方法：</p>
 <p>“Edit Scheme…” —&gt; “Run” —&gt; “Diagnostics” —&gt; “Zombie Objects”</p>
 <p>打开”Edit Scheme…”窗口：</p>
-<p> <img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug10.jpg" alt=""></p>
-<p>开启Zombie模式：<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug11.jpg" alt=""></p>
+<p> <img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug10.jpg" alt=""></p>
+<p>开启Zombie模式：<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug11.jpg" alt=""></p>
 <p>注意：Zombie模式不能再真机上使用，只能在模拟器上使用。</p>
 <p>2、Address Sanitizer（地址消毒剂）</p>
 <p>在Xcode7之后新增了AddressSanitizer工具，为我们调试EXC_BAD_ACCESS错误提供了便利。当程序创建变量分配一段内存时，将此内存后面的一段内存也冻结住，标识为中毒内存。程序访问到中毒内存时（访问越界），立即中断程序，抛出异常并打印异常信息。你可以根据中断位置及输出的Log信息来解决错误。当然，如果变量已经释放了，它所占用的内存也会被标识为中毒内存，这个时候访问这片内存空间同样会抛出异常。</p>
 <p>使用方法：</p>
-<p>“Edit Scheme…” —&gt; “Run” —&gt; “Diagnostics” —&gt; “Address Sanitizer”<br><img src="https://github.com/iossun/bolgImage/blob/master/xCode%E8%B0%83%E8%AF%95image/debug12.jpg" alt=""></p>
+<p>“Edit Scheme…” —&gt; “Run” —&gt; “Diagnostics” —&gt; “Address Sanitizer”<br><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug12.jpg" alt=""></p>
 <p>开启AddressSanitizer之后，在调试程序的过程中，如果有遇到EXC_BAD_ACCESS错误，程序则会自动终端，抛出异常。</p>
 <p>3.Analyze分析器</p>
 <p>Analyze分析器是一种静态的工具，可以对我们的程序进行分析，找出我们未使用的变量，或一些死存储。执行Analyze如下：Product–&gt;Analyze. 如下蓝色的标记就是静态分析的结果。</p>

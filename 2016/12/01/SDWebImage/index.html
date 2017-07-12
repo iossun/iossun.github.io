@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="title: 阅读源码（一）- SDWebImagedate: 2016.12.01categories: 自我进阶 tag: 最近比较闲，也来看看别人写的优秀框架  SDWebImage是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类  1234567 SDWebImageDownloader负责维持图片的下载队列；SDWeb">
+<meta name="description" content="最近比较闲，也来看看别人写的优秀框架  SDWebImage是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类  1234567 SDWebImageDownloader负责维持图片的下载队列；SDWebImageDownloaderOperation负责真正的图片下载请求；SDImageCache负责图片的缓存；SDWebImag">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mumu@note">
-<meta property="og:url" content="https://iossun.github.io/2017/07/12/SDWebImage/index.html">
+<meta property="og:title" content="阅读源码（一）- SDWebImage">
+<meta property="og:url" content="https://iossun.github.io/2016/12/01/SDWebImage/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="title: 阅读源码（一）- SDWebImagedate: 2016.12.01categories: 自我进阶 tag: 最近比较闲，也来看看别人写的优秀框架  SDWebImage是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类  1234567 SDWebImageDownloader负责维持图片的下载队列；SDWeb">
-<meta property="og:updated_time" content="2017-07-12T09:05:43.000Z">
+<meta property="og:description" content="最近比较闲，也来看看别人写的优秀框架  SDWebImage是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类  1234567 SDWebImageDownloader负责维持图片的下载队列；SDWebImageDownloaderOperation负责真正的图片下载请求；SDImageCache负责图片的缓存；SDWebImag">
+<meta property="og:updated_time" content="2017-07-12T09:08:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mumu@note">
-<meta name="twitter:description" content="title: 阅读源码（一）- SDWebImagedate: 2016.12.01categories: 自我进阶 tag: 最近比较闲，也来看看别人写的优秀框架  SDWebImage是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类  1234567 SDWebImageDownloader负责维持图片的下载队列；SDWeb">
+<meta name="twitter:title" content="阅读源码（一）- SDWebImage">
+<meta name="twitter:description" content="最近比较闲，也来看看别人写的优秀框架  SDWebImage是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类  1234567 SDWebImageDownloader负责维持图片的下载队列；SDWebImageDownloaderOperation负责真正的图片下载请求；SDImageCache负责图片的缓存；SDWebImag">
 
 
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://iossun.github.io/2017/07/12/SDWebImage/"/>
+  <link rel="canonical" href="https://iossun.github.io/2016/12/01/SDWebImage/"/>
 
 
 
 
 
-  <title> | mumu@note</title>
+  <title>阅读源码（一）- SDWebImage | mumu@note</title>
   
 
 
@@ -265,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/07/12/SDWebImage/">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/12/01/SDWebImage/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="孙慕">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">阅读源码（一）- SDWebImage</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-12T17:03:48+08:00">
-                2017-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-01T00:00:00+08:00">
+                2016-12-01
               </time>
             
 
@@ -305,6 +305,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -312,7 +334,7 @@
 
           
           
-             <span id="/2017/07/12/SDWebImage/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2016/12/01/SDWebImage/" class="leancloud_visitors" data-flag-title="阅读源码（一）- SDWebImage">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -340,9 +362,7 @@
       
 
       
-        <hr>
-<p>title: 阅读源码（一）- SDWebImage<br>date: 2016.12.01<br>categories: 自我进阶</p>
-<h2 id="tag"><a href="#tag" class="headerlink" title="tag: "></a>tag: </h2><p>最近比较闲，也来看看别人写的优秀框架</p>
+        <p>最近比较闲，也来看看别人写的优秀框架</p>
 <p> <a href="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a>是iOS开发者经常使用的一个开源框架,这个框架的主要作用是：一个异步下载图片并且支持缓存的UIImageView分类</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> SDWebImageDownloader负责维持图片的下载队列；</div><div class="line">SDWebImageDownloaderOperation负责真正的图片下载请求；</div><div class="line">SDImageCache负责图片的缓存；</div><div class="line">SDWebImageManager是总的管理类，维护了一个SDWebImageDownloader实例和一个SDImageCache实例，是下载与缓存的桥梁;</div><div class="line">SDWebImageDecoder负责图片的解压缩；</div><div class="line">SDWebImagePrefetcher负责图片的预取；</div><div class="line">UIImageView+WebCache和其他的扩展都是与用户直接打交道的。</div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -618,8 +638,8 @@ if ((!cachedImage || options &amp; SDWebImageRefreshCached) &amp;&amp; (![self.d
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/10/修改hosts访问谷歌/" rel="next" title="MAC修改hosts Google 又好用了">
-                <i class="fa fa-chevron-left"></i> MAC修改hosts Google 又好用了
+              <a href="/2016/11/21/面试汇总（一）/" rel="next" title="iOS面试题（一）- 基础篇">
+                <i class="fa fa-chevron-left"></i> iOS面试题（一）- 基础篇
               </a>
             
           </div>
@@ -627,6 +647,10 @@ if ((!cachedImage || options &amp; SDWebImageRefreshCached) &amp;&amp; (![self.d
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/05/两年iOS开发之路/" rel="prev" title="两年ios开发之路">
+                两年ios开发之路 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -673,17 +697,8 @@ if ((!cachedImage || options &amp; SDWebImageRefreshCached) &amp;&amp; (![self.d
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
@@ -745,22 +760,6 @@ if ((!cachedImage || options &amp; SDWebImageRefreshCached) &amp;&amp; (![self.d
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tag"><span class="nav-number">1.</span> <span class="nav-text">tag: </span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

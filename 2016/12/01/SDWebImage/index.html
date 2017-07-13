@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2016/12/01/SDWebImage/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="最近比较闲，也来看看别人写的优秀框架，先把感觉有用的收获分享给大家  框架多次使用枚举，使用枚举表示类型，状态使代码更加易理解，和系统框架保持一致性，如：  12345   typedef NS_ENUM(NSInteger, SDImageCacheType) &amp;#123;    SDImageCacheTypeNone,    SDImageCacheTypeDisk,    SDImageC">
-<meta property="og:updated_time" content="2017-07-13T11:02:25.000Z">
+<meta property="og:updated_time" content="2017-07-13T11:05:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读源码（一）- SDWebImage">
 <meta name="twitter:description" content="最近比较闲，也来看看别人写的优秀框架，先把感觉有用的收获分享给大家  框架多次使用枚举，使用枚举表示类型，状态使代码更加易理解，和系统框架保持一致性，如：  12345   typedef NS_ENUM(NSInteger, SDImageCacheType) &amp;#123;    SDImageCacheTypeNone,    SDImageCacheTypeDisk,    SDImageC">
@@ -374,7 +374,7 @@
 <ul>
 <li>使用向前声明，减少编译时间，降低类的耦合：如</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@class SDWebImageManager;</div><div class="line"></div><div class="line">@protocol SDWebImageManagerDelegate &lt;NSObject&gt;</div><div class="line"></div><div class="line">@optional</div><div class="line">```  </div><div class="line"></div><div class="line">- 多线程安全，给数组加互斥锁:如-loadImageWithURL:options:progress:progressBlock</div><div class="line">                                   completed:中</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@class SDWebImageManager;</div><div class="line"></div><div class="line">@protocol SDWebImageManagerDelegate &lt;NSObject&gt;</div><div class="line"></div><div class="line">@optional</div><div class="line"></div><div class="line">```  </div><div class="line"></div><div class="line">- 多线程安全，给数组加互斥锁:如-loadImageWithURL:options:progress:progressBlock</div><div class="line">                                   completed:中;</div></pre></td></tr></table></figure>
 <p>   @synchronized (self.runningOperations) {<br>        [self.runningOperations addObject:operation];<br>    }</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- @autoreleasepool降低内存峰值，如解码图片的实现过程中</div></pre></td></tr></table></figure>
 <pre><code>@autoreleasepool{

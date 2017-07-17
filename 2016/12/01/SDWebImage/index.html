@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2016/12/01/SDWebImage/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="最近比较闲，也来看看别人写的优秀框架，先把感觉有用的收获分享给大家  框架多次使用枚举，使用枚举表示类型，状态使代码更加易理解，和系统框架保持一致性，如：  12345   typedef NS_ENUM(NSInteger, SDImageCacheType) &amp;#123;    SDImageCacheTypeNone,    SDImageCacheTypeDisk,    SDImageC">
-<meta property="og:updated_time" content="2017-07-13T11:16:02.000Z">
+<meta property="og:updated_time" content="2017-07-14T05:32:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读源码（一）- SDWebImage">
 <meta name="twitter:description" content="最近比较闲，也来看看别人写的优秀框架，先把感觉有用的收获分享给大家  框架多次使用枚举，使用枚举表示类型，状态使代码更加易理解，和系统框架保持一致性，如：  12345   typedef NS_ENUM(NSInteger, SDImageCacheType) &amp;#123;    SDImageCacheTypeNone,    SDImageCacheTypeDisk,    SDImageC">
@@ -372,11 +372,12 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)sd_setImageWithURL:(nullable NSURL *)url</div><div class="line">          placeholderImage:(nullable UIImage *)placeholder</div><div class="line">                 completed:(nullable SDExternalCompletionBlock)completedBlock;</div></pre></td></tr></table></figure>
 <ul>
-<li>使用向前声明，减少编译时间，降低类的耦合：如</li>
+<li>使用向前声明，减少编译时间，降低类的耦合：如<a id="more"></a>
+</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@class SDWebImageManager;</div><div class="line"></div><div class="line">@protocol SDWebImageManagerDelegate &lt;NSObject&gt;</div><div class="line"></div><div class="line">@optional;</div></pre></td></tr></table></figure>
 <ul>
-<li>多线程安全，给数组加互斥锁:如-loadImageWithURL:options:progress:completed:中                                  </li>
+<li>多线程安全，给数组加同步锁:如-loadImageWithURL:options:progress:completed:中                                  </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@synchronized (self.runningOperations) &#123;</div><div class="line">     [self.runningOperations addObject:operation];</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
 <ul>
@@ -389,7 +390,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef void(^SDExternalCompletionBlock)(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL);</div><div class="line"></div><div class="line">typedef void(^SDInternalCompletionBlock)(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL);</div><div class="line"></div><div class="line">typedef NSString * _Nullable (^SDWebImageCacheKeyFilterBlock)(NSURL * _Nullable url);</div></pre></td></tr></table></figure>
 <p> <a href="https://github.com/rs/SDWebImage" target="_blank" rel="external">SDWebImage</a>是一个异步下载图片并且支持缓存的UIImageView分类的强大框架，下面对核心类简单解读</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> SDWebImageDownloader负责维持图片的下载队列；</div><div class="line">SDWebImageDownloaderOperation负责真正的图片下载请求；</div><div class="line">SDImageCache负责图片的缓存；</div><div class="line">SDWebImageManager是总的管理类，维护了一个SDWebImageDownloader实例和一个SDImageCache实例，是下载与缓存的桥梁;</div><div class="line">SDWebImageDecoder负责图片的解压缩；</div><div class="line">SDWebImagePrefetcher负责图片的预取；</div><div class="line">UIImageView+WebCache和其他的扩展都是与用户直接打交道的。</div></pre></td></tr></table></figure>
-<a id="more"></a>
 <p> 我们图片加载执行的流程来研究各个类</p>
 <p> <strong>UIImageView+WebCache</strong></p>
 <p> 一般我们通过以下接口给UIImageView加载图片</p>

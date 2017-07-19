@@ -93,18 +93,16 @@
 
 
 
-<meta name="description" content="问题：广度搜索A到D的最短路径">
+<meta name="description" content="一晃上班年过去，感觉上半年干的很辛苦，却又没有什么收获。去年工作之余，还不断学习代码优化，性能优化；细读了《Effective objectivew》《objective-c 编程全解》；系统学习了swift,将网上OC编写的百思，用swift编写了一遍；学习了Charles，Reveal，Flurry…好多辅助开发软件使用;研究了openGL es，对手机越狱，完成敲壳……去年收获还是蛮多的，上">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC实现算法（二）- 广度优先搜索">
-<meta property="og:url" content="https://iossun.github.io/2017/06/12/OC实现算法（二）- 广度优先搜索/index.html">
+<meta property="og:title" content="上半年回顾">
+<meta property="og:url" content="https://iossun.github.io/2017/07/19/上半年回顾/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="问题：广度搜索A到D的最短路径">
-<meta property="og:image" content="http://img.blog.csdn.net/20170630103326344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-06-30T06:09:14.000Z">
+<meta property="og:description" content="一晃上班年过去，感觉上半年干的很辛苦，却又没有什么收获。去年工作之余，还不断学习代码优化，性能优化；细读了《Effective objectivew》《objective-c 编程全解》；系统学习了swift,将网上OC编写的百思，用swift编写了一遍；学习了Charles，Reveal，Flurry…好多辅助开发软件使用;研究了openGL es，对手机越狱，完成敲壳……去年收获还是蛮多的，上">
+<meta property="og:updated_time" content="2017-07-19T09:36:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC实现算法（二）- 广度优先搜索">
-<meta name="twitter:description" content="问题：广度搜索A到D的最短路径">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170630103326344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="上半年回顾">
+<meta name="twitter:description" content="一晃上班年过去，感觉上半年干的很辛苦，却又没有什么收获。去年工作之余，还不断学习代码优化，性能优化；细读了《Effective objectivew》《objective-c 编程全解》；系统学习了swift,将网上OC编写的百思，用swift编写了一遍；学习了Charles，Reveal，Flurry…好多辅助开发软件使用;研究了openGL es，对手机越狱，完成敲壳……去年收获还是蛮多的，上">
 
 
 
@@ -132,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://iossun.github.io/2017/06/12/OC实现算法（二）- 广度优先搜索/"/>
+  <link rel="canonical" href="https://iossun.github.io/2017/07/19/上半年回顾/"/>
 
 
 
 
 
-  <title>OC实现算法（二）- 广度优先搜索 | mumu@note</title>
+  <title>上半年回顾 | mumu@note</title>
   
 
 
@@ -267,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/06/12/OC实现算法（二）- 广度优先搜索/">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/07/19/上半年回顾/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="孙慕">
@@ -284,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OC实现算法（二）- 广度优先搜索</h1>
+          <h1 class="post-title" itemprop="name headline">上半年回顾</h1>
         
 
         <div class="post-meta">
@@ -296,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-12T00:00:00+08:00">
-                2017-06-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T00:00:00+08:00">
+                2017-07-19
               </time>
             
 
@@ -319,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">自我进阶</span>
+                  <a href="/categories/小感/" itemprop="url" rel="index">
+                    <span itemprop="name">小感</span>
                   </a>
                 </span>
 
@@ -336,7 +334,7 @@
 
           
           
-             <span id="/2017/06/12/OC实现算法（二）- 广度优先搜索/" class="leancloud_visitors" data-flag-title="OC实现算法（二）- 广度优先搜索">
+             <span id="/2017/07/19/上半年回顾/" class="leancloud_visitors" data-flag-title="上半年回顾">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -364,11 +362,24 @@
       
 
       
-        <p><img src="http://img.blog.csdn.net/20170630103326344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZGFfbml1RHJlYW0=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>问题：广度搜索A到D的最短路径<br> <a id="more"></a><br><strong>队列</strong><br>广度优先搜索，按顺序按顺序添加检查，队列数据结构可以实现这种目的，队列是一种先进先出的数据结构<br>OC中一般可变数组实现，队列的这种功能<br><strong>实现</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">_dic = @&#123;@&quot;A&quot;:@[@&quot;B&quot;,@&quot;F&quot;],@&quot;B&quot;:@[@&quot;C&quot;],@&quot;C&quot;:@[@&quot;D&quot;],@&quot;D&quot;:@[],@&quot;E&quot;:@[@&quot;C&quot;],@&quot;F&quot;:@[@&quot;E&quot;,@&quot;G&quot;],@&quot;G&quot;:@[@&quot;C&quot;]&#125;;</div><div class="line">   BOOL lj = [self search:@&quot;D&quot;];</div><div class="line">   if(lj)&#123;</div><div class="line">       NSLog(@&quot;存在A到D的路径&quot;);</div><div class="line">   &#125;else&#123;</div><div class="line">       NSLog(@&quot;不存在A到D的路径&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>//广度搜索</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">-(BOOL)search:(NSString *)str&#123;</div><div class="line">    //查找队列</div><div class="line">    NSMutableArray *array = [NSMutableArray array];</div><div class="line">    [array addObject:@&quot;A&quot;];</div><div class="line">    //已经查找过的节点</div><div class="line">    NSMutableArray *searchArray = [NSMutableArray array];</div><div class="line">    while (array.count) &#123;//直到队列为空</div><div class="line">        //去除队列最前面一个节点</div><div class="line">        NSString *name = array.firstObject;</div><div class="line">        [array removeObjectAtIndex:0];</div><div class="line"></div><div class="line">        if (![searchArray containsObject:array.firstObject])&#123;//没有检查过</div><div class="line">            if ([name isEqualToString:str]) &#123;//找到节点</div><div class="line">                return YES;</div><div class="line">            &#125;else&#123;</div><div class="line">                //这个节点检查过</div><div class="line">                [searchArray addObject:name];</div><div class="line">                //将这个节点对应的邻居节点加入查找队列</div><div class="line">                [array addObjectsFromArray:[_dic valueForKey:name]];</div><div class="line"></div><div class="line">            &#125;</div><div class="line">         &#125;</div><div class="line">    &#125;</div><div class="line">    return NO；   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <p>一晃上班年过去，感觉上半年干的很辛苦，却又没有什么收获。去年工作之余，还不断学习代码优化，性能优化；细读了《Effective objectivew》《objective-c 编程全解》；系统学习了swift,将网上OC编写的百思，用swift编写了一遍；学习了Charles，Reveal，Flurry…好多辅助开发软件使用;研究了openGL es，对手机越狱，完成敲壳……去年收获还是蛮多的，上半年显然不够充实自己。</p>
+<p>学习的态度感觉一样的，学习成果就少了很多，总结下原因：<br><a id="more"></a></p>
+<ul>
+<li>开发了两个app，时间被挤压。</li>
+</ul>
+<p>开年过来没多久，产品经理就花了点钱从外面设计了一套新的UI，三十多张图片，没有任何标注，口头上和我说了一下跳转，当时好想喷他一脸，不用说给UI设计过，或者用墨刀简单画下给我呀，懒都懒死了！好在这个项目是自己做的，需求还是比较清楚，不然估计也什么需求文档的。</p>
+<p>就这样开始了界面编写工作，我用OC纯代码写的，大概一天一个界面吧，逻辑复杂点的两天一个，那段时间晚上主动留下来的时间都拿来写界面了，就这样大概一个半月吧，我合进来SDK准备调试和硬件交互了，大概90%的任务已经干完了。产品经理离职，公司几个有点决策权的，说在原理基础上改，不重新做UI。哎，哎，因为前面那个APP我只负责了一部分，重构下，是我一个人编写的，我是花了很多心思的，估计数我最苦逼！忙活了两个月，都在巩固UI。</p>
+<p>没过多久，公司另一款产品需要写App，我就主动请缨。我对这款产品蛮感兴趣，也想借着这个机会做点东西出来，毕竟前面产品才几百个注册量，说出去都丢人！开始我想用swift编写，我预见性的先把C++的库，oc的代码合进来，一次编译十多分钟，而且各种符号问题，折腾了好几天，实在受不了，还是回归OC，不过有机会我还会用swift。这个APP功能不多，一共才二十来个界面吧，很快写好了。和服务调接口的时候，让我对服务端有点担忧，写服务的是一只十多年的老鸟，开始还以为可以学习学习了，没想到他用lua + nginx搭服务器才几个月，就来用这套搭我们的服务了，而且和他调式的时候很主见，很固执。累死累活的把app的功能调玩了，不过我对很多用户的时候，服务器的处理是很担忧的，希望是我太菜……那都不是我当心的问题，app上架，app和我们设备绑定的，设备还没推广，估计我后一阵比较轻松</p>
+<ul>
+<li>学习基本算法耗时</li>
+</ul>
+<p>上半年花了很多时间学习基本算法，搞个算法题搞搞，一晚上就没了，费时间的一比呀，不过没办，不急躁，一步步来。基本算法搞透，深入的我暂时不去搞，阿里面试要是问道我也就没办法了。</p>
+<ul>
+<li>报考驾照</li>
+</ul>
+<p>大学没钱学驾照呀😭，周末抽一天去学车，学车还是蛮辛苦。</p>
+<p>总归上半年不够理想，阿里的路还远着，下半年还要抓紧！</p>
+<p>后面每周不管多忙，学习一两个知识点，记录下来。周末总结下，写成bolg，一个最好的巩固！加油骚年</p>
 
       
     </div>
@@ -405,8 +416,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/08/iOS实现排序/" rel="next" title="OC实现算法（一）- 常规排序">
-                <i class="fa fa-chevron-left"></i> OC实现算法（一）- 常规排序
+              <a href="/2017/07/10/修改hosts访问谷歌/" rel="next" title="MAC修改hosts Google 又好用了">
+                <i class="fa fa-chevron-left"></i> MAC修改hosts Google 又好用了
               </a>
             
           </div>
@@ -414,10 +425,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/18/贪心算法/" rel="prev" title="OC实现算法（三）- 贪心算法">
-                OC实现算法（三）- 贪心算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

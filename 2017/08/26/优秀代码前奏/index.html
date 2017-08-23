@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2017/08/26/优秀代码前奏/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || ——">
-<meta property="og:updated_time" content="2017-08-23T09:51:44.000Z">
+<meta property="og:updated_time" content="2017-08-23T09:54:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-前奏">
 <meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || ——">
@@ -385,7 +385,7 @@
 </li>
 </ol>
 <h5 id="枚举的命名"><a href="#枚举的命名" class="headerlink" title="枚举的命名"></a>枚举的命名</h5><p>枚举类型命名要加相关类名前缀并且枚举值命名要加枚举类型前缀.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UITableViewScrollPosition) &#123;</div><div class="line">    UITableViewScrollPositionNone,</div><div class="line">    UITableViewScrollPositionTop,    </div><div class="line">    UITableViewScrollPositionMiddle,   </div><div class="line">    UITableViewScrollPositionBottom</div><div class="line"> &#125;;</div><div class="line"> </div><div class="line">``` </div><div class="line">##### 宏的命名 </div><div class="line"></div><div class="line">1. 宏、常量名都要使用大写字母，用下划线‘_’分割单词。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UITableViewScrollPosition) &#123;</div><div class="line">    UITableViewScrollPositionNone,</div><div class="line">    UITableViewScrollPositionTop,    </div><div class="line">    UITableViewScrollPositionMiddle,   </div><div class="line">    UITableViewScrollPositionBottom</div><div class="line"> &#125;;</div><div class="line"> </div><div class="line">``` </div><div class="line">##### 宏的命名 </div><div class="line"></div><div class="line"> 1. 宏、常量名都要使用大写字母，用下划线‘_’分割单词。</div></pre></td></tr></table></figure>
 <p>   #define URL_LOGIN  @”/v1/user/login”</p>
 <p>   #define URL_UPDATE  @”/v1/user/update”<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 宏定义中如果包含表达式或变量，表达式和变量必须用小括号括起来</div></pre></td></tr></table></figure></p>
 <p>   #define MY_MIN(A, B)  ((A)&gt;(B)?(B):(A))<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   </div><div class="line">#### 代码注释</div><div class="line">##### 属性注释</div></pre></td></tr></table></figure></p>

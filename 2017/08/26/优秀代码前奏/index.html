@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2017/08/26/优秀代码前奏/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型        | 缩写          || ——     | :—-:       ||">
-<meta property="og:updated_time" content="2017-08-23T09:25:36.000Z">
+<meta property="og:updated_time" content="2017-08-23T09:33:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-前奏">
 <meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型        | 缩写          || ——     | :—-:       ||">
@@ -377,12 +377,11 @@
 <li><strong>类的后缀：</strong>所有的控制器都加上Controller,所有的通知名都加上Notification，所有protocol定义时，都加上后缀Delegate</li>
 </ol>
 <h5 id="方法命名"><a href="#方法命名" class="headerlink" title="方法命名"></a>方法命名</h5><ol>
-<li>方法名应遵守小驼峰原则，首字母小写，其他单词首字母大写,每个空格分割的名称以动词开头。执行性的方法应该以动词开头，小写字母开头，返回性的方法应该以返回的内容开头，（遵循见名之意）</li>
-</ol>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (BOOL)isEqualToString:(NSString *)aString;</div><div class="line">+ (instancetype)stringWithString:(NSString *)string;</div><div class="line">- (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;</div></pre></td></tr></table></figure>
-<ol>
+<li><p>方法名应遵守小驼峰原则，首字母小写，其他单词首字母大写,每个空格分割的名称以动词开头。执行性的方法应该以动词开头，小写字母开头，返回性的方法应该以返回的内容开头，（遵循见名之意）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (BOOL)isEqualToString:(NSString *)aString;</div><div class="line">+ (instancetype)stringWithString:(NSString *)string;</div><div class="line">- (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;</div></pre></td></tr></table></figure>
+</li>
 <li><p>代理方法:以发送代理的对象类名作为代理方法名的开始（去掉类名的前缀，并且小写开头） </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;</div><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;</div><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <h5 id="枚举的命名"><a href="#枚举的命名" class="headerlink" title="枚举的命名"></a>枚举的命名</h5><p>枚举类型命名要加相关类名前缀并且枚举值命名要加枚举类型前缀.</p>

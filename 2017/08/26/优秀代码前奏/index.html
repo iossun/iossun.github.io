@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2017/08/26/优秀代码前奏/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || ——">
-<meta property="og:updated_time" content="2017-08-24T00:51:44.000Z">
+<meta property="og:updated_time" content="2017-08-24T00:56:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-前奏">
 <meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || ——">
@@ -394,19 +394,22 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define MY_MIN(A, B)  ((A)&gt;(B)?(B):(A))</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h4><h5 id="属性注释"><a href="#属性注释" class="headerlink" title="属性注释"></a>属性注释</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/** 名字 */</div><div class="line"></div><div class="line">@property(nonatomic,strong)NSString* name;</div><div class="line"></div><div class="line">/** 年龄 */</div><div class="line"></div><div class="line">@property(nonatomic,strong)NSString* age;</div><div class="line">注释统一采用文档注释方式:/**  */</div><div class="line">```   </div><div class="line">##### 方法集注释</div><div class="line">方法集注释就是对多个方法进行统一注释,可以有效的看出哪些方法进行的什么操作,分块化（代理方法，按钮点击监听...）便于代码管理</div></pre></td></tr></table></figure>
-<p>#pragma mark XXX<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 方法注释</div><div class="line">xCode自带的方法注释 方法前command + Option + /</div></pre></td></tr></table></figure></p>
-<p>/**<br> &lt;#Description#&gt;</p>
-<p> @param tableView &lt;#tableView description#&gt;<br> @param section &lt;#section description#&gt;<br> @return &lt;#return value description#&gt;<br> */</p>
-<ul>
-<li><p>(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#### 合理布局</div><div class="line"></div><div class="line">1. If、else、else if、for、while、do等语句自占一行，执行语句不得紧跟其后，不论执行语句有多少都要加&#123;&#125;。</div><div class="line">“&#123;”前面添加一个空格，紧跟语句后。方法（函数）时，“&#123;”另起一行并独 占一行书写。</div></pre></td></tr></table></figure>
-<p>if ( numberA &gt; numberB ) {<br>  return numberA;<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 源代码中关系较为紧密的代码应尽可能相邻。</div></pre></td></tr></table></figure>
-<p>CGFloat width = self.frame.size.width;<br>CGFloat height = self.frame.size.height;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">3. 相关的赋值语句等号对齐。</div></pre></td></tr></table></figure>
-<p>params[@”a”]    = self.aParam;<br>params[@”c”]    = @”data”;<br>params[@”type”] = @(self.type);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">4. 在switch语句中，每一个case分支和default要用“&#123;&#125;”括起来，“&#123;&#125;”中的内容需要缩进</div><div class="line"> </div><div class="line">5. 一元操作符如!、~、++、--、*、&amp;、和[]、.、-&gt;、前后不加空格。</div><div class="line"></div><div class="line">6. 类中功能模块以#pragma mark – 分割，上空两行，下空一行</div><div class="line"></div><div class="line">7. 方法实现时，参数过长则每个参数用一行，以冒号对齐。</div></pre></td></tr></table></figure>
+<h4 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h4><h5 id="属性注释"><a href="#属性注释" class="headerlink" title="属性注释"></a>属性注释</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/** 名字 */</div><div class="line"></div><div class="line">@property(nonatomic,strong)NSString* name;</div><div class="line"></div><div class="line">/** 年龄 */</div><div class="line"></div><div class="line">@property(nonatomic,strong)NSString* age;</div><div class="line">注释统一采用文档注释方式:/**  */</div></pre></td></tr></table></figure>
+<h5 id="方法集注释"><a href="#方法集注释" class="headerlink" title="方法集注释"></a>方法集注释</h5><p>方法集注释就是对多个方法进行统一注释,可以有效的看出哪些方法进行的什么操作,分块化（代理方法，按钮点击监听…）便于代码管理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#pragma mark XXX</div></pre></td></tr></table></figure>
+<h5 id="方法注释"><a href="#方法注释" class="headerlink" title="方法注释"></a>方法注释</h5><p>xCode自带的方法注释 方法前command + Option + /</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> &lt;#Description#&gt;</div><div class="line"></div><div class="line"> @param tableView &lt;#tableView description#&gt;</div><div class="line"> @param section &lt;#section description#&gt;</div><div class="line"> @return &lt;#return value description#&gt;</div><div class="line"> */</div><div class="line">- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;</div></pre></td></tr></table></figure>
+<h4 id="合理布局"><a href="#合理布局" class="headerlink" title="合理布局"></a>合理布局</h4><ol>
+<li><p>If、else、else if、for、while、do等语句自占一行，执行语句不得紧跟其后，不论执行语句有多少都要加{}。<br>“{”前面添加一个空格，紧跟语句后。方法（函数）时，“{”另起一行并独 占一行书写。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if ( numberA &gt; numberB ) &#123;</div><div class="line">  return numberA;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>源代码中关系较为紧密的代码应尽可能相邻。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CGFloat width = self.frame.size.width;</div><div class="line">CGFloat height = self.frame.size.height;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>相关的赋值语句等号对齐。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  params[@&quot;a&quot;]    = self.aParam;</div><div class="line">  params[@&quot;c&quot;]    = @&quot;data&quot;;</div><div class="line">  params[@&quot;type&quot;] = @(self.type);</div><div class="line"> ``` </div><div class="line"> </div><div class="line">4. 在switch语句中，每一个case分支和default要用“&#123;&#125;”括起来，“&#123;&#125;”中的内容需要缩进</div><div class="line"> </div><div class="line">5. 一元操作符如!、~、++、--、*、&amp;、和[]、.、-&gt;、前后不加空格。</div><div class="line"></div><div class="line">6. 类中功能模块以#pragma mark – 分割，上空两行，下空一行</div><div class="line"></div><div class="line">7. 方法实现时，参数过长则每个参数用一行，以冒号对齐。</div></pre></td></tr></table></figure>
 <ul>
 <li>(void)doSomethingWith:(NSString *)theFoo<pre><code>    rect:(CGRect)theRect
 interval:(CGFloat)theInterval;
@@ -422,7 +425,7 @@ interval:(CGFloat)theInterval;
 <p>BOOL isAdult = age &gt; 18;</p>
 <p>result = object ? : [self createObject];<br>```</p>
 </li>
-</ul>
+</ol>
 
       
     </div>
@@ -596,7 +599,7 @@ interval:(CGFloat)theInterval;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规范-尽量模仿OC系统命名"><span class="nav-number">1.</span> <span class="nav-text">命名规范(尽量模仿OC系统命名)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性、变量的命名"><span class="nav-number">1.1.</span> <span class="nav-text">属性、变量的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类的命名"><span class="nav-number">1.2.</span> <span class="nav-text">类的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法命名"><span class="nav-number">1.3.</span> <span class="nav-text">方法命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#枚举的命名"><span class="nav-number">1.4.</span> <span class="nav-text">枚举的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#宏的命名"><span class="nav-number">1.5.</span> <span class="nav-text">宏的命名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码注释"><span class="nav-number">2.</span> <span class="nav-text">代码注释</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性注释"><span class="nav-number">2.1.</span> <span class="nav-text">属性注释</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规范-尽量模仿OC系统命名"><span class="nav-number">1.</span> <span class="nav-text">命名规范(尽量模仿OC系统命名)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性、变量的命名"><span class="nav-number">1.1.</span> <span class="nav-text">属性、变量的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类的命名"><span class="nav-number">1.2.</span> <span class="nav-text">类的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法命名"><span class="nav-number">1.3.</span> <span class="nav-text">方法命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#枚举的命名"><span class="nav-number">1.4.</span> <span class="nav-text">枚举的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#宏的命名"><span class="nav-number">1.5.</span> <span class="nav-text">宏的命名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码注释"><span class="nav-number">2.</span> <span class="nav-text">代码注释</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性注释"><span class="nav-number">2.1.</span> <span class="nav-text">属性注释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法集注释"><span class="nav-number">2.2.</span> <span class="nav-text">方法集注释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法注释"><span class="nav-number">2.3.</span> <span class="nav-text">方法注释</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合理布局"><span class="nav-number">3.</span> <span class="nav-text">合理布局</span></a></li></ol></div>
             
 
           </div>

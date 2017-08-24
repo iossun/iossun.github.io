@@ -93,16 +93,16 @@
 
 
 
-<meta name="description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀|  类型                   |  缩写          ||  :——:">
+<meta name="description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀     类型 缩写     NSString Str   UIButton Btn   UILabel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="优秀OC代码-前奏">
 <meta property="og:url" content="https://iossun.github.io/2017/08/26/优秀代码前奏/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀|  类型                   |  缩写          ||  :——:">
-<meta property="og:updated_time" content="2017-08-24T01:46:09.000Z">
+<meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀     类型 缩写     NSString Str   UIButton Btn   UILabel">
+<meta property="og:updated_time" content="2017-08-24T01:50:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-前奏">
-<meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀|  类型                   |  缩写          ||  :——:">
+<meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀     类型 缩写     NSString Str   UIButton Btn   UILabel">
 
 
 
@@ -366,9 +366,63 @@
 <ol>
 <li>遵守小驼峰命名规则</li>
 <li>变量的名称一般同时包含功能与类型</li>
-<li>系统常用类作实例变量声明时加入后缀<br>|  类型                   |  缩写          |<br>|  :——:              |  :—-:       |<br>|  NSString              |  Str          |<br>|  UIButton              |  Btn          |<br>|  UILabel               |  Lbl          |<br>|  UIImage               |  Img          |<br>|  UIImageView           |  ImagView     |<br>|  UIView                |  View         |<br>|  UIViewController      |  VC           |<br>|  NSArray               |  Array<br>|  NSMutableArray        |  Marray       |<br>|  NSDictionary          |  Dict         |<br>|  NSMutableDictionary   |  Mdict        |<a id="more"></a>
-</li>
+<li>系统常用类作实例变量声明时加入后缀</li>
 </ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">缩写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">NSString</td>
+<td style="text-align:center">Str</td>
+</tr>
+<tr>
+<td style="text-align:center">UIButton</td>
+<td style="text-align:center">Btn</td>
+</tr>
+<tr>
+<td style="text-align:center">UILabel</td>
+<td style="text-align:center">Lbl</td>
+</tr>
+<tr>
+<td style="text-align:center">UIImage</td>
+<td style="text-align:center">Img</td>
+</tr>
+<tr>
+<td style="text-align:center">UIImageView</td>
+<td style="text-align:center">ImagView</td>
+</tr>
+<tr>
+<td style="text-align:center">UIView</td>
+<td style="text-align:center">View</td>
+</tr>
+<tr>
+<td style="text-align:center">UIViewController</td>
+<td style="text-align:center">VC</td>
+</tr>
+<tr>
+<td style="text-align:center">NSArray</td>
+<td style="text-align:center">Array</td>
+</tr>
+<tr>
+<td style="text-align:center">NSMutableArray</td>
+<td style="text-align:center">Marray</td>
+</tr>
+<tr>
+<td style="text-align:center">NSDictionary</td>
+<td style="text-align:center">Dict</td>
+</tr>
+<tr>
+<td style="text-align:center">NSMutableDictionary</td>
+<td style="text-align:center">Mdict</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
 <h5 id="类的命名"><a href="#类的命名" class="headerlink" title="类的命名"></a>类的命名</h5><p>类名（以及类别、协议名）应首字母大写，并以驼峰格式分割单词。</p>
 <ol>
 <li><strong>类的前缀：</strong>所有类名、枚举、结构、protocol定义时最好加一个统一的标示符，可以是项目缩写，或者个人项目的名称缩写，例如都加上全大写的SM（我的姓氏）或 HW(华为公司名缩写)作为前缀</li>

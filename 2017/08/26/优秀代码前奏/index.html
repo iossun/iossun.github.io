@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2017/08/26/优秀代码前奏/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || ——">
-<meta property="og:updated_time" content="2017-08-24T00:49:01.000Z">
+<meta property="og:updated_time" content="2017-08-24T00:51:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-前奏">
 <meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || ——">
@@ -385,14 +385,16 @@
 </li>
 </ol>
 <h5 id="枚举的命名"><a href="#枚举的命名" class="headerlink" title="枚举的命名"></a>枚举的命名</h5><p>枚举类型命名要加相关类名前缀并且枚举值命名要加枚举类型前缀.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UITableViewScrollPosition) &#123;</div><div class="line">    UITableViewScrollPositionNone,</div><div class="line">    UITableViewScrollPositionTop,    </div><div class="line">    UITableViewScrollPositionMiddle,   </div><div class="line">    UITableViewScrollPositionBottom</div><div class="line">&#125;;</div><div class="line">``` </div><div class="line">##### 宏的命名 </div><div class="line"></div><div class="line"> 1. 宏、常量名都要使用大写字母，用下划线‘_’分割单词。</div></pre></td></tr></table></figure>
-<p>   #define URL_LOGIN  @”/v1/user/login”</p>
-<p>   #define URL_UPDATE  @”/v1/user/update”<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2. 宏定义中如果包含表达式或变量，表达式和变量必须用小括号括起来</div></pre></td></tr></table></figure></p>
-<p>   #define MY_MIN(A, B)  ((A)&gt;(B)?(B):(A))<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   </div><div class="line">#### 代码注释</div><div class="line">##### 属性注释</div></pre></td></tr></table></figure></p>
-<p>/<em>* 名字 </em>/</p>
-<p>@property(nonatomic,strong)NSString* name;</p>
-<p>/<em>* 年龄 </em>/</p>
-<p>@property(nonatomic,strong)NSString<em> age;<br>注释统一采用文档注释方式:/**  </em>/<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 方法集注释</div><div class="line">方法集注释就是对多个方法进行统一注释,可以有效的看出哪些方法进行的什么操作,分块化（代理方法，按钮点击监听...）便于代码管理</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UITableViewScrollPosition) &#123;</div><div class="line">    UITableViewScrollPositionNone,</div><div class="line">    UITableViewScrollPositionTop,    </div><div class="line">    UITableViewScrollPositionMiddle,   </div><div class="line">    UITableViewScrollPositionBottom</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h5 id="宏的命名"><a href="#宏的命名" class="headerlink" title="宏的命名"></a>宏的命名</h5><ol>
+<li><p>宏、常量名都要使用大写字母，用下划线‘_’分割单词。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#define URL_LOGIN  @&quot;/v1/user/login”</div><div class="line">#define URL_UPDATE  @&quot;/v1/user/update”</div></pre></td></tr></table></figure>
+</li>
+<li><p>宏定义中如果包含表达式或变量，表达式和变量必须用小括号括起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#define MY_MIN(A, B)  ((A)&gt;(B)?(B):(A))</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h4><h5 id="属性注释"><a href="#属性注释" class="headerlink" title="属性注释"></a>属性注释</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/** 名字 */</div><div class="line"></div><div class="line">@property(nonatomic,strong)NSString* name;</div><div class="line"></div><div class="line">/** 年龄 */</div><div class="line"></div><div class="line">@property(nonatomic,strong)NSString* age;</div><div class="line">注释统一采用文档注释方式:/**  */</div><div class="line">```   </div><div class="line">##### 方法集注释</div><div class="line">方法集注释就是对多个方法进行统一注释,可以有效的看出哪些方法进行的什么操作,分块化（代理方法，按钮点击监听...）便于代码管理</div></pre></td></tr></table></figure>
 <p>#pragma mark XXX<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">##### 方法注释</div><div class="line">xCode自带的方法注释 方法前command + Option + /</div></pre></td></tr></table></figure></p>
 <p>/**<br> &lt;#Description#&gt;</p>
 <p> @param tableView &lt;#tableView description#&gt;<br> @param section &lt;#section description#&gt;<br> @return &lt;#return value description#&gt;<br> */</p>
@@ -594,7 +596,7 @@ interval:(CGFloat)theInterval;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规范-尽量模仿OC系统命名"><span class="nav-number">1.</span> <span class="nav-text">命名规范(尽量模仿OC系统命名)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性、变量的命名"><span class="nav-number">1.1.</span> <span class="nav-text">属性、变量的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类的命名"><span class="nav-number">1.2.</span> <span class="nav-text">类的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法命名"><span class="nav-number">1.3.</span> <span class="nav-text">方法命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#枚举的命名"><span class="nav-number">1.4.</span> <span class="nav-text">枚举的命名</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名规范-尽量模仿OC系统命名"><span class="nav-number">1.</span> <span class="nav-text">命名规范(尽量模仿OC系统命名)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性、变量的命名"><span class="nav-number">1.1.</span> <span class="nav-text">属性、变量的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类的命名"><span class="nav-number">1.2.</span> <span class="nav-text">类的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法命名"><span class="nav-number">1.3.</span> <span class="nav-text">方法命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#枚举的命名"><span class="nav-number">1.4.</span> <span class="nav-text">枚举的命名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#宏的命名"><span class="nav-number">1.5.</span> <span class="nav-text">宏的命名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码注释"><span class="nav-number">2.</span> <span class="nav-text">代码注释</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性注释"><span class="nav-number">2.1.</span> <span class="nav-text">属性注释</span></a></li></ol></li></ol></div>
             
 
           </div>

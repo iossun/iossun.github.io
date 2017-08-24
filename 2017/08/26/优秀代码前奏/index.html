@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2017/08/26/优秀代码前奏/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || :——">
-<meta property="og:updated_time" content="2017-08-24T01:12:33.000Z">
+<meta property="og:updated_time" content="2017-08-24T01:15:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-前奏">
 <meta name="twitter:description" content="命名规范(尽量模仿OC系统命名)属性、变量的命名123UIButton *removeBtn //移除按钮UILabel *ageLbl //年龄标签NSString *addressStr//地址字符串  遵守小驼峰命名规则 变量的名称一般同时包含功能与类型 系统常用类作实例变量声明时加入后缀 | 类型                   | 缩写          || :——">
@@ -407,7 +407,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CGFloat width = self.frame.size.width;</div><div class="line">CGFloat height = self.frame.size.height;</div></pre></td></tr></table></figure>
 </li>
 <li><p>相关的赋值语句等号对齐。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">  params[@&quot;a&quot;]    = self.aParam;</div><div class="line">  params[@&quot;c&quot;]    = @&quot;data&quot;;</div><div class="line">  params[@&quot;type&quot;] = @(self.type);</div><div class="line"> ``` </div><div class="line">4. 在switch语句中，每一个case分支和default要用“&#123;&#125;”括起来，“&#123;&#125;”中的内容需要缩进</div><div class="line"> </div><div class="line">5. 一元操作符如!、~、++、--、*、&amp;、和[]、.、-&gt;、前后不加空格。</div><div class="line"></div><div class="line">6. 类中功能模块以#pragma mark – 分割，上空两行，下空一行</div><div class="line"></div><div class="line">7. 方法实现时，参数过长则每个参数用一行，以冒号对齐。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">    params[@&quot;a&quot;]    = self.aParam;</div><div class="line">    params[@&quot;c&quot;]    = @&quot;data&quot;;</div><div class="line">    params[@&quot;type&quot;] = @(self.type);</div><div class="line">   ``` </div><div class="line">4. 在switch语句中，每一个case分支和default要用“&#123;&#125;”括起来，“&#123;&#125;”中的内容需要缩进</div><div class="line"> </div><div class="line">5. 一元操作符如!、~、++、--、*、&amp;、和[]、.、-&gt;、前后不加空格。</div><div class="line"></div><div class="line">6. 类中功能模块以#pragma mark – 分割，上空两行，下空一行</div><div class="line"></div><div class="line">7. 方法实现时，参数过长则每个参数用一行，以冒号对齐。</div></pre></td></tr></table></figure>
 <ul>
 <li>(void)doSomethingWith:(NSString *)theFoo<pre><code>    rect:(CGRect)theRect
 interval:(CGFloat)theInterval;

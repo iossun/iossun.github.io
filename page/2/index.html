@@ -266,6 +266,207 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/12/05/MJExtension/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/12/05/MJExtension/" itemprop="url">阅读源码（二）- MJExtension</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-05T00:00:00+08:00">
+                2016-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/12/05/MJExtension/" class="leancloud_visitors" data-flag-title="阅读源码（二）- MJExtension">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我不止一次的想，这些源码解析先人们都做过，我写写这些有什么意思？从我第一篇SDWebImage，就知道了答案，我看过的知识，不都是我的，很多作者的技巧都没有用起来，很多用心的设计，我根本没有注意，一次总结一次进步。</p>
+<p>MJExtension是我一直使用的一个框架，字典转模型，模型转字典，非常方便好用，大大提高了可读性，现在我们一类一类阅读</p>
+<p><strong>MJExtensionConst.h</strong></p>
+<p>这里定义了整个库的常量和宏定义。类似于一个项目中的预编译文件。包含了方法弃用宏，自定义Log日志、自定义断言、快速打印所有属性、自定义类型编码字符串常量</p>
+<p>1.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 过期,代码在Max OS 2.0和iOS 2.0被引入，在Mac OS 2.0和iOS 2.0后背废弃</div><div class="line">#define MJExtensionDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)</div></pre></td></tr></table></figure>
+<p>2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//断言</div><div class="line">//condition 条件</div><div class="line">#define MJExtensionAssertError(condition, returnValue, clazz, msg) \ [clazz setMj_error:nil]; \ if ((condition) == NO) &#123; \ MJExtensionBuildError(clazz, msg); \ return returnValue;\ &#125;</div></pre></td></tr></table></figure>
+<p><strong>MJFoundation.h</strong></p>
+<p>这个类主要判断，类是不是在Foundation框架里面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">+ (BOOL)isClassFromFoundation:(Class)c</div><div class="line">&#123;</div><div class="line">    if (c == [NSObject class] || c == [NSManagedObject class]) return YES;</div><div class="line">  </div><div class="line">  //__block 局部变量可被修改  </div><div class="line">    __block BOOL result = NO;</div><div class="line">    [[self foundationClasses] enumerateObjectsUsingBlock:^(Class foundationClass, BOOL *stop) &#123;</div><div class="line">        if ([c isSubclassOfClass:foundationClass]) &#123;</div><div class="line">            result = YES;</div><div class="line">            *stop = YES;</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>MJProperty.h</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//初始化</div><div class="line">#pragma mark - 缓存</div><div class="line">+ (instancetype)cachedPropertyWithProperty:(objc_property_t)property</div><div class="line">&#123;</div><div class="line">//获取关联对象</div><div class="line">    MJProperty *propertyObj = objc_getAssociatedObject(self, property);</div><div class="line">    if (propertyObj == nil) &#123;//如果不存在，初始化</div><div class="line">        propertyObj = [[self alloc] init];</div><div class="line">        propertyObj.property = property;</div><div class="line"> //将property作为key，与本类进行关联     </div><div class="line">        objc_setAssociatedObject(self, property, propertyObj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">    &#125;</div><div class="line">    return propertyObj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//对特定属性存取值</div><div class="line">/**</div><div class="line"> * 设置object的成员变量值</div><div class="line"> */</div><div class="line">- (void)setValue:(id)value forObject:(id)object;</div><div class="line">/**</div><div class="line"> * 得到object的成员属性值</div><div class="line"> */</div><div class="line">- (id)valueForObject:(id)object;</div></pre></td></tr></table></figure>
+<p><strong>MJPropertyType</strong></p>
+<p>对属性的具体类型进行封装，简单来说就是讲类型编码转为我们熟知的类型。暴露给外面使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">+ (instancetype)cachedTypeWithCode:(NSString *)code</div><div class="line">&#123;</div><div class="line">    MJExtensionAssertParamNotNil2(code, nil);</div><div class="line">    @synchronized (self) &#123;</div><div class="line">    //缓存中获取</div><div class="line">        MJPropertyType *type = types_[code];</div><div class="line">        if (type == nil) &#123;</div><div class="line">            type = [[self alloc] init];</div><div class="line">            type.code = code;</div><div class="line">            //储存起来</div><div class="line">            types_[code] = type;</div><div class="line">        &#125;</div><div class="line">        return type;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>MJPropertyKey.h</strong></p>
+<p>外面通过调用- (id)valueInObject:(id)object从传进来的id类型中取值</p>
+<p><strong>NSObject+MJClass.h</strong></p>
+<ul>
+<li><ul>
+<li>(NSMutableArray *)mj_totalIgnoredPropertyNames;//黑名单</li>
+</ul>
+</li>
+<li><ul>
+<li>(NSMutableArray *)mj_totalAllowedCodingPropertyNames;白名单</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">+ (void)mj_enumerateClasses:(MJClassesEnumeration)enumeration</div><div class="line">&#123;</div><div class="line">    // 1.没有block就直接返回</div><div class="line">    if (enumeration == nil) return;</div><div class="line">    </div><div class="line">    // 2.停止遍历的标记</div><div class="line">    BOOL stop = NO;</div><div class="line">    </div><div class="line">    // 3.当前正在遍历的类</div><div class="line">    Class c = self;</div><div class="line">    </div><div class="line">    // 4.开始遍历每一个类</div><div class="line">    while (c &amp;&amp; !stop) &#123;</div><div class="line">        // 4.1.执行操作</div><div class="line">        enumeration(c, &amp;stop);</div><div class="line">        </div><div class="line">        // 4.2.获得父类</div><div class="line">        c = class_getSuperclass(c);</div><div class="line">        </div><div class="line">        if ([MJFoundation isClassFromFoundation:c]) break;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>类慢慢自己看吧，还是从传化过程解读MJExtension；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 使用过程的转换代码</div><div class="line">    Person *person = [Person mj_objectWithKeyValues:dict];</div></pre></td></tr></table></figure>
+<p>我们直接来看转换的核心代码的方法，主要就是mj_setKeyValues:context:方法来完成字典转模型的工作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> 核心代码：</div><div class="line"> */</div><div class="line">- (instancetype)mj_setKeyValues:(id)keyValues context:(NSManagedObjectContext *)context</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 获得JSON对象,NSString，NSData都转化为字典类型</div><div class="line">  keyValues = [keyValues mj_JSONObject];</div></pre></td></tr></table></figure>
+<p>首先检查名单是不是存在，如果存在，就直接返回；不存在，则根据方法mj_totalAllowedPropertyNames来获取名单，然后返回</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">    // NSObject+MJKeyValue.m</div><div class="line">    Class clazz = [self class];</div><div class="line">    NSArray *allowedPropertyNames = [clazz mj_totalAllowedPropertyNames];</div><div class="line">    NSArray *ignoredPropertyNames = [clazz mj_totalIgnoredPropertyNames];</div><div class="line"> </div><div class="line">---&gt;</div><div class="line">    // NSObject+MJClass.m</div><div class="line">    + (NSMutableArray *)mj_totalObjectsWithSelector:(SEL)selector key:(const char *)key</div><div class="line">    &#123;</div><div class="line">        NSMutableArray *array = [self dictForKey:key][NSStringFromClass(self)];</div><div class="line">        if (array) return array;</div><div class="line"> </div><div class="line">        // 创建、存储</div><div class="line">        [self dictForKey:key][NSStringFromClass(self)] = array = [NSMutableArray array];</div><div class="line"> </div><div class="line">        if ([self respondsToSelector:selector]) &#123;</div><div class="line">    #pragma clang diagnostic push</div><div class="line">    #pragma clang diagnostic ignored &quot;-Warc-performSelector-leaks&quot;</div><div class="line">            NSArray *subArray = [self performSelector:selector];</div><div class="line">    #pragma clang diagnostic pop</div><div class="line">            if (subArray) &#123;</div><div class="line">                [array addObjectsFromArray:subArray];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        [self mj_enumerateAllClasses:^(__unsafe_unretained Class c, BOOL *stop) &#123;</div><div class="line">            NSArray *subArray = objc_getAssociatedObject(c, key);</div><div class="line">            [array addObjectsFromArray:subArray];</div><div class="line">        &#125;];</div><div class="line">        return array;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>遍历成员变量</strong></p>
+<p>+(void)mj_enumerateProperties:(MJPropertiesEnumeration)enumeration遍历所有的属性。属性会先从缓存cachedProperties中取，如果存在，直接返回；如果不存在，就遍历类来获取属性列表，创建MJProperty对象，并设置它的name(属性名)、type(数据类型)、srcClass(来源类)等等；同时，还会设置propertyKeysDict(类对应的字典中的所有key) 和 objectClassInArrayDict(类对应的字典数组中的模型类)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">// NSObject+MJProperty.m</div><div class="line">    // 获得成员变量</div><div class="line">    NSArray *cachedProperties = [self properties];</div><div class="line"> </div><div class="line">    // 遍历成员变量</div><div class="line">    BOOL stop = NO;</div><div class="line">    for (MJProperty *property in cachedProperties) &#123;</div><div class="line">        enumeration(property, &amp;stop);</div><div class="line">        if (stop) break;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">----&gt;</div><div class="line"> </div><div class="line">    + (NSMutableArray *)properties</div><div class="line">    &#123;</div><div class="line">        NSMutableArray *cachedProperties = [self dictForKey:&amp;MJCachedPropertiesKey][NSStringFromClass(self)];</div><div class="line"> </div><div class="line">        if (cachedProperties == nil) &#123;</div><div class="line">            cachedProperties = [NSMutableArray array];</div><div class="line"> </div><div class="line">            [self mj_enumerateClasses:^(__unsafe_unretained Class c, BOOL *stop) &#123;</div><div class="line">                // 1.获得所有的成员变量</div><div class="line">                unsigned int outCount = 0;</div><div class="line">                objc_property_t *properties = class_copyPropertyList(c, &amp;outCount);</div><div class="line"> </div><div class="line">                // 2.遍历每一个成员变量</div><div class="line">                for (unsigned int i = 0; i&lt;outCount; i++) &#123;</div><div class="line">                    MJProperty *property = [MJProperty cachedPropertyWithProperty:properties[i]];</div><div class="line"> </div><div class="line">                    NSLog(@&quot;%@ - %@&quot;, property.name, property.srcClass);</div><div class="line">                    // 过滤掉Foundation框架类里面的属性</div><div class="line">                    if ([MJFoundation isClassFromFoundation:property.srcClass]) continue;</div><div class="line">                    property.srcClass = c;</div><div class="line">                    [property setOriginKey:[self propertyKey:property.name] forClass:self];</div><div class="line">                    [property setObjectClassInArray:[self propertyObjectClassInArray:property.name] forClass:self];</div><div class="line">                    [cachedProperties addObject:property];</div><div class="line">                &#125;</div><div class="line"> </div><div class="line">                // 3.释放内存</div><div class="line">                free(properties);</div><div class="line">            &#125;];</div><div class="line"> </div><div class="line">            [self dictForKey:&amp;MJCachedPropertiesKey][NSStringFromClass(self)] = cachedProperties;</div><div class="line">        &#125;</div><div class="line"> </div><div class="line">        return cachedProperties;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>会调用mj_replacedKeyFromPropertyName查看是否需要替换为新的键值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">    [property setOriginKey:[self propertyKey:property.name] forClass:self];</div><div class="line"> </div><div class="line">----&gt;</div><div class="line"> </div><div class="line">    // NSObject+MJProperty.m</div><div class="line">    + (id)propertyKey:(NSString *)propertyName</div><div class="line">    &#123;</div><div class="line">        ...</div><div class="line">        // 查看有没有需要替换的key</div><div class="line">        if ((!key || [key isEqual:propertyName]) &amp;&amp; [self respondsToSelector:@selector(mj_replacedKeyFromPropertyName)]) &#123;</div><div class="line">            key = [self mj_replacedKeyFromPropertyName][propertyName];</div><div class="line">        &#125;</div><div class="line">        ...</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>取出字典中的属性值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 取出属性值</div><div class="line">   id value;</div><div class="line">   NSArray *propertyKeyses = [property propertyKeysForClass:clazz];</div><div class="line">   for (NSArray *propertyKeys in propertyKeyses) &#123;</div><div class="line">       value = keyValues;</div><div class="line">       for (MJPropertyKey *propertyKey in propertyKeys) &#123;</div><div class="line">           value = [propertyKey valueInObject:value];</div><div class="line">       &#125;</div><div class="line">       if (value) break;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p><strong>过滤值</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">    // NSObject+MJKeyValue.m</div><div class="line">    // 值的过滤</div><div class="line">    id newValue = [clazz mj_getNewValueFromObject:self oldValue:value property:property];</div><div class="line">    if (newValue != value) &#123; // 有过滤后的新值</div><div class="line">        [property setValue:newValue forObject:self];</div><div class="line">        return;</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">----&gt;</div><div class="line"> </div><div class="line">    // NSObject+MJProperty.m</div><div class="line">    // 如果有实现方法</div><div class="line">    if ([object respondsToSelector:@selector(mj_newValueFromOldValue:property:)]) &#123;</div><div class="line">        return [object mj_newValueFromOldValue:oldValue property:property];</div><div class="line">    &#125;</div><div class="line">    // 兼容旧版本</div><div class="line">    if ([self respondsToSelector:@selector(newValueFromOldValue:property:)]) &#123;</div><div class="line">        return [self performSelector:@selector(newValueFromOldValue:property:)  withObject:oldValue  withObject:property];</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    // 查看静态设置</div><div class="line">    __block id newValue = oldValue;</div><div class="line">    [self mj_enumerateAllClasses:^(__unsafe_unretained Class c, BOOL *stop) &#123;</div><div class="line">        MJNewValueFromOldValue block = objc_getAssociatedObject(c, &amp;MJNewValueFromOldValueKey);</div><div class="line">        if (block) &#123;</div><div class="line">            newValue = block(object, oldValue, property);</div><div class="line">            *stop = YES;</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">    return newValue;</div></pre></td></tr></table></figure>
+<p>根据property属性获取属性的类型（基本数据类型则为nil）和数组中的成员对象类型（如果属性不是数组，则为空对象类型）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 复杂处理</div><div class="line"> MJPropertyType *type = property.type;</div><div class="line"> Class propertyClass = type.typeClass;</div><div class="line"> Class objectClass = [property objectClassInArrayForClass:[self class]];</div></pre></td></tr></table></figure>
+<p>如果对象的属性是可变类型，但是从字典中取出的值都是不可变类型，那么需要把取出的值转换为可变类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">// 不可变 -&gt; 可变处理</div><div class="line">if (propertyClass == [NSMutableArray class] &amp;&amp; [value isKindOfClass:[NSArray class]]) &#123;</div><div class="line">    value = [NSMutableArray arrayWithArray:value];</div><div class="line">&#125; else if (propertyClass == [NSMutableDictionary class] &amp;&amp; [value isKindOfClass:[NSDictionary class]]) &#123;</div><div class="line">    value = [NSMutableDictionary dictionaryWithDictionary:value];</div><div class="line">&#125; else if (propertyClass == [NSMutableString class] &amp;&amp; [value isKindOfClass:[NSString class]]) &#123;</div><div class="line">    value = [NSMutableString stringWithString:value];</div><div class="line">&#125; else if (propertyClass == [NSMutableData class] &amp;&amp; [value isKindOfClass:[NSData class]]) &#123;</div><div class="line">    value = [NSMutableData dataWithData:value];</div><div class="line">&#125;</div><div class="line">// 不可变 -&gt; 可变处理</div><div class="line">if (propertyClass == [NSMutableArray class] &amp;&amp; [value isKindOfClass:[NSArray class]]) &#123;</div><div class="line">    value = [NSMutableArray arrayWithArray:value];</div><div class="line">&#125; else if (propertyClass == [NSMutableDictionary class] &amp;&amp; [value isKindOfClass:[NSDictionary class]]) &#123;</div><div class="line">    value = [NSMutableDictionary dictionaryWithDictionary:value];</div><div class="line">&#125; else if (propertyClass == [NSMutableString class] &amp;&amp; [value isKindOfClass:[NSString class]]) &#123;</div><div class="line">    value = [NSMutableString stringWithString:value];</div><div class="line">&#125; else if (propertyClass == [NSMutableData class] &amp;&amp; [value isKindOfClass:[NSData class]]) &#123;</div><div class="line">    value = [NSMutableData dataWithData:value];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里用到了是不是Foundation的判断，如果属性是自定义属性，就递归调用mj_objectWithKeyValues再次进行赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (!type.isFromFoundation &amp;&amp; propertyClass) &#123; // 模型属性</div><div class="line">        value = [propertyClass mj_objectWithKeyValues:value context:context];</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>如果是NSURL的对象类型，就获取它的url字符串，然后组合成数组；如果是其它对象类型，就调用mj_objectArrayWithKeyValuesArray::转换为模型数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">if (objectClass) &#123;</div><div class="line">      if (objectClass == [NSURL class] &amp;&amp; [value isKindOfClass:[NSArray class]]) &#123;</div><div class="line">          // string array -&gt; url array</div><div class="line">          NSMutableArray *urlArray = [NSMutableArray array];</div><div class="line">          for (NSString *string in value) &#123;</div><div class="line">              if (![string isKindOfClass:[NSString class]]) continue;</div><div class="line">              [urlArray addObject:string.mj_url];</div><div class="line">          &#125;</div><div class="line">          value = urlArray;</div><div class="line">      &#125; else &#123; // 字典数组--&gt;模型数组</div><div class="line">          value = [objectClass mj_objectArrayWithKeyValuesArray:value context:context];</div><div class="line">      &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>如果属性的类型和字典中对应的值的类型不匹配，就进行转换，如：NSNumber -&gt; NSString，NSURL -&gt; NSString，NSString -&gt; NSURL, NSString -&gt; NSURL。另外，针对属性是布尔类型，而值是字符串：yes/true、no/false（忽略大小写情况），则转换为YES、NO的包装类型。最后，如果属性和值的类型依然不匹配，那么就把值设为空，给后面KVC使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">if (propertyClass == [NSString class]) &#123;</div><div class="line">      if ([value isKindOfClass:[NSNumber class]]) &#123;</div><div class="line">          // NSNumber -&gt; NSString</div><div class="line">          value = [value description];</div><div class="line">      &#125; else if ([value isKindOfClass:[NSURL class]]) &#123;</div><div class="line">          // NSURL -&gt; NSString</div><div class="line">          value = [value absoluteString];</div><div class="line">      &#125;</div><div class="line">  &#125; else if ([value isKindOfClass:[NSString class]]) &#123;</div><div class="line">      if (propertyClass == [NSURL class]) &#123;</div><div class="line">          // NSString -&gt; NSURL</div><div class="line">          // 字符串转码</div><div class="line">          value = [value mj_url];</div><div class="line">      &#125; else if (type.isNumberType) &#123;</div><div class="line">          NSString *oldValue = value;</div><div class="line"> </div><div class="line">          // NSString -&gt; NSNumber</div><div class="line">          if (type.typeClass == [NSDecimalNumber class]) &#123;</div><div class="line">              value = [NSDecimalNumber decimalNumberWithString:oldValue];</div><div class="line">          &#125; else &#123;</div><div class="line">              value = [numberFormatter_ numberFromString:oldValue];</div><div class="line">          &#125;</div><div class="line"> </div><div class="line">          // 如果是BOOL</div><div class="line">          if (type.isBoolType) &#123;</div><div class="line">              // 字符串转BOOL（字符串没有charValue方法）</div><div class="line">              // 系统会调用字符串的charValue转为BOOL类型</div><div class="line">              NSString *lower = [oldValue lowercaseString];</div><div class="line">              if ([lower isEqualToString:@&quot;yes&quot;] || [lower isEqualToString:@&quot;true&quot;]) &#123;</div><div class="line">                  value = @YES;</div><div class="line">              &#125; else if ([lower isEqualToString:@&quot;no&quot;] || [lower isEqualToString:@&quot;false&quot;]) &#123;</div><div class="line">                  value = @NO;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line"> </div><div class="line">  // value和property类型不匹配</div><div class="line">  if (propertyClass &amp;&amp; ![value isKindOfClass:propertyClass]) &#123;</div><div class="line">      value = nil;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/12/01/SDWebImage/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1179,7 +1380,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

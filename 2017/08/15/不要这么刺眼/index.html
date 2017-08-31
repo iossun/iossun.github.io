@@ -93,16 +93,25 @@
 
 
 
-<meta name="description" content="大学学的化工专业，当时对未来对兴趣什么的统统不懂，就稀里糊涂的报了这个专业，谈不上喜不喜欢，知道实习的时候，才意识到未来的工作我并不喜欢… 这样子就开始了转行的想法，我哥是做算法的，一直优秀的我难以超越，当时iOS开发还处在火爆的余热当中….他得知我的想法后，帮我报了iOS开发培训班。">
+<meta name="description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
 <meta property="og:type" content="article">
-<meta property="og:title" content="两年ios开发之路">
-<meta property="og:url" content="https://iossun.github.io/2017/04/05/两年iOS开发之路/index.html">
+<meta property="og:title" content="好想维护一份大神的代码">
+<meta property="og:url" content="https://iossun.github.io/2017/08/15/不要这么刺眼/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="大学学的化工专业，当时对未来对兴趣什么的统统不懂，就稀里糊涂的报了这个专业，谈不上喜不喜欢，知道实习的时候，才意识到未来的工作我并不喜欢… 这样子就开始了转行的想法，我哥是做算法的，一直优秀的我难以超越，当时iOS开发还处在火爆的余热当中….他得知我的想法后，帮我报了iOS开发培训班。">
-<meta property="og:updated_time" content="2017-06-30T02:26:43.000Z">
+<meta property="og:description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.1.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.0.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.1.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic7.0.png">
+<meta property="og:updated_time" content="2017-08-31T08:22:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="两年ios开发之路">
-<meta name="twitter:description" content="大学学的化工专业，当时对未来对兴趣什么的统统不懂，就稀里糊涂的报了这个专业，谈不上喜不喜欢，知道实习的时候，才意识到未来的工作我并不喜欢… 这样子就开始了转行的想法，我哥是做算法的，一直优秀的我难以超越，当时iOS开发还处在火爆的余热当中….他得知我的想法后，帮我报了iOS开发培训班。">
+<meta name="twitter:title" content="好想维护一份大神的代码">
+<meta name="twitter:description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
+<meta name="twitter:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png">
 
 
 
@@ -130,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://iossun.github.io/2017/04/05/两年iOS开发之路/"/>
+  <link rel="canonical" href="https://iossun.github.io/2017/08/15/不要这么刺眼/"/>
 
 
 
 
 
-  <title>两年ios开发之路 | mumu@note</title>
+  <title>好想维护一份大神的代码 | mumu@note</title>
   
 
 
@@ -265,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/04/05/两年iOS开发之路/">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/08/15/不要这么刺眼/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="孙慕">
@@ -282,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">两年ios开发之路</h1>
+          <h1 class="post-title" itemprop="name headline">好想维护一份大神的代码</h1>
         
 
         <div class="post-meta">
@@ -294,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-05T00:00:00+08:00">
-                2017-04-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T00:00:00+08:00">
+                2017-08-15
               </time>
             
 
@@ -334,7 +343,7 @@
 
           
           
-             <span id="/2017/04/05/两年iOS开发之路/" class="leancloud_visitors" data-flag-title="两年ios开发之路">
+             <span id="/2017/08/15/不要这么刺眼/" class="leancloud_visitors" data-flag-title="好想维护一份大神的代码">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -362,14 +371,44 @@
       
 
       
-        <p>大学学的化工专业，当时对未来对兴趣什么的统统不懂，就稀里糊涂的报了这个专业，谈不上喜不喜欢，知道实习的时候，才意识到未来的工作我并不喜欢…</p>
-<p>这样子就开始了转行的想法，我哥是做算法的，一直优秀的我难以超越，当时iOS开发还处在火爆的余热当中….他得知我的想法后，帮我报了iOS开发培训班。<br> <a id="more"></a><br>就这样，实习期间，我走上了这条未知之路。直到这里我对编程什么概念都没有，更谈不上兴趣不兴趣的。然而很快，我就爱上敲代码，展现一个简单UI，实现一个小逻辑，解决一个小bug都是满满的成就感，这感觉跟高中专研物理题得到是一样一样的，渐渐发现喜欢这一行，如今手指放在键盘上偶尔也会感觉会有自信的风吹来，哇，真凉快！</p>
-<p>沉寂在学习的世界里还是比较愉悦的，但是，培训完，找工作那段时间还是比较痛苦的，这时候iOS对于新手已经很不友好了，尤其我们这些非专科班，简历又如实写的，真的很难很难 …… </p>
-<p>总要生活吧，没办法，拿了个实习的工资去一家小公司干着，进公司一段时间发现，单单iOS开发，公司里的那些老鸟也就那样，还有些专科班的基础我都不想吐槽了，都没有我培训前自学的那点…..但是心里有不平衡的又有什么办法，我还那只小小鸟，扎扎实实学吧！公司虽然小，但是不坑，一般五六点就能走了，作为一个小追求的少年，显然这不行，我开始我的工作+自学模式。</p>
-<p>直到今年的年后，在这个公司呆了一年半了，在开发APP的同时，围绕着iOS开发，从UI控件掌控，内存优管理，数据缓存持久化，类封装设计，app架构，iOS逆向…..一系列学习之后，心想着现在iOS开发上熟悉了，加上我能力和主动性上都是A+级别的，换个待遇好点工作应该不成问题吧…….相信同为iOS你的已经想后面了，面试的时候聊的都很好，后面…..持续了一个多月吧，想要的工资也降了好几拨，找到一家公司，这边辞职，老板不放我走，SO还在这里干。</p>
-<p>感慨还是比较多的，有时候也有点不得志的感觉。不过，高兴的是这行我还比较喜欢干的</p>
-<p>前段时间恶补了计算机组成原理，计算机操作系统，软件工程导论，后面准备学习学习算法导论，准备一年时间，剑指阿里。</p>
-<p>一些杂谈，与君共勉！</p>
+        <p>公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。</p>
+<p>随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们追求的</p>
+<h3 id="维护中被恶心到的地方"><a href="#维护中被恶心到的地方" class="headerlink" title="维护中被恶心到的地方"></a>维护中被恶心到的地方</h3><ol>
+<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png" alt=""><br>如上代码，我不止一次看到过。看到好像笑，这不是脱裤子放屁么，以前因为代码习惯，大可不必这样</p>
+<ul>
+<li>一个变量有且只有一个功能，尽量不要把一个变量用作多种用途</li>
+<li>变量在使用前应初始化，防止未初始化的变量被引用</li>
+<li>局部变量应该尽量接近使用它的地方</li>
+</ul>
+</li>
+<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.png" alt=""><br>初始化viewDidload里写一堆，当我们要找个tableView初始化的时候，在里面一顿翻。个人觉得将初始化封装在各自初始化方法，一些监听方法为了后面找到方便，可以加#pragma mark xxx; 就跟这里家里东西一样，自建看着也舒服呀<br>整理后的<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.1.png" alt=""><br>这样子写了下舒服多了</p>
+<ul>
+<li>一个函数的长度必须限制在50行以内</li>
+<li>一个函数只做一件事（单一原则）</li>
+</ul>
+</li>
+<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重。</p>
+</li>
+<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
+<p>if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了</p>
+<a id="more"></a></li>
+<li><p>UI编写后要多感受下，要多点点，有时候不平滑的感觉，我们自己能把握到，一般测试只测试功能点，细微的卡顿不一定能暴露，iOS9.0出的层次图很有用</p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.0.png" alt=""></p>
+<p>我们从手机上看的视图总是最上层的，</p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.1.png" alt=""></p>
+<p>这样的图片单单看手机界面经常毫无察觉</p>
+</li>
+<li><p>上图就是ARC下，界面与一些对象形成了保留环，解决办法就是将某些引用设置为weak，一般情况检查</p>
+<ul>
+<li>计时器NSTimer —–     对象会持有self</li>
+<li>block    —–         block内部用到的对象进行强引用(ARC)或者retainCount增1</li>
+<li>委托delegate —–      别手贱用retain或者strong，这个大家应该都掌握 </li>
+</ul>
+</li>
+<li><p>最恶心人的 –  在网络请求返回数据中直接整理数据</p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic7.0.png" alt=""><br>一般情况iOS开发中，请求网路数据，数据解析在model里存储。好比本来接口是获取一个班级所有成员信息的，结果因为你在一个界面只需要男生姓名，身高信息。直接子在接口中整理，回调出去，你这个界面可是爽了，可是代码扩展性，维护性，以后要加个界面要女生姓名，身高。看到这些比我还早入行一年的家伙的代码，我真的要一口老血喷到屏幕上</p>
+</li>
+</ol>
 
       
     </div>
@@ -406,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/20/MJRefresg/" rel="next" title="阅读源码（三）- MJRefresh">
-                <i class="fa fa-chevron-left"></i> 阅读源码（三）- MJRefresh
+              <a href="/2017/07/19/上半年回顾/" rel="next" title="上半年回顾">
+                <i class="fa fa-chevron-left"></i> 上半年回顾
               </a>
             
           </div>
@@ -416,8 +455,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/08/iOS实现排序/" rel="prev" title="OC实现算法（一）- 常规排序">
-                OC实现算法（一）- 常规排序 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/26/优秀代码前奏/" rel="prev" title="优秀OC代码-前奏">
+                优秀OC代码-前奏 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -465,8 +504,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
@@ -528,6 +576,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#维护中被恶心到的地方"><span class="nav-number">1.</span> <span class="nav-text">维护中被恶心到的地方</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

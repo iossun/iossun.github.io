@@ -266,6 +266,166 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/09/15/优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/15/优化/" itemprop="url">优秀OC代码-优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T00:00:00+08:00">
+                2017-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/15/优化/" class="leancloud_visitors" data-flag-title="优秀OC代码-优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="0号优化任务"><a href="#0号优化任务" class="headerlink" title="0号优化任务"></a>0号优化任务</h4><p>#####优化tableView</p>
+<ul>
+<li>通过设置正确的reuseIdentifier重用单元格。</li>
+<li>使尽可能多的视图不透明，包括单元本身。</li>
+<li>避免渐变，图像缩放和屏幕外绘图。</li>
+<li>缓存任何行的高度，如果它们不总是相同的。</li>
+<li>如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。</li>
+<li>使用shadowPath设置阴影。</li>
+<li>减少子视图的数量。</li>
+<li>在cellForRowAtIndexPath中做尽可能少的工作：。如果你需要做一些工作，只做一次，并缓存结果。</li>
+<li>使用适当的数据结构来保存所需的信息。不同的结构对不同的操作有不同的成本。</li>
+<li>is使用rowHeight，sectionFooterHeight和sectionHeaderHeight设置常量高，而不是询问委托
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/15/优化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/08/26/优秀代码前奏/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -590,10 +750,10 @@
 <li>一个函数只做一件事（单一原则）</li>
 </ul>
 </li>
-<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重。</p>
+<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重用。</p>
 </li>
-<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
-<p>if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了</p>
+</ol>
+<p>4.if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了<br>   <img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/08/15/不要这么刺眼/#more" rel="contents">
@@ -1688,156 +1848,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/12/20/MJRefresg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孙慕">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mumu@note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/12/20/MJRefresg/" itemprop="url">阅读源码（三）- MJRefresh</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-20T00:00:00+08:00">
-                2016-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
-                    <span itemprop="name">自我进阶</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/12/20/MJRefresg/" class="leancloud_visitors" data-flag-title="阅读源码（三）- MJRefresh">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://github.com/CoderMJLee/MJRefresh" target="_blank" rel="external">MJRefresh</a>被广泛使用的下拉刷新控件，之前曾经用Reveal观看过国内很多app的UI，一部分直接使用MJRefreshNormalHeader；有想法一点的用MJRefreshGifHeader，插入图片组，实现自定义的感觉；再用心一点的开发者继承MJRefreshComponent，重载父类的方法，自己绘制自定义的刷新控件。的确MJRefresh给我开发者节省了很多开发时间,昨天细读了MJRefresh源码</p>
-<p><img src="https://github.com/iossun/bolgImage/raw/master/MJRefres/MJRefresh1.png" alt=""><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/12/20/MJRefresg/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1887,7 +1897,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

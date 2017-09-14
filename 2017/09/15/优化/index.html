@@ -1,0 +1,919 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="0号优化任务#####优化tableView  通过设置正确的reuseIdentifier重用单元格。 使尽可能多的视图不透明，包括单元本身。 避免渐变，图像缩放和屏幕外绘图。 缓存任何行的高度，如果它们不总是相同的。 如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。 使用shadowPath设置阴影。 减少子视图的数量。 在cellForRowAtIndexPath中做尽可能少">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优秀OC代码-优化">
+<meta property="og:url" content="https://iossun.github.io/2017/09/15/优化/index.html">
+<meta property="og:site_name" content="mumu@note">
+<meta property="og:description" content="0号优化任务#####优化tableView  通过设置正确的reuseIdentifier重用单元格。 使尽可能多的视图不透明，包括单元本身。 避免渐变，图像缩放和屏幕外绘图。 缓存任何行的高度，如果它们不总是相同的。 如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。 使用shadowPath设置阴影。 减少子视图的数量。 在cellForRowAtIndexPath中做尽可能少">
+<meta property="og:updated_time" content="2017-09-14T09:19:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="优秀OC代码-优化">
+<meta name="twitter:description" content="0号优化任务#####优化tableView  通过设置正确的reuseIdentifier重用单元格。 使尽可能多的视图不透明，包括单元本身。 避免渐变，图像缩放和屏幕外绘图。 缓存任何行的高度，如果它们不总是相同的。 如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。 使用shadowPath设置阴影。 减少子视图的数量。 在cellForRowAtIndexPath中做尽可能少">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://iossun.github.io/2017/09/15/优化/"/>
+
+
+
+
+
+  <title>优秀OC代码-优化 | mumu@note</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mumu@note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">孜孜不倦，逆流而上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/09/15/优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">优秀OC代码-优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T00:00:00+08:00">
+                2017-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/15/优化/" class="leancloud_visitors" data-flag-title="优秀OC代码-优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="0号优化任务"><a href="#0号优化任务" class="headerlink" title="0号优化任务"></a>0号优化任务</h4><p>#####优化tableView</p>
+<ul>
+<li>通过设置正确的reuseIdentifier重用单元格。</li>
+<li>使尽可能多的视图不透明，包括单元本身。</li>
+<li>避免渐变，图像缩放和屏幕外绘图。</li>
+<li>缓存任何行的高度，如果它们不总是相同的。</li>
+<li>如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。</li>
+<li>使用shadowPath设置阴影。</li>
+<li>减少子视图的数量。</li>
+<li>在cellForRowAtIndexPath中做尽可能少的工作：。如果你需要做一些工作，只做一次，并缓存结果。</li>
+<li>使用适当的数据结构来保存所需的信息。不同的结构对不同的操作有不同的成本。</li>
+<li>is使用rowHeight，sectionFooterHeight和sectionHeaderHeight设置常量高，而不是询问委托<a id="more"></a>
+</li>
+</ul>
+<h4 id="UI基础"><a href="#UI基础" class="headerlink" title="UI基础"></a>UI基础</h4><h5 id="1-尽可能将视图设为不透明"><a href="#1-尽可能将视图设为不透明" class="headerlink" title="1.尽可能将视图设为不透明"></a>1.尽可能将视图设为不透明</h5><p>  如果您有不透明视图或者没有明确透明度的视图，应该将其不透明属性（Opaque）设置为YES。该属性为绘图系统提供了如何处理视图的提示。如果设置为YES，则绘图系统将视图视为完全不透明，这样可以使绘图系统优化一些绘图操作并提高性能。如果设置为NO，绘图系统将正常与其他内容复合视图。此属性的默认值为YES。</p>
+<h5 id="2-避免累赘的XIB"><a href="#2-避免累赘的XIB" class="headerlink" title="2.避免累赘的XIB"></a>2.避免累赘的XIB</h5><p>  如果您被迫使用XIB，请尽可能简单。尝试为每个视图控制器创建一个XIB，如果可能，将视图控制器的视图层次结构分解为单独的XIB，当您将XIB加载到内存中时，其所有内容都将加载到内存中，包括任何图像。如果你有一些视图，你没有立即使用，那么你浪费宝贵的内存。值得注意的是，故事板不会发生这种情况，因为故事板只会在需要时实例化视图控制器</p>
+<h5 id="3-不要阻塞主线程"><a href="#3-不要阻塞主线程" class="headerlink" title="3.不要阻塞主线程"></a>3.不要阻塞主线程</h5><p>  你应该永远不会做在主线程中的任何繁重。这是因为UIKit在主线程上执行所有自己的工作，例如绘图，管理触摸和响应输入。如果您正在进行任何其他昂贵的操作（例如对磁盘进行时间密集的计算或读取/写入），请使用Grand Central Dispatch或NSOperations和NSOperationQueues。</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">   dispatch_async（dispatch_get_global_queue（DISPATCH_QUEUE_PRIORITY_DEFAULT，0），^ &#123;</div><div class="line">     //切换到后台线程并执行昂贵的操作</div><div class="line">    </div><div class="line">    dispatch_async（dispatch_get_main_queue（），^ &#123;</div><div class="line">         //切换回主线程来更新您的UI</div><div class="line"></div><div class="line">    &#125;）;</div><div class="line">&#125;）;</div></pre></td></tr></table></figure>
+<h5 id="4-选择正确的集合"><a href="#4-选择正确的集合" class="headerlink" title="4.选择正确的集合"></a>4.选择正确的集合</h5><p>学习使用最适合的类或对象来执行任务，这对于编写高效的代码是至关重要的。处理集合时尤其如此<br>以下是最常见的集合类型的简要说明：</p>
+<ul>
+<li>数组：有序的值列表。通过索引快速查找，按值读取缓慢，插入/删除缓慢。</li>
+<li>字典：存储键/值对。按键快速查找</li>
+<li>集：无序的值列表。通过值快速查找，快速插入/删除。</li>
+</ul>
+<h5 id="5-启用GZIP压缩"><a href="#5-启用GZIP压缩" class="headerlink" title="5.启用GZIP压缩"></a>5.启用GZIP压缩</h5><p>越来越多的应用程序依赖于来自远程服务器或其他外部API的外部数据。在某些时候，您将开发一种以XML，JSON，HTML或其他文本格式下载数据的应用程序。</p>
+<p>问题在于移动设备无法依赖网络状况。一个用户可以在一个EDGE网络上一分钟，一个3G网络下一个。无论这种情况如何，您不想让用户等待！</p>
+<p>减少文件大小和加快下载基于网络资源的一个选项是通过在您的服务器和客户端上启用GZIP压缩。对于基于文本的数据，这对于压缩具有很高的潜在比例特别有用。</p>
+<p>好消息是，如果您使用NSURLConnection，或者建立在其上的框架（如AFNetworking），则iOS已默认支持GZIP压缩</p>
+<p>####中级改进</p>
+<p>#####6.重用和惰性加载视图<br>更多意见意味着更多的绘图 这最终意味着更多的CPU和内存开销。如果您的应用程序在UIScrollView内部嵌入许多视图，这一点尤其如此。</p>
+<p>管理这个的窍门是模仿UITableView和UICollectionView的行为：不要一次创建所有的子视图。而是根据需要创建您的视图，并在完成后将其添加到重用队列中。</p>
+<p>这样，您只能在执行滚动时配置视图，避免分配成本 - 这可能是昂贵的。</p>
+<p>创建视图的时间问题也适用于您的应用程序的其他区域。在用户敲击按钮的情况下，您需要呈现视图。至少有两种方法：</p>
+<p>当屏幕首次加载并隐藏它时创建视图; 那么当你需要它，显示它。</p>
+<p>直到您需要显示视图才能执行任何操作。然后，立即创建视图并显示它。</p>
+<p>每种方法都有自己的利弊。</p>
+<p>使用第一种方法，您将消耗更多的内存，因为您立即创建持有该内存的视图，直到它被释放。但是，当用户点击按钮时，您的应用将显示更加敏感，因为它只需要更改视图的可见性。</p>
+<p>第二种做法会产生相反的效果; 通过仅在需要时才创建视图，消耗更少的内存; 但是，当按钮被点击时，应用程序不会显示为响应。</p>
+<p>#####7.缓存<br>开发应用程序的一个很好的经验法则是“缓存重要” - 即不太可能改变，但被频繁访问的东西。如：一些缓存网络图片，UITableView行计算高</p>
+<p>缓存能加快UI响应，提升用户体验</p>
+<p>特别提醒：NSCache看起来像NSDictionary一样，但是当系统需要回收内存时</p>
+<p>#####8.考虑绘图<br>iOS可以使用CALayer，CoreGraphics甚至OpenGL手动绘制图片。</p>
+<p>通过固定图像，您将失去通过代码调整图像的能力，需要重新生成图像，并将其重新放入应用程序。这可能是一个缓慢的过程。另一点是，如果你有一个动画，或者只是很多图像，稍微改变（例如，它们可以有多个重叠颜色），那么你必须嵌入很多图像，增加应用程序的捆绑包大小</p>
+<p>绘制性能或应用的大小。一般来说，这两个方面都很重要，所以您将在同一个项目中使用两种方法</p>
+<p>#####9.重用昂贵的物品<br>一些对象初始化非常慢 - NSDateFormatter和NSCalendar是两个例子。但是，您不能总是避免使用它们，例如在从JSON / XML响应中解析日期时。</p>
+<p>为了避免使用这些对象时的性能瓶颈，如果可能，尝试重用这些对象。您可以通过向类中添加属性或通过创建静态变量来执行此操作。</p>
+<p>请注意，如果您选择第二种方法，对象将在您的应用程序运行时保留在内存中，就像单例一样。</p>
+<p>下面的代码演示了一个延迟加载日期格式化程序的属性。它第一次被调用，它创建一个新的日期格式化程序。将来的调用将返回已经创建的实例：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> //在你的.h里面或者一个类的扩展名</div><div class="line">@property（nonatomic，strong）NSDateFormatter * formatter;</div><div class="line"></div><div class="line">//在实现（.m）</div><div class="line">//当你需要，只需使用self.formatter </div><div class="line">- （NSDateFormatter *）formatter&#123;</div><div class="line">     if（！_formatter）&#123;</div><div class="line">        _formatter = [[ NSDateFormatter alloc] init];</div><div class="line">        _formatter.dateFormat = @“EEE MMM dd HH：mm：ss Z yyyy” ; // twitter日期格式</div><div class="line">    &#125;</div><div class="line">    return _formatter;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>  还要记住，设置NSDateFormatter的日期格式几乎与创建新日期格式一样慢！因此，如果您经常需要处理应用程序中的多个日期格式，那么您的代码可能会受益于最初创建和重用多个NSDateFormatter对象</p>
+<p>#####10.避免重新处理数据<br> 许多应用程序调用远程服务器的数据来获取应用程序需要的功能。该数据通常以JSON或XML格式出现。在请求和接收数据时，尝试和使用相同的数据结构非常重要。</p>
+<p>为什么？在内存中操作数据以适应您的数据结构可能是昂贵的。</p>
+<p>例如，如果您需要在表视图中显示数据，则最好以数组格式请求和接收数据，以避免对数据进行任何中间操作，使其适合您使用的数据结构你的应用程序</p>
+<p>同样，如果您的应用程序依赖于通过键访问特定值，那么您可能希望请求并接收一个键/值对字典。<br>通过首次获取正确格式的数据，您将避免在应用程序中进行大量重新处理，使数据适合您选择的结构。 </p>
+<p>#####11.选择正确的数据格式</p>
+<p>有多种方式可以从Web服务将数据传输到您的应用程序，但最常见的两种是JSON和XML。你想确保你为你的应用选择正确的一个。</p>
+<p>JSON解析速度更快，并且通常小于XML，这意味着较少的数据传输。而从iOS 5开始，内置的JSON反序列化也很容易使用。</p>
+<p>但是，XML的一个优点是，如果您使用SAX解析方法，则可以在将其从线上读取时使用XML数据，而不必等待整个数据到达，然后再将其解析为JSON。当处理大量数据时，这可以提高性能并减少内存消耗。</p>
+<p>#####12.适当设置背景图像</p>
+<p>像iOS编码中的许多其他东西一样，至少有两种不同的方式可以在您的视图中放置背景图像：<br>您可以将视图的背景颜色设置为使用UIColor的colorWithPatternImage创建的颜色。<br>您可以在视图中添加UIImageView子视图。</p>
+<p>如果你有一个完整大小的背景图像，那么你一定要使用一个UIImageView，因为UIColor的colorWithPatternImage是为了创建将被重复的小图案图像，而不是大的图像大小。在这种情况下，使用UIImageView将节省大量内存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//你也可以在Interface Builder中实现相同的结果</div><div class="line">UIImageView * backgroundView = [[ UIImageView alloc] initWithImage：[ UIImage imageNamed：@“background” ]];</div><div class="line">[ self .view addSubview：backgroundView];</div></pre></td></tr></table></figure>
+<p>但是，如果您打算使用图像图像背景，使用较小的图像将重复或平铺以填充背景，则应该使用UIColor的colorWithPatternImage，因为绘制速度更快，并且不会使用大量内存这个案例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self .view.backgroundColor = [ UIColor colorWithPatternImage：[ UIImage imageNamed：@“background” ]];</div></pre></td></tr></table></figure>
+<p>####高级性能提示</p>
+<p>#####13.加快启动响应<br>快速启动应用程序非常重要，特别是当用户第一次启动时。第一印象意味着很多应用程序！</p>
+<p>您可以做的最大的事情是尽可能快地启动应用程序，即可执行尽可能多的异步任务，例如网络请求，数据库访问或解析数据。</p>
+<p>同样，尽量避免累赘XIB，因为它们被加载到主线程上。</p>
+<p>#####14.使用自动释放池<br>NSAutoreleasePool负责释放一个块内的自动释放的对象。通常，它由UIKit自动调用。但是在某些情况下，您可能需要手动创建NSAutoreleasePools。</p>
+<p>例如，如果您在代码中创建了大量临时对象，则会注意到内存使用量增加，直到释放这些对象。问题是，这个内存只有在UIKit耗尽其自动释放池之后才释放，这意味着这个内存的持久时间要长得多。</p>
+<p>好消息是，您可以通过在自己的@autoreleasepool块中创建这些临时对象来避免这种情况，如下面的代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">NSArray * urls = &lt; ＃文件URL数组＃&gt;; </div><div class="line">for（NSURL * url in urls）&#123;</div><div class="line">     @autoreleasepool &#123;</div><div class="line">         NSError * error;</div><div class="line">        NSString * fileContents = [ NSString stringWithContentsOfURL：url</div><div class="line">                                         code：NSUTF8StringEncoding error：＆error];</div><div class="line">        / *处理字符串，创建和自动释放更多对象。* /</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这将在每次迭代结束时释放所有自动释放对象。</p>
+<p>#####15.图片是否需要缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIImage * img = [ UIImage imageNamed：@“myImage” ]; //缓存</div><div class="line">//或</div><div class="line">UIImage * img = [ UIImage imageWithContentsOfFile：@“myImage” ]; //没有缓存</div></pre></td></tr></table></figure>
+<p>如果您正在加载一次只能使用一次的大型图像，则不需要缓存图像。在这种情况下，imageWithContentsOfFile将很好地适应账单 - 这样，操作系统不会浪费内存缓存图像。<br>然而，imageNamed是您将在应用程序中重复使用的图像的更好选择。这样，操作系统节省了不断从磁盘加载映像的时间。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/优秀代码前奏/" rel="next" title="优秀OC代码-前奏">
+                <i class="fa fa-chevron-left"></i> 优秀OC代码-前奏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
+               alt="孙慕" />
+          <p class="site-author-name" itemprop="name">孙慕</p>
+           
+              <p class="site-description motion-element" itemprop="description">知识总结积累</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0号优化任务"><span class="nav-number">1.</span> <span class="nav-text">0号优化任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI基础"><span class="nav-number">2.</span> <span class="nav-text">UI基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-尽可能将视图设为不透明"><span class="nav-number">2.1.</span> <span class="nav-text">1.尽可能将视图设为不透明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-避免累赘的XIB"><span class="nav-number">2.2.</span> <span class="nav-text">2.避免累赘的XIB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-不要阻塞主线程"><span class="nav-number">2.3.</span> <span class="nav-text">3.不要阻塞主线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-选择正确的集合"><span class="nav-number">2.4.</span> <span class="nav-text">4.选择正确的集合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-启用GZIP压缩"><span class="nav-number">2.5.</span> <span class="nav-text">5.启用GZIP压缩</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">孙慕</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("BaKu72zk5g7NY56Nrism5B5m-gzGzoHsz", "PtJC4e2EuqItIkCTOKeW6UCU");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

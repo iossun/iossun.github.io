@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.0.png">
 <meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.1.png">
 <meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic7.0.png">
-<meta property="og:updated_time" content="2017-08-31T08:22:09.000Z">
+<meta property="og:updated_time" content="2017-08-31T08:53:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="好想维护一份大神的代码">
 <meta name="twitter:description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
@@ -387,11 +387,12 @@
 <li>一个函数只做一件事（单一原则）</li>
 </ul>
 </li>
-<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重。</p>
+<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重用。</p>
 </li>
-<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
-<p>if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了</p>
-<a id="more"></a></li>
+</ol>
+<p>4.if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了<br>   <img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
+<a id="more"></a>
+<ol>
 <li><p>UI编写后要多感受下，要多点点，有时候不平滑的感觉，我们自己能把握到，一般测试只测试功能点，细微的卡顿不一定能暴露，iOS9.0出的层次图很有用</p>
 <p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.0.png" alt=""></p>
 <p>我们从手机上看的视图总是最上层的，</p>
@@ -529,7 +530,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

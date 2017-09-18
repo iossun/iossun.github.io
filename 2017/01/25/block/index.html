@@ -93,25 +93,19 @@
 
 
 
-<meta name="description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
+<meta name="description" content="####Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void">
 <meta property="og:type" content="article">
-<meta property="og:title" content="好想维护一份大神的代码">
-<meta property="og:url" content="https://iossun.github.io/2017/08/15/不要这么刺眼/index.html">
+<meta property="og:title" content="强化知识点 - block">
+<meta property="og:url" content="https://iossun.github.io/2017/01/25/block/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.1.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.0.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.1.png">
-<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic7.0.png">
-<meta property="og:updated_time" content="2017-08-31T08:53:32.000Z">
+<meta property="og:description" content="####Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_1.png">
+<meta property="og:updated_time" content="2017-09-18T02:25:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="好想维护一份大神的代码">
-<meta name="twitter:description" content="公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。 随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们">
-<meta name="twitter:image" content="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png">
+<meta name="twitter:title" content="强化知识点 - block">
+<meta name="twitter:description" content="####Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void">
+<meta name="twitter:image" content="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png">
 
 
 
@@ -139,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://iossun.github.io/2017/08/15/不要这么刺眼/"/>
+  <link rel="canonical" href="https://iossun.github.io/2017/01/25/block/"/>
 
 
 
 
 
-  <title>好想维护一份大神的代码 | mumu@note</title>
+  <title>强化知识点 - block | mumu@note</title>
   
 
 
@@ -274,7 +268,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/08/15/不要这么刺眼/">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/01/25/block/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="孙慕">
@@ -291,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">好想维护一份大神的代码</h1>
+          <h1 class="post-title" itemprop="name headline">强化知识点 - block</h1>
         
 
         <div class="post-meta">
@@ -303,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T00:00:00+08:00">
-                2017-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-25T00:00:00+08:00">
+                2017-01-25
               </time>
             
 
@@ -326,8 +320,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/小感/" itemprop="url" rel="index">
-                    <span itemprop="name">小感</span>
+                  <a href="/categories/自我进阶/" itemprop="url" rel="index">
+                    <span itemprop="name">自我进阶</span>
                   </a>
                 </span>
 
@@ -343,7 +337,7 @@
 
           
           
-             <span id="/2017/08/15/不要这么刺眼/" class="leancloud_visitors" data-flag-title="好想维护一份大神的代码">
+             <span id="/2017/01/25/block/" class="leancloud_visitors" data-flag-title="强化知识点 - block">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -371,45 +365,54 @@
       
 
       
-        <p>公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。</p>
-<p>随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们追求的</p>
-<h3 id="维护中被恶心到的地方"><a href="#维护中被恶心到的地方" class="headerlink" title="维护中被恶心到的地方"></a>维护中被恶心到的地方</h3><ol>
-<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png" alt=""><br>如上代码，我不止一次看到过。看到好像笑，这不是脱裤子放屁么，以前因为代码习惯，大可不必这样</p>
-<ul>
-<li>一个变量有且只有一个功能，尽量不要把一个变量用作多种用途</li>
-<li>变量在使用前应初始化，防止未初始化的变量被引用</li>
-<li>局部变量应该尽量接近使用它的地方</li>
-</ul>
-</li>
-<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.png" alt=""><br>初始化viewDidload里写一堆，当我们要找个tableView初始化的时候，在里面一顿翻。个人觉得将初始化封装在各自初始化方法，一些监听方法为了后面找到方便，可以加#pragma mark xxx; 就跟这里家里东西一样，自建看着也舒服呀<br>整理后的<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.1.png" alt=""><br>这样子写了下舒服多了</p>
-<ul>
-<li>一个函数的长度必须限制在50行以内</li>
-<li>一个函数只做一件事（单一原则）</li>
-</ul>
-</li>
-<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重用。</p>
-</li>
-</ol>
-<p>4.if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了<br>   <img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
+        <p>####Block的定义与使用<br>block使用简单过一下，废话不多说</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">//1.无参数，无返回值，声明和定义</div><div class="line">void (^Block1)() = ^&#123;</div><div class="line">    NSLog(@&quot;block1&quot;);</div><div class="line">&#125;;</div><div class="line">Block1();</div><div class="line"></div><div class="line">//2、有参数无返回值</div><div class="line">void (^Block2)(int) = ^(int a)&#123;</div><div class="line">    NSLog(@&quot;block1%d&quot;,a);</div><div class="line">&#125;;</div><div class="line">Block2(2);</div><div class="line"></div><div class="line">//3、有参数有返回值</div><div class="line">int (^Block3)(int,int) = ^(int a,int b)&#123;</div><div class="line">    NSLog(@&quot;block3 %d&quot;,a + b);</div><div class="line">    </div><div class="line">    return a + b;</div><div class="line">&#125;;</div><div class="line">Block3(2,3);</div><div class="line"></div><div class="line">//4、无参数有返回值(很少用到)</div><div class="line">int (^Block4)(void) = ^()&#123;</div><div class="line">    NSLog(@&quot;block4&quot;);</div><div class="line">    </div><div class="line">    return 1;</div><div class="line">&#125;;</div><div class="line"> Block4();</div><div class="line"></div><div class="line">//5、实际开发中常用typedef 定义Block</div><div class="line"></div><div class="line">typedef void(^Block5)(int);</div><div class="line">Block5 myblock =  ^(int a)&#123;</div><div class="line">    NSLog(@&quot;block1%d&quot;,a);</div><div class="line">&#125;;;</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<ol>
-<li><p>UI编写后要多感受下，要多点点，有时候不平滑的感觉，我们自己能把握到，一般测试只测试功能点，细微的卡顿不一定能暴露，iOS9.0出的层次图很有用</p>
-<p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.0.png" alt=""></p>
-<p>我们从手机上看的视图总是最上层的，</p>
-<p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic5.1.png" alt=""></p>
-<p>这样的图片单单看手机界面经常毫无察觉</p>
-</li>
-<li><p>上图就是ARC下，界面与一些对象形成了保留环，解决办法就是将某些引用设置为weak，一般情况检查</p>
+<p>####Block结构</p>
+<p>Block经clang转换后，这些内容被当做了C语言函数来处理，函数参数中的__cself相当于Objective-C中的self。</p>
+<p>OC</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int count = 10;</div><div class="line">  void (^ blk)() = ^()&#123;</div><div class="line">       NSLog(@&quot;In Block:%d&quot;, count);</div><div class="line">          &#125;;</div><div class="line"> blk();</div></pre></td></tr></table></figure>
+<p>C++</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc; //描述Block大小、版本等信息</div><div class="line">  int count;//截获对象</div><div class="line">  //构造函数函数</div><div class="line">  __main_block_impl_0(void *fp,</div><div class="line">        struct __main_block_desc_0 *desc,</div><div class="line">        int _count,</div><div class="line">        int flags=0) : count(_count) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock; //在函数栈上声明，则为_NSConcreteStackBlock</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">struct __block_impl &#123;</div><div class="line">  void *isa;//指明对象的Class</div><div class="line">  int Flags;</div><div class="line">  int Reserved;</div><div class="line">  void *FuncPtr;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>####三种Block</p>
 <ul>
-<li>计时器NSTimer —–     对象会持有self</li>
-<li>block    —–         block内部用到的对象进行强引用(ARC)或者retainCount增1</li>
-<li>委托delegate —–      别手贱用retain或者strong，这个大家应该都掌握 </li>
+<li>全局块(_NSConcreteGlobalBlock)</li>
+<li>栈块(_NSConcreteStackBlock)</li>
+<li>堆块(_NSConcreteMallocBlock)</li>
 </ul>
-</li>
-<li><p>最恶心人的 –  在网络请求返回数据中直接整理数据</p>
-<p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic7.0.png" alt=""><br>一般情况iOS开发中，请求网路数据，数据解析在model里存储。好比本来接口是获取一个班级所有成员信息的，结果因为你在一个界面只需要男生姓名，身高信息。直接子在接口中整理，回调出去，你这个界面可是爽了，可是代码扩展性，维护性，以后要加个界面要女生姓名，身高。看到这些比我还早入行一年的家伙的代码，我真的要一口老血喷到屏幕上</p>
-</li>
-</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void (^blk)(void) = ^&#123;</div><div class="line">    NSLog(@&quot;Global Block&quot;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">int main() &#123;</div><div class="line">    blk();</div><div class="line">    NSLog(@&quot;%@&quot;,[blk class]);//打印：__NSGlobalBlock__</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码Block自然存储在全局区，如何确定Block的存储位置？</p>
+<ul>
+<li>Block不访问外界变量（包括栈中和堆中的变量）</li>
+<li>访问外界变量的 Block 默认存储在堆中（实际是放在栈区，然后ARC情况下自动又拷贝到堆区），自动释放。(ARC)</li>
+</ul>
+<p>####Block使用变量</p>
+<p>#####自动截获变量<br>上面介绍的Block代码中<br><img src="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png" alt=""><br>block内部使用的外部变量，自动捕获外部变量，变量会存储于block的结构体内部</p>
+<p>#####__block变量</p>
+<p>当用__block修饰var时</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">__block int count = 10;</div><div class="line">void (^ blk)() = ^()&#123;</div><div class="line">      NSLog(@&quot;In Block:%d&quot;, count);          </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>Block自动截获变量时,Block结构体里面会增加了一个成员变量，它是一个结构体指针，指向了<strong>Block_byref_val_0结构体的一个实例。<br>这个结构体是变量val在被</strong>block修饰后生成的！！<br>该结构体声明如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">struct __Block_byref_val_0 &#123;</div><div class="line">  void *__isa;</div><div class="line">__Block_byref_val_0 *__forwarding;</div><div class="line"> int __flags;</div><div class="line"> int __size;</div><div class="line"> int val;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>__forwarding保证访问变量为同一个对象</p>
+<p>#####<strong>forwarding变量<br>在copy操作之后，既然</strong>block变量也被copy到堆上去了, 那么访问该变量是访问栈上的还是堆上的呢?一张图一目了然</p>
+<p><img src="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_1.png" alt=""></p>
+<p>####Block 复制</p>
+<ul>
+<li>调用Block的copy方法</li>
+<li>将Block作为函数返回值时（MRC时此条无效，需手动调用copy）</li>
+<li>将Block赋值给附有__strong修饰符id类型的类或者Block类型成员变量时</li>
+<li>向Cocoa框架含有usingBlock的方法或者GCD的API传递Block参数时</li>
+</ul>
+<p>####Block 循环引用</p>
+<p>Block循环引用原因：一个对象A有Block类型的属性，从而持有这个Block，如果Block的代码块中使用到这个对象A，或者仅仅是用用到A对象的属性，会使Block也持有A对象，导致两者互相持有，不能在作用域结束后正常释放。</p>
+<p>解决原理：对象A照常持有Block，但Block不能强引用持有对象A以打破循环。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">typedef void(^MYBlock)(int);</div><div class="line"></div><div class="line"></div><div class="line">@interface BlockViewController ()</div><div class="line"></div><div class="line">@property (nonatomic,strong) MYBlock block;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation BlockViewController</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">   </div><div class="line">    self.block = ^(int a)&#123;</div><div class="line">      </div><div class="line">        NSLog(@&quot;self = %@&quot;,self);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们将某些引用设置为weak，可避免出现“保留环“;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    </div><div class="line">    __weak typeof(self) weakSelf = self;</div><div class="line">    </div><div class="line">    self.block = ^(int a)&#123;</div><div class="line">      </div><div class="line">        NSLog(@&quot;self = %@&quot;,weakSelf);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在使用block时，一定要谨慎点，避免出行”保留环”;</p>
+<p>参考文章：</p>
+<p><a href="https://www.wangjiawen.com/ios/ios-block-usage-and-implementation" target="_blank" rel="external">iOS Block用法和实现原理</a></p>
+<p><a href="http://www.imlifengfeng.com/blog/?p=457" target="_blank" rel="external">iOS Block详解</a></p>
 
       
     </div>
@@ -446,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/19/上半年回顾/" rel="next" title="上半年回顾">
-                <i class="fa fa-chevron-left"></i> 上半年回顾
+              <a href="/2017/01/08/runloop/" rel="next" title="强化知识点 - runloop">
+                <i class="fa fa-chevron-left"></i> 强化知识点 - runloop
               </a>
             
           </div>
@@ -456,8 +459,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/26/优秀代码前奏/" rel="prev" title="优秀OC代码-前奏">
-                优秀OC代码-前奏 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/05/两年iOS开发之路/" rel="prev" title="两年ios开发之路">
+                两年ios开发之路 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -505,17 +508,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
@@ -577,22 +571,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#维护中被恶心到的地方"><span class="nav-number">1.</span> <span class="nav-text">维护中被恶心到的地方</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

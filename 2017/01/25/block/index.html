@@ -93,18 +93,18 @@
 
 
 
-<meta name="description" content="####Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void">
+<meta name="description" content="Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void (^Bl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强化知识点 - block">
 <meta property="og:url" content="https://iossun.github.io/2017/01/25/block/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="####Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void">
+<meta property="og:description" content="Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void (^Bl">
 <meta property="og:image" content="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png">
 <meta property="og:image" content="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_1.png">
-<meta property="og:updated_time" content="2017-09-18T02:53:41.000Z">
+<meta property="og:updated_time" content="2017-09-18T02:58:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化知识点 - block">
-<meta name="twitter:description" content="####Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void">
+<meta name="twitter:description" content="Block的定义与使用block使用简单过一下，废话不多说 12345678910111213141516171819202122232425262728293031323334//1.无参数，无返回值，声明和定义void (^Block1)() = ^&amp;#123;    NSLog(@&amp;quot;block1&amp;quot;);&amp;#125;;Block1();//2、有参数无返回值void (^Bl">
 <meta name="twitter:image" content="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png">
 
 
@@ -365,17 +365,15 @@
       
 
       
-        <p>####Block的定义与使用<br>block使用简单过一下，废话不多说</p>
+        <h4 id="Block的定义与使用"><a href="#Block的定义与使用" class="headerlink" title="Block的定义与使用"></a>Block的定义与使用</h4><p>block使用简单过一下，废话不多说</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">//1.无参数，无返回值，声明和定义</div><div class="line">void (^Block1)() = ^&#123;</div><div class="line">    NSLog(@&quot;block1&quot;);</div><div class="line">&#125;;</div><div class="line">Block1();</div><div class="line"></div><div class="line">//2、有参数无返回值</div><div class="line">void (^Block2)(int) = ^(int a)&#123;</div><div class="line">    NSLog(@&quot;block1%d&quot;,a);</div><div class="line">&#125;;</div><div class="line">Block2(2);</div><div class="line"></div><div class="line">//3、有参数有返回值</div><div class="line">int (^Block3)(int,int) = ^(int a,int b)&#123;</div><div class="line">    NSLog(@&quot;block3 %d&quot;,a + b);</div><div class="line">    </div><div class="line">    return a + b;</div><div class="line">&#125;;</div><div class="line">Block3(2,3);</div><div class="line"></div><div class="line">//4、无参数有返回值(很少用到)</div><div class="line">int (^Block4)(void) = ^()&#123;</div><div class="line">    NSLog(@&quot;block4&quot;);</div><div class="line">    </div><div class="line">    return 1;</div><div class="line">&#125;;</div><div class="line"> Block4();</div><div class="line"></div><div class="line">//5、实际开发中常用typedef 定义Block</div><div class="line"></div><div class="line">typedef void(^Block5)(int);</div><div class="line">Block5 myblock =  ^(int a)&#123;</div><div class="line">    NSLog(@&quot;block1%d&quot;,a);</div><div class="line">&#125;;;</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>####Block结构</p>
-<p>Block经clang转换后，这些内容被当做了C语言函数来处理，函数参数中的__cself相当于Objective-C中的self。</p>
+<h4 id="Block结构"><a href="#Block结构" class="headerlink" title="Block结构"></a>Block结构</h4><p>Block经clang转换后，这些内容被当做了C语言函数来处理，函数参数中的__cself相当于Objective-C中的self。</p>
 <p>OC</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">int count = 10;</div><div class="line">  void (^ blk)() = ^()&#123;</div><div class="line">       NSLog(@&quot;In Block:%d&quot;, count);</div><div class="line">          &#125;;</div><div class="line"> blk();</div></pre></td></tr></table></figure>
 <p>C++</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc; //描述Block大小、版本等信息</div><div class="line">  int count;//截获对象</div><div class="line">  //构造函数函数</div><div class="line">  __main_block_impl_0(void *fp,</div><div class="line">        struct __main_block_desc_0 *desc,</div><div class="line">        int _count,</div><div class="line">        int flags=0) : count(_count) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock; //在函数栈上声明，则为_NSConcreteStackBlock</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">struct __block_impl &#123;</div><div class="line">  void *isa;//指明对象的Class</div><div class="line">  int Flags;</div><div class="line">  int Reserved;</div><div class="line">  void *FuncPtr;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>####三种Block</p>
-<ul>
+<h4 id="三种Block"><a href="#三种Block" class="headerlink" title="三种Block"></a>三种Block</h4><ul>
 <li>全局块(_NSConcreteGlobalBlock)</li>
 <li>栈块(_NSConcreteStackBlock)</li>
 <li>堆块(_NSConcreteMallocBlock)</li>
@@ -386,25 +384,21 @@
 <li>Block不访问外界变量（包括栈中和堆中的变量）</li>
 <li>访问外界变量的 Block 默认存储在堆中（实际是放在栈区，然后ARC情况下自动又拷贝到堆区），自动释放。(ARC)</li>
 </ul>
-<p>####Block使用变量</p>
-<p>#####自动截获变量<br>上面介绍的Block代码中<br><img src="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png" alt=""><br>block内部使用的外部变量，自动捕获外部变量，变量会存储于block的结构体内部</p>
-<p>#####__block变量</p>
-<p>当用__block修饰var时</p>
+<h4 id="Block使用变量"><a href="#Block使用变量" class="headerlink" title="Block使用变量"></a>Block使用变量</h4><h5 id="自动截获变量"><a href="#自动截获变量" class="headerlink" title="自动截获变量"></a>自动截获变量</h5><p>上面介绍的Block代码中<br><img src="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_0.png" alt=""><br>block内部使用的外部变量，自动捕获外部变量，变量会存储于block的结构体内部</p>
+<h5 id="block变量"><a href="#block变量" class="headerlink" title="__block变量"></a>__block变量</h5><p>当用__block修饰var时</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">__block int count = 10;</div><div class="line">void (^ blk)() = ^()&#123;</div><div class="line">      NSLog(@&quot;In Block:%d&quot;, count);          </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>Block自动截获变量时,Block结构体里面会增加了一个成员变量，它是一个结构体指针，指向了<strong>Block_byref_val_0结构体的一个实例。<br>这个结构体是变量val在被</strong>block修饰后生成的！！<br>该结构体声明如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">struct __Block_byref_val_0 &#123;</div><div class="line">  void *__isa;</div><div class="line">__Block_byref_val_0 *__forwarding;</div><div class="line"> int __flags;</div><div class="line"> int __size;</div><div class="line"> int val;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>__forwarding保证访问变量为同一个对象</p>
-<p>#####<strong>forwarding变量<br>在copy操作之后，既然</strong>block变量也被copy到堆上去了, 那么访问该变量是访问栈上的还是堆上的呢?一张图一目了然</p>
+<h5 id="forwarding变量"><a href="#forwarding变量" class="headerlink" title="__forwarding变量"></a>__forwarding变量</h5><p>在copy操作之后，既然__block变量也被copy到堆上去了, 那么访问该变量是访问栈上的还是堆上的呢?一张图一目了然</p>
 <p><img src="https://github.com/iossun/bolgImage/raw/a78e5cc7dba02ee8825f4d8c931e2fa8773192c6/Block/block_1.png" alt=""></p>
-<p>####Block 复制</p>
-<ul>
+<h4 id="Block-复制"><a href="#Block-复制" class="headerlink" title="Block 复制"></a>Block 复制</h4><ul>
 <li>调用Block的copy方法</li>
 <li>将Block作为函数返回值时（MRC时此条无效，需手动调用copy）</li>
 <li>将Block赋值给附有__strong修饰符id类型的类或者Block类型成员变量时</li>
 <li>向Cocoa框架含有usingBlock的方法或者GCD的API传递Block参数时</li>
 </ul>
-<p>####Block 循环引用</p>
-<p>Block循环引用原因：一个对象A有Block类型的属性，从而持有这个Block，如果Block的代码块中使用到这个对象A，或者仅仅是用用到A对象的属性，会使Block也持有A对象，导致两者互相持有，不能在作用域结束后正常释放。</p>
+<h4 id="Block-循环引用"><a href="#Block-循环引用" class="headerlink" title="Block 循环引用"></a>Block 循环引用</h4><p>Block循环引用原因：一个对象A有Block类型的属性，从而持有这个Block，如果Block的代码块中使用到这个对象A，或者仅仅是用用到A对象的属性，会使Block也持有A对象，导致两者互相持有，不能在作用域结束后正常释放。</p>
 <p>解决原理：对象A照常持有Block，但Block不能强引用持有对象A以打破循环。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">typedef void(^MYBlock)(int);</div><div class="line"></div><div class="line"></div><div class="line">@interface BlockViewController ()</div><div class="line"></div><div class="line">@property (nonatomic,strong) MYBlock block;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation BlockViewController</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">   </div><div class="line">    self.block = ^(int a)&#123;</div><div class="line">      </div><div class="line">        NSLog(@&quot;self = %@&quot;,self);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>我们将某些引用设置为weak，可避免出现“保留环“;</p>
@@ -508,8 +502,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
@@ -571,6 +574,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Block的定义与使用"><span class="nav-number">1.</span> <span class="nav-text">Block的定义与使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Block结构"><span class="nav-number">2.</span> <span class="nav-text">Block结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三种Block"><span class="nav-number">3.</span> <span class="nav-text">三种Block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Block使用变量"><span class="nav-number">4.</span> <span class="nav-text">Block使用变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动截获变量"><span class="nav-number">4.1.</span> <span class="nav-text">自动截获变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#block变量"><span class="nav-number">4.2.</span> <span class="nav-text">__block变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forwarding变量"><span class="nav-number">4.3.</span> <span class="nav-text">__forwarding变量</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Block-复制"><span class="nav-number">5.</span> <span class="nav-text">Block 复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Block-循环引用"><span class="nav-number">6.</span> <span class="nav-text">Block 循环引用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

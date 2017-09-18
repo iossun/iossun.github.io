@@ -99,7 +99,7 @@
 <meta property="og:url" content="https://iossun.github.io/2017/09/15/优化/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="0号优化任务#####优化tableView  通过设置正确的reuseIdentifier重用单元格。 使尽可能多的视图不透明，包括单元本身。 避免渐变，图像缩放和屏幕外绘图。 缓存任何行的高度，如果它们不总是相同的。 如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。 使用shadowPath设置阴影。 减少子视图的数量。 在cellForRowAtIndexPath中做尽可能少">
-<meta property="og:updated_time" content="2017-09-14T09:19:43.000Z">
+<meta property="og:updated_time" content="2017-09-18T03:08:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="优秀OC代码-优化">
 <meta name="twitter:description" content="0号优化任务#####优化tableView  通过设置正确的reuseIdentifier重用单元格。 使尽可能多的视图不透明，包括单元本身。 避免渐变，图像缩放和屏幕外绘图。 缓存任何行的高度，如果它们不总是相同的。 如果单元格显示来自网络的内容，请确保异步进行这些调用并缓存响应。 使用shadowPath设置阴影。 减少子视图的数量。 在cellForRowAtIndexPath中做尽可能少">
@@ -390,8 +390,7 @@
 <p>问题在于移动设备无法依赖网络状况。一个用户可以在一个EDGE网络上一分钟，一个3G网络下一个。无论这种情况如何，您不想让用户等待！</p>
 <p>减少文件大小和加快下载基于网络资源的一个选项是通过在您的服务器和客户端上启用GZIP压缩。对于基于文本的数据，这对于压缩具有很高的潜在比例特别有用。</p>
 <p>好消息是，如果您使用NSURLConnection，或者建立在其上的框架（如AFNetworking），则iOS已默认支持GZIP压缩</p>
-<p>####中级改进</p>
-<p>#####6.重用和惰性加载视图<br>更多意见意味着更多的绘图 这最终意味着更多的CPU和内存开销。如果您的应用程序在UIScrollView内部嵌入许多视图，这一点尤其如此。</p>
+<h4 id="中级改进"><a href="#中级改进" class="headerlink" title="中级改进"></a>中级改进</h4><p>#####6.重用和惰性加载视图<br>更多意见意味着更多的绘图 这最终意味着更多的CPU和内存开销。如果您的应用程序在UIScrollView内部嵌入许多视图，这一点尤其如此。</p>
 <p>管理这个的窍门是模仿UITableView和UICollectionView的行为：不要一次创建所有的子视图。而是根据需要创建您的视图，并在完成后将其添加到重用队列中。</p>
 <p>这样，您只能在执行滚动时配置视图，避免分配成本 - 这可能是昂贵的。</p>
 <p>创建视图的时间问题也适用于您的应用程序的其他区域。在用户敲击按钮的情况下，您需要呈现视图。至少有两种方法：</p>
@@ -400,19 +399,19 @@
 <p>每种方法都有自己的利弊。</p>
 <p>使用第一种方法，您将消耗更多的内存，因为您立即创建持有该内存的视图，直到它被释放。但是，当用户点击按钮时，您的应用将显示更加敏感，因为它只需要更改视图的可见性。</p>
 <p>第二种做法会产生相反的效果; 通过仅在需要时才创建视图，消耗更少的内存; 但是，当按钮被点击时，应用程序不会显示为响应。</p>
-<p>#####7.缓存<br>开发应用程序的一个很好的经验法则是“缓存重要” - 即不太可能改变，但被频繁访问的东西。如：一些缓存网络图片，UITableView行计算高</p>
+<h5 id="7-缓存"><a href="#7-缓存" class="headerlink" title="7.缓存"></a>7.缓存</h5><p>开发应用程序的一个很好的经验法则是“缓存重要” - 即不太可能改变，但被频繁访问的东西。如：一些缓存网络图片，UITableView行计算高</p>
 <p>缓存能加快UI响应，提升用户体验</p>
 <p>特别提醒：NSCache看起来像NSDictionary一样，但是当系统需要回收内存时</p>
-<p>#####8.考虑绘图<br>iOS可以使用CALayer，CoreGraphics甚至OpenGL手动绘制图片。</p>
+<h5 id="8-考虑绘图"><a href="#8-考虑绘图" class="headerlink" title="8.考虑绘图"></a>8.考虑绘图</h5><p>iOS可以使用CALayer，CoreGraphics甚至OpenGL手动绘制图片。</p>
 <p>通过固定图像，您将失去通过代码调整图像的能力，需要重新生成图像，并将其重新放入应用程序。这可能是一个缓慢的过程。另一点是，如果你有一个动画，或者只是很多图像，稍微改变（例如，它们可以有多个重叠颜色），那么你必须嵌入很多图像，增加应用程序的捆绑包大小</p>
 <p>绘制性能或应用的大小。一般来说，这两个方面都很重要，所以您将在同一个项目中使用两种方法</p>
-<p>#####9.重用昂贵的物品<br>一些对象初始化非常慢 - NSDateFormatter和NSCalendar是两个例子。但是，您不能总是避免使用它们，例如在从JSON / XML响应中解析日期时。</p>
+<h5 id="9-重用昂贵的物品"><a href="#9-重用昂贵的物品" class="headerlink" title="9.重用昂贵的物品"></a>9.重用昂贵的物品</h5><p>一些对象初始化非常慢 - NSDateFormatter和NSCalendar是两个例子。但是，您不能总是避免使用它们，例如在从JSON / XML响应中解析日期时。</p>
 <p>为了避免使用这些对象时的性能瓶颈，如果可能，尝试重用这些对象。您可以通过向类中添加属性或通过创建静态变量来执行此操作。</p>
 <p>请注意，如果您选择第二种方法，对象将在您的应用程序运行时保留在内存中，就像单例一样。</p>
 <p>下面的代码演示了一个延迟加载日期格式化程序的属性。它第一次被调用，它创建一个新的日期格式化程序。将来的调用将返回已经创建的实例：</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> //在你的.h里面或者一个类的扩展名</div><div class="line">@property（nonatomic，strong）NSDateFormatter * formatter;</div><div class="line"></div><div class="line">//在实现（.m）</div><div class="line">//当你需要，只需使用self.formatter </div><div class="line">- （NSDateFormatter *）formatter&#123;</div><div class="line">     if（！_formatter）&#123;</div><div class="line">        _formatter = [[ NSDateFormatter alloc] init];</div><div class="line">        _formatter.dateFormat = @“EEE MMM dd HH：mm：ss Z yyyy” ; // twitter日期格式</div><div class="line">    &#125;</div><div class="line">    return _formatter;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>  还要记住，设置NSDateFormatter的日期格式几乎与创建新日期格式一样慢！因此，如果您经常需要处理应用程序中的多个日期格式，那么您的代码可能会受益于最初创建和重用多个NSDateFormatter对象</p>
-<p>#####10.避免重新处理数据<br> 许多应用程序调用远程服务器的数据来获取应用程序需要的功能。该数据通常以JSON或XML格式出现。在请求和接收数据时，尝试和使用相同的数据结构非常重要。</p>
+<h5 id="10-避免重新处理数据"><a href="#10-避免重新处理数据" class="headerlink" title="10.避免重新处理数据"></a>10.避免重新处理数据</h5><p> 许多应用程序调用远程服务器的数据来获取应用程序需要的功能。该数据通常以JSON或XML格式出现。在请求和接收数据时，尝试和使用相同的数据结构非常重要。</p>
 <p>为什么？在内存中操作数据以适应您的数据结构可能是昂贵的。</p>
 <p>例如，如果您需要在表视图中显示数据，则最好以数组格式请求和接收数据，以避免对数据进行任何中间操作，使其适合您使用的数据结构你的应用程序</p>
 <p>同样，如果您的应用程序依赖于通过键访问特定值，那么您可能希望请求并接收一个键/值对字典。<br>通过首次获取正确格式的数据，您将避免在应用程序中进行大量重新处理，使数据适合您选择的结构。 </p>
@@ -426,17 +425,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//你也可以在Interface Builder中实现相同的结果</div><div class="line">UIImageView * backgroundView = [[ UIImageView alloc] initWithImage：[ UIImage imageNamed：@“background” ]];</div><div class="line">[ self .view addSubview：backgroundView];</div></pre></td></tr></table></figure>
 <p>但是，如果您打算使用图像图像背景，使用较小的图像将重复或平铺以填充背景，则应该使用UIColor的colorWithPatternImage，因为绘制速度更快，并且不会使用大量内存这个案例。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">self .view.backgroundColor = [ UIColor colorWithPatternImage：[ UIImage imageNamed：@“background” ]];</div></pre></td></tr></table></figure>
-<p>####高级性能提示</p>
-<p>#####13.加快启动响应<br>快速启动应用程序非常重要，特别是当用户第一次启动时。第一印象意味着很多应用程序！</p>
+<h4 id="高级性能提示"><a href="#高级性能提示" class="headerlink" title="高级性能提示"></a>高级性能提示</h4><h5 id="13-加快启动响应"><a href="#13-加快启动响应" class="headerlink" title="13.加快启动响应"></a>13.加快启动响应</h5><p>快速启动应用程序非常重要，特别是当用户第一次启动时。第一印象意味着很多应用程序！</p>
 <p>您可以做的最大的事情是尽可能快地启动应用程序，即可执行尽可能多的异步任务，例如网络请求，数据库访问或解析数据。</p>
 <p>同样，尽量避免累赘XIB，因为它们被加载到主线程上。</p>
-<p>#####14.使用自动释放池<br>NSAutoreleasePool负责释放一个块内的自动释放的对象。通常，它由UIKit自动调用。但是在某些情况下，您可能需要手动创建NSAutoreleasePools。</p>
+<h5 id="14-使用自动释放池"><a href="#14-使用自动释放池" class="headerlink" title="14.使用自动释放池"></a>14.使用自动释放池</h5><p>NSAutoreleasePool负责释放一个块内的自动释放的对象。通常，它由UIKit自动调用。但是在某些情况下，您可能需要手动创建NSAutoreleasePools。</p>
 <p>例如，如果您在代码中创建了大量临时对象，则会注意到内存使用量增加，直到释放这些对象。问题是，这个内存只有在UIKit耗尽其自动释放池之后才释放，这意味着这个内存的持久时间要长得多。</p>
 <p>好消息是，您可以通过在自己的@autoreleasepool块中创建这些临时对象来避免这种情况，如下面的代码所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">NSArray * urls = &lt; ＃文件URL数组＃&gt;; </div><div class="line">for（NSURL * url in urls）&#123;</div><div class="line">     @autoreleasepool &#123;</div><div class="line">         NSError * error;</div><div class="line">        NSString * fileContents = [ NSString stringWithContentsOfURL：url</div><div class="line">                                         code：NSUTF8StringEncoding error：＆error];</div><div class="line">        / *处理字符串，创建和自动释放更多对象。* /</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这将在每次迭代结束时释放所有自动释放对象。</p>
-<p>#####15.图片是否需要缓存</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIImage * img = [ UIImage imageNamed：@“myImage” ]; //缓存</div><div class="line">//或</div><div class="line">UIImage * img = [ UIImage imageWithContentsOfFile：@“myImage” ]; //没有缓存</div></pre></td></tr></table></figure>
+<h5 id="15-图片是否需要缓存"><a href="#15-图片是否需要缓存" class="headerlink" title="15.图片是否需要缓存"></a>15.图片是否需要缓存</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIImage * img = [ UIImage imageNamed：@“myImage” ]; //缓存</div><div class="line">//或</div><div class="line">UIImage * img = [ UIImage imageWithContentsOfFile：@“myImage” ]; //没有缓存</div></pre></td></tr></table></figure>
 <p>如果您正在加载一次只能使用一次的大型图像，则不需要缓存图像。在这种情况下，imageWithContentsOfFile将很好地适应账单 - 这样，操作系统不会浪费内存缓存图像。<br>然而，imageNamed是您将在应用程序中重复使用的图像的更好选择。这样，操作系统节省了不断从磁盘加载映像的时间。</p>
 
       
@@ -611,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0号优化任务"><span class="nav-number">1.</span> <span class="nav-text">0号优化任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI基础"><span class="nav-number">2.</span> <span class="nav-text">UI基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-尽可能将视图设为不透明"><span class="nav-number">2.1.</span> <span class="nav-text">1.尽可能将视图设为不透明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-避免累赘的XIB"><span class="nav-number">2.2.</span> <span class="nav-text">2.避免累赘的XIB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-不要阻塞主线程"><span class="nav-number">2.3.</span> <span class="nav-text">3.不要阻塞主线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-选择正确的集合"><span class="nav-number">2.4.</span> <span class="nav-text">4.选择正确的集合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-启用GZIP压缩"><span class="nav-number">2.5.</span> <span class="nav-text">5.启用GZIP压缩</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0号优化任务"><span class="nav-number">1.</span> <span class="nav-text">0号优化任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UI基础"><span class="nav-number">2.</span> <span class="nav-text">UI基础</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-尽可能将视图设为不透明"><span class="nav-number">2.1.</span> <span class="nav-text">1.尽可能将视图设为不透明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-避免累赘的XIB"><span class="nav-number">2.2.</span> <span class="nav-text">2.避免累赘的XIB</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-不要阻塞主线程"><span class="nav-number">2.3.</span> <span class="nav-text">3.不要阻塞主线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-选择正确的集合"><span class="nav-number">2.4.</span> <span class="nav-text">4.选择正确的集合</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-启用GZIP压缩"><span class="nav-number">2.5.</span> <span class="nav-text">5.启用GZIP压缩</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中级改进"><span class="nav-number">3.</span> <span class="nav-text">中级改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-缓存"><span class="nav-number">3.1.</span> <span class="nav-text">7.缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-考虑绘图"><span class="nav-number">3.2.</span> <span class="nav-text">8.考虑绘图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-重用昂贵的物品"><span class="nav-number">3.3.</span> <span class="nav-text">9.重用昂贵的物品</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-避免重新处理数据"><span class="nav-number">3.4.</span> <span class="nav-text">10.避免重新处理数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高级性能提示"><span class="nav-number">4.</span> <span class="nav-text">高级性能提示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#13-加快启动响应"><span class="nav-number">4.1.</span> <span class="nav-text">13.加快启动响应</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#14-使用自动释放池"><span class="nav-number">4.2.</span> <span class="nav-text">14.使用自动释放池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#15-图片是否需要缓存"><span class="nav-number">4.3.</span> <span class="nav-text">15.图片是否需要缓存</span></a></li></ol></li></ol></div>
             
 
           </div>

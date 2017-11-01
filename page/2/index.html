@@ -1265,6 +1265,212 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/11/30/HTTP须知/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/30/HTTP须知/" itemprop="url">HTTP须知</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-30T00:00:00+08:00">
+                2016-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective—C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective—C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/11/30/HTTP须知/" class="leancloud_visitors" data-flag-title="HTTP须知">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>一、HTTP协议</strong></p>
+<p>HTTP本质上是一种协议，全称是Hypertext Transfer Protocol，即超文本传输协议。从名字上可以看出该协议用于规定客户端与服务端之间的传输规则，所传输的内容不局限于文本(其实可以传输任意类型的数据)。</p>
+<p>HTTP请求所必备的几大要素：请求行、请求头(headerField)、请求体(body)；同理，响应也有状态行、响应头、实体内容。接下来我们逐个展开。</p>
+<p>1、请求行<br>请求行包含请求方法(Method)、请求统一资源标识符(URI)、HTTP版本号，<br>请求方法就是我们所熟悉的POST、GET、HEAD、PUT等<br>URI就是URL中排除掉Host剩下的部分，也就是资源在服务器本地上的路径<br>HTTP版本号，目前主流的版本是1.1(1999年开始采用)，最新的版本是2.0(2015年5月发布)。不同版本之间差异下面会再展开</p>
+<p>2、请求头<br>HTTP请求在iOS中用NSURLRequest与NSMutableRequest表示；HTTP响应用NSHTTPURLResponse表示。</p>
+<pre><code>    Host: 目标服务器的网络地址
+
+    Accept: 让服务端知道客户端所能接收的数据类型，如text/html */*
+
+    Content-Type: body中的数据类型，如application/json; charset=UTF-8
+
+    Accept-Language: 客户端的语言环境，如zh-cn
+
+    Accept-Encoding: 客户端支持的数据压缩格式，如gzip
+
+    User-Agent: 客户端的软件环境，我们可以更改该字段为自己客户端的名字，比如QQ music v1.11，比如浏览器Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/600.8.9 (KHTML, like Gecko) Maxthon/4.5.2
+
+    Connection: keep-alive，该字段是从HTTP 1.1才开始有的，用来告诉服务端这是一个持久连接，“请服务端不要在发出响应后立即断开TCP连接”。关于该字段的更多解释将在后面的HTTP版本简介中展开。
+
+    Content-Length: body的长度，如果body为空则该字段值为0。该字段一般在POST请求中才会有。
+
+POST请求的body请求体也有可能是空的，因此POST中Content-Length也有可能为0
+
+    Cookie: 记录者用户信息的保存在本地的用户数据，如果有会被自动附上
+</code></pre><p>在iOS中当你发送一个任意请求时，不管你愿不愿意，NSURLRequest都会自动帮你记录你所访问的URL上设置的cookie。</p>
+<p>3、请求体</p>
+<p>真正需要发给服务端的数据，在使用POST-multipart上传请求中请求体就是上传文件的二进制NSData类型数据；在GET请求中请求体为空；在普通的POST请求中请求体就是一些表单数据。在iOS中一般用NSURLRequest与NSMutableURLRequest的HTTPBody属性表示，添加body用-[NSMutableURLRequest setHTTPBody:]。</p>
+<p>4、响应状态行</p>
+<p>状态行是服务端返回给客户端的状态信息，包含HTTP版本号、状态码、状态码对应的英文名称。</p>
+<p>以下就是典型的正确状态行：</p>
+<p>HTTP/1.1 200 OK</p>
+<p>这个部分需要讲的是错误码。事实上HTTP请求错误码可以根据错误码从左往右第一个数字大致分为以下几类：</p>
+<p>1XX：信息提示。不代表成功或者失败，表示临时响应，比如100表示继续，101表示切换协议</p>
+<p>2XX: 成功</p>
+<p>3XX: 重定向</p>
+<p>4XX:客户端错误，很有可能是客户端发生问题，如亲切可爱的404表示未找到文件，说明你的URI是有问题的，服务器机子上该目录是没有该文件的；414URI太长</p>
+<p>5XX: 服务器错误，比如504网关超时</p>
+<p>错误码是不用去记的，出错了再查对应的错误码含义就行。但是知道上面的分类有助于第一时间做出大体的判断，起码你能清楚是服务端还是客户端的原因。 </p>
+<p><strong>二、HTTP、Socket、TCP的区别</strong></p>
+<p>1、TCP连接与HTTP连接的区别</p>
+<p>上文提过，HTTP是基于TCP的，客户端往服务端发送一个HTTP请求时第一步就是要建立与服务端的TCP连接，也就是先三次握手，“你好，你好，你好”。从HTTP 1.1开始支持持久连接，也就是一次TCP连接可以发送多次的HTTP请求。</p>
+<p>小总结：HTTP基于TCP</p>
+<p>2、TCP连接与Socket连接的区别</p>
+<p>在图4.1中我们提到，socket层只是在TCP/UDP传输层上做的一个抽象接口层，因此一个socket连接可以基于连接，也有可能基于UDP。基于TCP协议的socket连接同样需要通过三次握手建立连接，是可靠的；基于UDP协议的socket连接不需要建立连接的过程，不过对方能不能收到都会发送过去，是不可靠的，大多数的即时通讯IM都是后者。</p>
+<p>小总结：Socket也基于TCP</p>
+<p>3、HTTP连接与Socket连接的区别</p>
+<p>区分这两个概念是比较有意义的，毕竟TCP看不见摸不着，HTTP与Socket是实实在在能用到的。</p>
+<ul>
+<li><p>HTTP是短连接，Socket(基于TCP协议的)是长连接。尽管HTTP1.1开始支持持久连接，但仍无法保证始终连接。而Socket连接一旦建立TCP三次握手，除非一方主动断开，否则连接状态一直保持。</p>
+</li>
+<li><p>HTTP连接服务端无法主动发消息，Socket连接双方请求的发送先后限制。这点就比较重要了，因为它将决定二者分别适合应用在什么场景下。HTTP采用“请求-响应”机制，在客户端还没发送消息给服务端前，服务端无法推送消息给客户端。必须满足客户端发送消息在前，服务端回复在后。Socket连接双方类似peer2peer的关系，一方随时可以向另一方喊话。</p>
+</li>
+</ul>
+<p>4、问题来了：什么时候该用HTTP，什么时候该用socket</p>
+<p>这个问题的提出是很自然而然的。当你接到一个与另一方的网络通讯需求，自然会考虑用HTTP还是用Socket。</p>
+<ul>
+<li><p>用HTTP的情况：双方不需要时刻保持连接在线，比如客户端资源的获取、文件上传等。</p>
+</li>
+<li><p>用Socket的情况：大部分即时通讯应用(QQ、微信)、聊天室、苹果APNs等</p>
+</li>
+</ul>
+<p>在iOS中，发HTTP请求一般用原生的NSURLConnection、NSURLSession或者开源的AFNetWorking(推荐)、ASIHttpRequest(已停止更新)。连接Socket连接我用的比较多是robbiehanson大神的CocoaAsyncSocket (XMPPFramework也是出自他手)。  </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/11/21/面试汇总（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1709,160 +1915,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/08/20/xCode调式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孙慕">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mumu@note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/08/20/xCode调式/" itemprop="url">xCode调试技巧</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-20T00:00:00+08:00">
-                2016-08-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective—C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective—C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/08/20/xCode调式/" class="leancloud_visitors" data-flag-title="xCode调试技巧">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Xcode 常用调试技巧总结</p>
-<p>NSLog,po命令和普通断点调试相信每个iOS开发者都会，这里就不作介绍了。</p>
-<p>一、Memory Graph</p>
-<p>Xcode8新增：Memory Graph解决闭包引用循环问题</p>
-<p><img src="https://github.com/iossun/bolgImage/raw/master/xCode%E8%B0%83%E8%AF%95image/debug1.jpg" alt=""></p>
-<p>有很多叹号说明就有问题了。看内存中object的名字，有一条是Closure captures leaked。展开后点击就可以看到这个issue对应的内存图形展示在中间的面板中。当然了，我们更多的时候是在debug页面下查看：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/08/20/xCode调式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1912,7 +1964,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1923,7 +1975,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

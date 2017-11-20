@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="队列Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，先进先出执行处理。 而等待队列有两种  Serial Dispatch Queue：串行队列，等待当前执行任务处理结束的队列。 Concurrent Dispatch Queue:并发队列，不等待当前执行任务处理结束的队列。  Serial 串行队列串行队列将任务以先进先出(FIFO)的顺序来执行，所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化知识点 - GCD">
+<meta property="og:url" content="https://iossun.github.io/2017/03/02/GCD/index.html">
+<meta property="og:site_name" content="mumu@note">
+<meta property="og:description" content="队列Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，先进先出执行处理。 而等待队列有两种  Serial Dispatch Queue：串行队列，等待当前执行任务处理结束的队列。 Concurrent Dispatch Queue:并发队列，不等待当前执行任务处理结束的队列。  Serial 串行队列串行队列将任务以先进先出(FIFO)的顺序来执行，所">
+<meta property="og:updated_time" content="2017-11-20T09:38:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强化知识点 - GCD">
+<meta name="twitter:description" content="队列Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，先进先出执行处理。 而等待队列有两种  Serial Dispatch Queue：串行队列，等待当前执行任务处理结束的队列。 Concurrent Dispatch Queue:并发队列，不等待当前执行任务处理结束的队列。  Serial 串行队列串行队列将任务以先进先出(FIFO)的顺序来执行，所">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://iossun.github.io/2017/03/02/GCD/"/>
+
+
+
+
+
+  <title>强化知识点 - GCD | mumu@note</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mumu@note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">孜孜不倦，逆流而上</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/03/02/GCD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">强化知识点 - GCD</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T00:00:00+08:00">
+                2017-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Objective—C/" itemprop="url" rel="index">
+                    <span itemprop="name">Objective—C</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/03/02/GCD/" class="leancloud_visitors" data-flag-title="强化知识点 - GCD">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h4 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h4><p>Dispatch Queue是执行处理的等待队列，按照任务（block）追加到队列里的顺序，先进先出执行处理。</p>
+<p>而等待队列有两种</p>
+<ul>
+<li>Serial Dispatch Queue：串行队列，等待当前执行任务处理结束的队列。</li>
+<li>Concurrent Dispatch Queue:并发队列，不等待当前执行任务处理结束的队列。</li>
+</ul>
+<h5 id="Serial-串行队列"><a href="#Serial-串行队列" class="headerlink" title="Serial 串行队列"></a>Serial 串行队列</h5><p>串行队列将任务以先进先出(FIFO)的顺序来执行，所以串行队列经常用来做访问某些特定资源的同步处理。你可以也根据需要创建多个队列，而这些队列相对其他队列都是并发执行的。换句话说，如果你创建了4个串行队列，每一个队列在同一时间都只执行一个任务，对这四个任务来说，他们是相互独立且并发执行的。如果需要创建串行队列，一般用dispatch_queue_create这个方法来实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//串行队列</div><div class="line">  dispatch_queue_t serialQueue;</div><div class="line">  serialQueue = dispatch_queue_create(&quot;com.example.SerialQueue&quot;, NULL);</div></pre></td></tr></table></figure>
+<h5 id="Concurrent-并发队列"><a href="#Concurrent-并发队列" class="headerlink" title="Concurrent 并发队列"></a>Concurrent 并发队列</h5><p>并发队列虽然是能同时执行多个任务，但这些任务仍然是按照先到先执行(FIFO)的顺序来执行的。并发队列会基于系统负载来合适地选择并发执行这些任务。在iOS5之前，并发队列一般指的就是全局队列(Global queue)，进程中存在四个全局队列：高、中(默认)、低、后台四个优先级队列，可以调用dispatch_get_global_queue函数传入优先级来访问队列。而在iOS5之后，我们也可以用dispatch_queue_create，并指定队列类型DISPATCH_QUEUE_CONCURRENT，来自己创建一个并发队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> //并发队列</div><div class="line">   dispatch_queue_t concurrentQueue;</div><div class="line">   concurrentQueue = dispatch_queue_create(&quot;com.example.ConcurrentQueue&quot;, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">```	</div><div class="line"></div><div class="line">##### Main Dispatch Queue</div><div class="line"></div><div class="line">主队列：放在这个队列里的任务会追加到主线程的RunLoop中执行。需要刷新UI的时候我们可以直接获取这个队列，将任务追加到这个队列中。</div><div class="line"></div><div class="line">##### Globle Dispatch Queue</div><div class="line"></div><div class="line">全局并发队列：开发者可以不需要特意通过dispatch_queue_create方法创建一个Concurrent Dispatch Queue，可以将任务直接放在这个全局并发队列里面。</div></pre></td></tr></table></figure>
+<p>//获取全局并发队列进行耗时操作<br>dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{<br>          //加载图片<br>          NSData <em>dataFromURL = [NSData dataWithContentsOfURL:imageURL];<br>          UIImage </em>imageFromData = [UIImage imageWithData:dataFromURL];<br>      dispatch_async(dispatch_get_main_queue(), ^{<br>              //获取主队列，在图片加载完成后更新UIImageView<br>              UIImageView *imageView = [[UIImageView alloc] initWithImage:imageFromData];<br>      });<br>  });<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">并行队列 |串行队列|主队列</div><div class="line">-----------------|--------------------------------|---------------------</div><div class="line">同步(sync) 没有开启新线程，串行执行任务 |没有开启新线程，串行执行任务|没有开启新线程，串行执行任务</div><div class="line">异步(async) 有开启新线程，并行执行任务 	  |有开启新线程(1条)，串行执行任务|没有开启新线程，串行执行任务</div><div class="line"></div><div class="line">##### GCD的主要方法 </div><div class="line">##### Dispatch Group</div><div class="line"></div><div class="line">经常会碰到这种情况，想要在加入到Dispatch Queue中的多个block任务都执行完后取执行其他任务，如果使用的是串行队列，只要将所有的block任务加入到串行队列并在最后追加其他任务即可；如果使用的是并行队列或者有多个DIspatch Queue时，可以使用Dispatch Group。</div></pre></td></tr></table></figure></p>
+<p>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);<br>    dispatch_group_t group = dispatch_group_create();<br>    dispatch_group_async(group, queue, ^{<br>        NSLog(@”block1”);<br>    });<br>    dispatch_group_async(group, queue, ^{<br>        NSLog(@”block2”);<br>    });<br>    dispatch_group_async(group, queue, ^{<br>        NSLog(@”block3”);<br>    });<br>    dispatch_group_notify(group, queue, ^{<br>        NSLog(@”done”);<br>    });</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### Dispatch_barrier_async</div><div class="line"></div><div class="line">dispatch_barrier_asycn会等到追加到queue中的block任务执行完后，再将指定的block任务追加到queue中，然后等到指定的block执行完后，queue才恢复一般的动作，之后追加的block任务才开始执行。</div></pre></td></tr></table></figure>
+<p>dispatch_queue_t queue = dispatch_queue_create(“com.example.gcd.ForBarrier”, DISPATCH_QUEUE_CONCURRENT);<br>    dispatch_async(queue, ^{<br>        //读取处理block1<br>    });<br>    dispatch_async(queue, ^{<br>        //读取处理block2<br>    });<br>    dispatch_async(queue, ^{<br>        //读取处理block3<br>    });<br>    dispatch_barrier_async(queue, ^{<br>        //写入处理block4<br>    });<br>    dispatch_async(queue, ^{<br>        //读取处理block5<br>    });<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### dispath_after</div><div class="line">想要在指定时间后将block添加到队列里，可以使用dispatch_after函数来实现。</div></pre></td></tr></table></figure></p>
+<pre><code>dispatch_time_t time = dispatch_time( DISPATCH_TIME_NOW, 3*NSEC_PER_SEC);
+
+dispatch_after(time, dispatch_get_main_queue(), ^{
+    NSLog(@&quot;wait 3 seconds&quot;);
+});
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### dispatch_apply</div><div class="line">该函数按指定的次数将指定的block追加到指定的Dispatch Group中，并等待所有的block执行完后函数返回。第一个参数是迭代的次数，第二个参数是指定的queue，第三个参数是指定的block，block里有一个size_t类型的参数，用来区分各个block使用。等到所有的block执行完后再执行后面的代码。</div></pre></td></tr></table></figure>
+<p> dispatch_queue_t serialQueue = dispatch_queue_create(“com.example.serialQueue”, DISPATCH_QUEUE_SERIAL);<br> dispatch_apply(10, serialQueue, ^(size_t index) {<br>    NSLog(@”serialQueue %zu, %@”, index, [NSThread currentThread]);<br>  });<br>  NSLog(@”test1”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>[2510:77935] serialQueue 0, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 1, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 2, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 3, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 4, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 5, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 6, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 7, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 8, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] serialQueue 9, <nsthread: 0x608000070dc0="">{number = 1, name = main}<br>[2510:77935] test1</nsthread:></nsthread:></nsthread:></nsthread:></nsthread:></nsthread:></nsthread:></nsthread:></nsthread:></nsthread:></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">假如是并行队列，打印数值无序，但test1仍在block执行完成后返回</div><div class="line"></div><div class="line">##### Dispatch Semaphore</div><div class="line"></div><div class="line">信号量：就是一种可用来控制访问资源的数量的标识，设定了一个信号量，在线程访问之前，加上信号量的处理，则可告知系统按照我们指定的信号量数量来执行多个线程。</div><div class="line"></div><div class="line">其实，这有点类似锁机制了，只不过信号量都是系统帮助我们处理了，我们只需要在执行线程之前，设定一个信号量值，并且在使用时，加上信号量处理方法就行了。</div></pre></td></tr></table></figure>
+<p>//创建信号量，参数：信号量的初值，如果小于0则会返回NULL<br>dispatch_semaphore_create（信号量值）</p>
+<p>//等待降低信号量<br>dispatch_semaphore_wait（信号量，等待时间）</p>
+<p>//提高信号量<br>dispatch_semaphore_signal(信号量)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>-(void)dispatchSignal{<br>    //crate的value表示，最多几个资源可访问<br>    dispatch_semaphore_t semaphore = dispatch_semaphore_create(2);<br>    dispatch_queue_t quene = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</p>
+<pre><code>//任务1
+dispatch_async(quene, ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@&quot;run task 1&quot;);
+    sleep(1);
+    NSLog(@&quot;complete task 1&quot;);
+    dispatch_semaphore_signal(semaphore);       
+});&lt;br&gt;
+//任务2
+dispatch_async(quene, ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@&quot;run task 2&quot;);
+    sleep(1);
+    NSLog(@&quot;complete task 2&quot;);
+    dispatch_semaphore_signal(semaphore);       
+});&lt;br&gt;
+//任务3
+dispatch_async(quene, ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@&quot;run task 3&quot;);
+    sleep(1);
+    NSLog(@&quot;complete task 3&quot;);
+    dispatch_semaphore_signal(semaphore);       
+});   
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>2017-11-20 17:31:19.354753 OC广度优先搜索[1521:284740] run task 1<br>2017-11-20 17:31:19.354867 OC广度优先搜索[1521:284741] run task 2<br>2017-11-20 17:31:20.357849 OC广度优先搜索[1521:284740] complete task 1<br>2017-11-20 17:31:20.358157 OC广度优先搜索[1521:284741] complete task 2<br>2017-11-20 17:31:20.358313 OC广度优先搜索[1521:284742] run task 3<br>2017-11-20 17:31:21.362353 OC广度优先搜索[1521:284742] complete task 3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##### dispatch_once</div><div class="line"></div><div class="line">创建单利对象</div></pre></td></tr></table></figure>
+<ul>
+<li>(DispatchModel <em>)shareInstance{<br>   static DispatchModel </em> shateInstance = nil;<br>  static dispatch_once_t onceToken;<br>  NSLog(@”first == %ld”,onceToken);<br>  dispatch_once(&amp;onceToken, ^{<pre><code>shateInstance = [[DispatchModel alloc] init];
+</code></pre>  });<br>  return shateInstance;<br>}<br>```</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/15/runtime/" rel="next" title="强化知识点 - runtime">
+                <i class="fa fa-chevron-left"></i> 强化知识点 - runtime
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/05/两年iOS开发之路/" rel="prev" title="两年ios开发之路">
+                两年ios开发之路 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
+               alt="孙慕" />
+          <p class="site-author-name" itemprop="name">孙慕</p>
+           
+              <p class="site-description motion-element" itemprop="description">知识总结积累</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#队列"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Serial-串行队列"><span class="nav-number">1.1.</span> <span class="nav-text">Serial 串行队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Concurrent-并发队列"><span class="nav-number">1.2.</span> <span class="nav-text">Concurrent 并发队列</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">孙慕</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("BaKu72zk5g7NY56Nrism5B5m-gzGzoHsz", "PtJC4e2EuqItIkCTOKeW6UCU");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

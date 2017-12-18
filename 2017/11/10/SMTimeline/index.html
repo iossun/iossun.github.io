@@ -93,16 +93,18 @@
 
 
 
-<meta name="description" content="贪心算法不是对所有问题都能得到整体最优解，但对范围相当广泛的许多问题都能产生整体最优解或整体最优解的近似解。  贪心算法的基本思路如下： 1.建立数学模型来描述问题。">
+<meta name="description" content="概述最近把我之前写的时间轴整理了下，现在分享给大家Git下载 这个小组件主要针对视频回放，对录制的视频，拖拉回放">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OC实现算法（三）- 贪心算法">
-<meta property="og:url" content="https://iossun.github.io/2017/06/18/贪心算法/index.html">
+<meta property="og:title" content="SMTimeLine">
+<meta property="og:url" content="https://iossun.github.io/2017/11/10/SMTimeline/index.html">
 <meta property="og:site_name" content="mumu@note">
-<meta property="og:description" content="贪心算法不是对所有问题都能得到整体最优解，但对范围相当广泛的许多问题都能产生整体最优解或整体最优解的近似解。  贪心算法的基本思路如下： 1.建立数学模型来描述问题。">
-<meta property="og:updated_time" content="2017-09-22T03:11:00.000Z">
+<meta property="og:description" content="概述最近把我之前写的时间轴整理了下，现在分享给大家Git下载 这个小组件主要针对视频回放，对录制的视频，拖拉回放">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/SMTimeLine/SMTimeLine.gif">
+<meta property="og:updated_time" content="2017-12-18T12:05:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OC实现算法（三）- 贪心算法">
-<meta name="twitter:description" content="贪心算法不是对所有问题都能得到整体最优解，但对范围相当广泛的许多问题都能产生整体最优解或整体最优解的近似解。  贪心算法的基本思路如下： 1.建立数学模型来描述问题。">
+<meta name="twitter:title" content="SMTimeLine">
+<meta name="twitter:description" content="概述最近把我之前写的时间轴整理了下，现在分享给大家Git下载 这个小组件主要针对视频回放，对录制的视频，拖拉回放">
+<meta name="twitter:image" content="https://github.com/iossun/bolgImage/raw/master/SMTimeLine/SMTimeLine.gif">
 
 
 
@@ -130,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://iossun.github.io/2017/06/18/贪心算法/"/>
+  <link rel="canonical" href="https://iossun.github.io/2017/11/10/SMTimeline/"/>
 
 
 
 
 
-  <title>OC实现算法（三）- 贪心算法 | mumu@note</title>
+  <title>SMTimeLine | mumu@note</title>
   
 
 
@@ -265,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/06/18/贪心算法/">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/11/10/SMTimeline/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="孙慕">
@@ -282,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OC实现算法（三）- 贪心算法</h1>
+          <h1 class="post-title" itemprop="name headline">SMTimeLine</h1>
         
 
         <div class="post-meta">
@@ -294,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T00:00:00+08:00">
-                2017-06-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T00:00:00+08:00">
+                2017-11-10
               </time>
             
 
@@ -317,8 +319,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective—C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective—C</span>
+                  <a href="/categories/我的组件/" itemprop="url" rel="index">
+                    <span itemprop="name">我的组件</span>
                   </a>
                 </span>
 
@@ -334,7 +336,7 @@
 
           
           
-             <span id="/2017/06/18/贪心算法/" class="leancloud_visitors" data-flag-title="OC实现算法（三）- 贪心算法">
+             <span id="/2017/11/10/SMTimeline/" class="leancloud_visitors" data-flag-title="SMTimeLine">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -362,36 +364,49 @@
       
 
       
-        <p>贪心算法不是对所有问题都能得到整体最优解，但对范围相当广泛的许多问题都能产生整体最优解或整体最优解的近似解。 </p>
-<p><strong>贪心算法的基本思路如下：</strong></p>
-<p>1.建立数学模型来描述问题。<br> <a id="more"></a><br>2.把求解的问题分成若干个子问题。</p>
-<p>3.对每个子问题求解，得到每个子问题的局部最优解。</p>
-<p>4.把每个子问题的局部最优解合成为原来问题的一个解。 </p>
-<p><strong>定义晦涩难懂，直接分析两个例子，马上明白</strong></p>
-<p>[例2]假如老板要找给我99分钱，他有上面的面值分别为25，10，5，1的硬币数，为了找给我最少的硬币数，那么他是不是该这样找呢，先看看该找多少个25分的，诶99／25＝3，好像是3个，要是4个的话，我们还得再给老板一个1分的，我不干，那么老板只能给我3个25分的拉，由于还少给我24，所以还得给我2个10分的和4个1分</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//代码不做解释</div><div class="line">-(void)giveMoney:(int)target&#123;</div><div class="line">    NSArray *m = @[@25,@10,@5,@1];</div><div class="line">    NSMutableArray *results = [NSMutableArray array];</div><div class="line">    for (int i = 0;i &lt; m.count;i++) &#123;</div><div class="line">        int c = target/[m[i] intValue];</div><div class="line">        target = target - c * [m[i] intValue];</div><div class="line">        </div><div class="line">        [results addObject:[NSNumber numberWithInt:c]];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    for (int i = 0; i &lt; results.count; i++) &#123;</div><div class="line">        NSLog(@&quot;%d枚%d面值&quot;,[results[i] intValue],[m[i] intValue]);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>[例2]有一个背包，背包容量是M=150。有7个物品，物品可以分割成任意大小。<br>要求尽可能让装入背包中的物品总价值最大，但不能超过总容量。</p>
-<p>物品 A B C D E F G </p>
-<p>重量 35 30 60 50 40 10 25</p>
-<p>价值 10 40 30 50 35 40 30 </p>
-<p>（1）根据贪心的策略，每次挑选价值最大的物品装入背包，得到的结果是否最优？</p>
-<p>（2）每次挑选所占重量最小的物品装入是否能得到最优解？</p>
-<p>（3）每次选取单位重量价值最大的物品，成为解本题的策略? </p>
-<p>一般来说，贪心算法的证明围绕着整个问题的最优解一定由在贪心策略中存在的子问题的最优解得来的。对于本例题中的3种贪心策略，都无法成立，即无法被证明</p>
-<p>（1）贪心策略：选取价值最大者。反例： </p>
-<p>W=30</p>
-<p>物品：A B C </p>
-<p>重量：28 12 12</p>
-<p>价值：30 20 20</p>
-<p>根据策略，首先选取物品A，接下来就无法再选取了，可是，选取B、C则更好。</p>
-<p>（2）贪心策略：选取重量最小。它的反例与第一种策略的反例差不多。</p>
-<p>（3）贪心策略：选取单位重量价值最大的物品。反例：</p>
-<p>W=30</p>
-<p>物品：A B C</p>
-<p>重量：28 20 10</p>
-<p>价值：28 20 10</p>
-<p>根据策略，三种物品单位重量价值一样，程序无法依据现有策略作出判断，如果选择A，则答案错误。<br>值得注意的是，贪心算法并不是完全不可以使用，贪心策略一旦经过证明成立后，它就是一种高效的算法。比如，求最小生成树的Prim算法和Kruskal算法都是漂亮的贪心算法。</p>
-<p>学过动态规划的一看就知这是个动态规划的题目，在这里只是想说明贪心算法的应用环境，个人感觉这个算法不怎么重要</p>
+        <p><img src="https://github.com/iossun/bolgImage/raw/master/SMTimeLine/SMTimeLine.gif" alt=""></p>
+<h5 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h5><p>最近把我之前写的时间轴整理了下，现在分享给大家<a href="https://github.com/iossun/SMTimeLine1" target="_blank" rel="external">Git下载</a></p>
+<p>这个小组件主要针对视频回放，对录制的视频，拖拉回放</p>
+<a id="more"></a>
+<h5 id="主要设计思想"><a href="#主要设计思想" class="headerlink" title="主要设计思想"></a>主要设计思想</h5><p>设计需求要能够回放七天的前录制的视频，能放缩拖动。<br>一开始写的时候没想自己绘制，因为绘制有点烦。开始让UI给我设计了一张背景图，然后我调图片放大缩小，自己简单勾几天线完成这个效果。很快发现，用图片很容易放大失真，用多张图片又缺乏平滑的效果。于是开始绘制图形。</p>
+<h5 id="主要绘制类SMTimeLine"><a href="#主要绘制类SMTimeLine" class="headerlink" title="主要绘制类SMTimeLine"></a>主要绘制类SMTimeLine</h5><p>SMTimeLine 继承UIView，之所以选择较耗性能的UIViewer而不是CALayer，是因为SMTimeLine放在tableView上重绘时不显示（搞了好长时间没搞出来，现在绘制的效果也还好，所以没有过多研究）</p>
+<h6 id="绘制接口"><a href="#绘制接口" class="headerlink" title="绘制接口"></a>绘制接口</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/* 有视频区域加覆盖图层 */</div><div class="line">@property (nonatomic,strong) NSArray *rectangleArray;</div><div class="line">/* 屏幕可视区域起点（连续缩放只绘制可视区域） */</div><div class="line">@property (nonatomic,assign) float videoX;</div><div class="line">/* 绘制所有刻度接口 */</div><div class="line">@property (nonatomic,assign) BOOL endDrawRect;</div><div class="line">/* 刻度颜色 */</div><div class="line">@property (nonatomic,strong) UIColor *graduatedColor;</div><div class="line">/* 指示文字颜色 */</div><div class="line">@property (nonatomic,strong) UIColor *indicateColor;</div></pre></td></tr></table></figure>
+<p>重写drawRect:(CGRect)rect方法，调用CoreGraphics API进行图形绘制（绘制的API不多说）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">float nDeltaX = (m_nEndX - m_nStartX  + 1) / 720;</div></pre></td></tr></table></figure>
+<h6 id="nDeltaX预设置宽度"><a href="#nDeltaX预设置宽度" class="headerlink" title="nDeltaX预设置宽度"></a>nDeltaX预设置宽度</h6><table>
+<thead>
+<tr>
+<th>设置宽度大小</th>
+<th>刻度条数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> nDeltaXde &gt; 60</td>
+<td>7200</td>
+</tr>
+<tr>
+<td> nDeltaXde &gt; 35</td>
+<td>3600</td>
+</tr>
+<tr>
+<td> nDeltaXde（else）</td>
+<td>720     </td>
+</tr>
+</tbody>
+</table>
+<h6 id="可视区域绘制"><a href="#可视区域绘制" class="headerlink" title="可视区域绘制"></a>可视区域绘制</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">float mDeltaX = (m_nEndX - m_nStartX  + 1) /7200;</div><div class="line"> int m = self.videoX / mDelta   //m为屏幕起点index</div><div class="line"> int y = kWinW / mDeltaX;       //y + 2一共绘制条数</div><div class="line"> for (int x = m; x &lt; y + m + 2; x ++)&#123;</div><div class="line">     if ((1 + x*mDeltaX) &gt; m_nEndX) &#123;</div><div class="line">         [self drawRectSizeA:(x - m_nEndX/mDeltaX) mDeltaX:mDeltaX];</div><div class="line">     &#125;else&#123;</div><div class="line">          [self drawRectSizeA:x mDeltaX:mDeltaX];</div><div class="line">                    </div><div class="line">           &#125;</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
+<p>但接受到最后一次绘制时，绘制整条cell。</p>
+<h5 id="SMTimeLineView"><a href="#SMTimeLineView" class="headerlink" title="SMTimeLineView"></a>SMTimeLineView</h5><p>以上绘制一天，当要绘制七天时，而且保证能自由滑动，这时我自然想到了collectionView作为绘制View的承载，这时候只剩下拉伸控件的放大看的效果，</p>
+<h6 id="手势放大"><a href="#手势放大" class="headerlink" title="手势放大"></a>手势放大</h6><p>手势的代理方法不断调用，当pinch.state == UIGestureRecognizerStateChanged我只绘制手机可以看到的区域 self.endDrawRect = NO;当pinch.state == UIGestureRecognizerStateEnded绘制重绘collectionView</p>
+<h6 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h6><ol>
+<li>根据手势，获取想要放大的中心点</li>
+<li>固定放大一天长度</li>
+<li>重新计算每隔对应时间</li>
+<li>计算Collction.contentOffset对应放大后位置，实现放大效果</li>
+</ol>
+<h6 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@protocol SMTimeLinePresentTime &lt;NSObject&gt;</div><div class="line"></div><div class="line">-(void)timeLinePresentTime:( NSDate * _Nonnull )time;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>在scrollViewDidScroll监听scrollView.contentOffset.x，根据位置和时间的转化方法，滑动时，实时的将时间轴指示的时间传给接受代理的控制器。</p>
 
       
     </div>
@@ -428,8 +443,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/12/OC实现算法（二）- 广度优先搜索/" rel="next" title="OC实现算法（二）- 广度优先搜索">
-                <i class="fa fa-chevron-left"></i> OC实现算法（二）- 广度优先搜索
+              <a href="/2017/10/20/imageProgress/" rel="next" title="SMImageProgress">
+                <i class="fa fa-chevron-left"></i> SMImageProgress
               </a>
             
           </div>
@@ -438,8 +453,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/24/动态规划/" rel="prev" title="OC实现算法（四）- 动态规划">
-                OC实现算法（四）- 动态规划 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/15/年末/" rel="prev" title="年末了">
+                年末了 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -487,8 +502,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg"
@@ -550,6 +574,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主要设计思想"><span class="nav-number">2.</span> <span class="nav-text">主要设计思想</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主要绘制类SMTimeLine"><span class="nav-number">3.</span> <span class="nav-text">主要绘制类SMTimeLine</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#绘制接口"><span class="nav-number">3.1.</span> <span class="nav-text">绘制接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#nDeltaX预设置宽度"><span class="nav-number">3.2.</span> <span class="nav-text">nDeltaX预设置宽度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#可视区域绘制"><span class="nav-number">3.3.</span> <span class="nav-text">可视区域绘制</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SMTimeLineView"><span class="nav-number">4.</span> <span class="nav-text">SMTimeLineView</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#手势放大"><span class="nav-number">4.1.</span> <span class="nav-text">手势放大</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#计算"><span class="nav-number">4.2.</span> <span class="nav-text">计算</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#代理"><span class="nav-number">4.3.</span> <span class="nav-text">代理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

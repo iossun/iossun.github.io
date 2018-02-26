@@ -776,6 +776,176 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/11/26/知识点（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/11/26/知识点（三）/" itemprop="url">iOS知识点（三）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-26T00:00:00+08:00">
+                2016-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/11/26/知识点（三）/" class="leancloud_visitors" data-flag-title="iOS知识点（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#####1. 什么是arc？（arc是为了解决什么问题诞生的？）<br>自动引用计数（解决了手动内存管理的麻烦）</p>
+<p>#####2. 请解释以下keywords的区别： assign vs weak, <strong>block vs </strong>weak </p>
+<ul>
+<li><strong>assign vs weak</strong> ：assign vs weak都是引用计数不变，assign修饰简单数据类型（如Int，BOOL），weak用于object type ，修饰指针类型</li>
+<li><strong><strong>block vs </strong>weak</strong>：block可以访问局部变量但是不能修改，<strong>block修饰局部变量可以在block内被修改，</strong>weak可以避免循环引用</li>
+</ul>
+<p>#####3. <strong>block在arc和非arc下含义一样吗？
+</strong>block不管是ARC还是MRC模式下都可以使用，可以修饰对象，还可以修饰基本数据类型</p>
+<p>__block对象在ARC下可能会导致循环引用，非ARC下会避免循环引用</p>
+<p>#####4. 使用atomic一定是线程安全的吗？<br>线程不安全，本意是指属性的读写方法是线程安全</p>
+<p>#####7. 为什么其他语言里叫函数调用， objective c里则是给对象发消息（或者谈下对runtime的理解）<br>oc中编译期只决定了对象发送消息，</p>
+<p>#####8. 什么是method swizzling?<br>在运行时通过修改类的分发表中selector对应的函数，来修改方法的实现。</p>
+<p>#####9. UIView和CALayer是啥关系？ </p>
+<ul>
+<li>UIView可以响应事件，layer不可以</li>
+<li>UIView是layer的delegate</li>
+<li>UIView主要处理事件。CALayer负责绘制</li>
+<li>每个 UIView 内部都有一个 CALayer 在背后提供内容的绘制和显示，两者都有树状层级结构</li>
+</ul>
+<p>#####10. 如何高性能的给UIImageView加个圆角？（不准说layer.cornerRadius!）<br>通过绘图技术对图片进行了切角处理后，将得到的含圆角UIImage通过-setImage传给了UIImageView。操作没有触发GPU离屏渲染，过程在CPU内完成。</p>
+<p>#####11. 使用drawRect有什么影响？（这个可深可浅，你至少得用过。。）</p>
+<ol>
+<li>UIView绘制的重写调用。</li>
+<li>通过设置contentMode属性值为UIViewContentModeRedraw。那么将在每次设置或更改frame的时候自动调用drawRect:，</li>
+<li>直接调用setNeedsDisplay，或者setNeedsDisplayInRect:触发drawRect:，但是有个前提条件是rect不能为0<br>#####12. ASIHttpRequest或者SDWebImage里面给UIImageView加载图片的逻辑是什么样的？（把UIImageView放到UITableViewCell里面问更赞）<br>#####13. 麻烦你设计个简单的图片内存缓存器（移除策略是一定要说的）<br>#####14. 讲讲你用Instrument优化动画性能的经历吧（别问我什么是Instrument）<br>#####15. loadView是干嘛用的？<br>#####16. viewWillLayoutSubView你总是知道的。。<br>#####17. GCD里面有哪几种Queue？你自己建立过串行queue吗？背后的线程模型是什么样的？<br>#####18. 用过coredata或者sqlite吗？读写是分线程的吗？遇到过死锁没？咋解决的？<br>#####19. http的post和get啥区别？（区别挺多的，麻烦多说点）<br>#####20. 我知道你大学毕业过后就没接触过算法数据结构了，但是请你一定告诉我什么是Binary search tree? search的时间复杂度是多少？我很想知道！</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2016/11/23/知识点（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1839,7 +2009,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

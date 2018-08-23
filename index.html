@@ -266,6 +266,480 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2018/08/24/jenkins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/24/jenkins/" itemprop="url">jenKins 自动化打包笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T00:00:00+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/坑/" itemprop="url" rel="index">
+                    <span itemprop="name">坑</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/24/jenkins/" class="leancloud_visitors" data-flag-title="jenKins 自动化打包笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="iOS-执行shell"><a href="#iOS-执行shell" class="headerlink" title="iOS 执行shell"></a>iOS 执行shell</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">IPA_PATH=&quot;/Users/sunmu/Desktop/jenkins/ipa/FUP2A-ART/FUP2A.ipa&quot;</div><div class="line">security unlock-keychain -p 123456 ~/Library/Keychains/login.keychain</div><div class="line">xcodebuild archive -workspace /Users/sunmu/Desktop/jenkins/workspace/FUP2A-ART/FUP2A.xcworkspace -scheme FUP2A -configuration Release -sdk iphoneos -archivePath /Users/sunmu/Desktop/jenkins/xcarchive/FUP2A-ART.xcarchive</div><div class="line"></div><div class="line">xcodebuild -exportArchive -archivePath /Users/sunmu/Desktop/jenkins/xcarchive/FUP2A-ART.xcarchive -exportPath /Users/sunmu/Desktop/jenkins/ipa/FUP2A-ART -exportOptionsPlist /Users/sunmu/Desktop/jenkins/workspace/FULiveDemo/FULiveDemo/Info.plist -allowProvisioningUpdates</div><div class="line"></div><div class="line">#蒲公英打包</div><div class="line">curl -F &quot;file=@$&#123;IPA_PATH&#125;&quot; \</div><div class="line">-F &quot;uKey=264c4e784d1cb476257b6cd1987b0e9f&quot; \</div><div class="line">-F &quot;_api_key=5a68a054c714f02d7cad518b8cff00ca&quot; \</div><div class="line">-F &quot;isPublishToPublic=2&quot; \</div><div class="line">http://www.pgyer.com/apiv1/app/upload</div><div class="line"></div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=f483142b7ce6bc7f24da354a09ec7541af2e39f2ae0345c78cef1ddbf86be535&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [iOS\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/DigiMe-Art)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/DigiMe-Art/) \n &gt; * \u76ee\u524d\u53ea\u652f\u6301\u5185\u90e8\u6d4b\u8bd5\u8bbe\u5907\u548c\u90e8\u5206\u540c\u4e8b\u7684\u4e2a\u4eba\u8bbe\u5907\uff0c\u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=5eef86f931f40f803ae7a3b3395404aea36cd915d53d2ca846412499cf628595&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [iOS\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/DigiMe-Art)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/DigiMe-Art/) \n &gt; * \u76ee\u524d\u53ea\u652f\u6301\u5185\u90e8\u6d4b\u8bd5\u8bbe\u5907\u548c\u90e8\u5206\u540c\u4e8b\u7684\u4e2a\u4eba\u8bbe\u5907\uff0c\u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div></pre></td></tr></table></figure>
+<h5 id="Android-执行shell"><a href="#Android-执行shell" class="headerlink" title="Android 执行shell"></a>Android 执行shell</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">chmod +x gradlew</div><div class="line">./gradlew tasks </div><div class="line">./gradlew assembleDebug</div><div class="line"></div><div class="line">#蒲公英打包</div><div class="line">IPA_PATH=&quot;/Users/sunmu/Desktop/jenkins/workspace/FUP2ArtDemoDroid/app/build/outputs/apk/debug/app-debug.apk&quot;</div><div class="line">curl -F &quot;file=@$&#123;IPA_PATH&#125;&quot; \</div><div class="line">-F &quot;uKey=264c4e784d1cb476257b6cd1987b0e9f&quot; \</div><div class="line">-F &quot;_api_key=5a68a054c714f02d7cad518b8cff00ca&quot; \</div><div class="line">-F &quot;isPublishToPublic=2&quot; \</div><div class="line">http://www.pgyer.com/apiv1/app/upload</div><div class="line"></div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=f483142b7ce6bc7f24da354a09ec7541af2e39f2ae0345c78cef1ddbf86be535&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [Android\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/o7PH)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/o7PH/) \n &gt; * \u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=5eef86f931f40f803ae7a3b3395404aea36cd915d53d2ca846412499cf628595&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [Android\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/o7PH)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/o7PH/) \n &gt; * \u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2018/03/07/iOS app各种图片尺寸/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/07/iOS app各种图片尺寸/" itemprop="url">iOS app各种图片尺寸</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T00:00:00+08:00">
+                2018-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/知识点/" itemprop="url" rel="index">
+                    <span itemprop="name">知识点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/07/iOS app各种图片尺寸/" class="leancloud_visitors" data-flag-title="iOS app各种图片尺寸">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>####引导页：</p>
+<p>640 * 960</p>
+<p>640 *1136</p>
+<p>750 *1334</p>
+<p>1080 *1920</p>
+<p>####启动页：</p>
+<p>640 * 960</p>
+<p>640 *1136</p>
+<p>750 *1334</p>
+<p>768 *1024</p>
+<p>1242 *2208</p>
+<p>1536 *2048</p>
+<p>####上传appStore所需各分辨率图片：</p>
+<p>3.5   —————         640 * 960</p>
+<p>4  ——————         640 * 1136</p>
+<p>4.7  —————-        750 * 1334</p>
+<p>5.5  —————-       1242 * 2208</p>
+<p>5.8  —————-        1125 * 2436</p>
+<p>9.7   —————-        2048 * 1536</p>
+<p>12.9   —————        2732 * 2048</p>
+<p>####app图标所需尺寸集合：</p>
+<p>29*29</p>
+<p>40*40</p>
+<p>58*58</p>
+<p>76*76</p>
+<p>80*80</p>
+<p>87*87</p>
+<p>120*120</p>
+<p>152*152</p>
+<p>167*167</p>
+<p>180*180</p>
+<p>####app store上显示的icon图标尺寸：</p>
+<p>1024*1024</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2018/03/01/tablview刷新列表偏移/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/01/tablview刷新列表偏移/" itemprop="url">tablview刷新列表偏移</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T00:00:00+08:00">
+                2018-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/坑/" itemprop="url" rel="index">
+                    <span itemprop="name">坑</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/01/tablview刷新列表偏移/" class="leancloud_visitors" data-flag-title="tablview刷新列表偏移">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>IOS 11 tableView 分页 执行reload() 时出现偏移</p>
+<p>tableView 初始化的时候加入下面几行代码</p>
+<pre><code>tableView.estimatedRowHeight = 0;
+
+tableView.estimatedSectionFooterHeight = 0;
+
+tableView.estimatedSectionHeaderHeight = 0;
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2018/02/07/需要再多点责任与担当/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1328,537 +1802,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/08/26/优秀代码前奏/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孙慕">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mumu@note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/26/优秀代码前奏/" itemprop="url">优秀OC代码-前奏</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-26T00:00:00+08:00">
-                2017-08-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective—C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective—C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/08/26/优秀代码前奏/" class="leancloud_visitors" data-flag-title="优秀OC代码-前奏">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="命名规范-尽量模仿OC系统命名"><a href="#命名规范-尽量模仿OC系统命名" class="headerlink" title="命名规范(尽量模仿OC系统命名)"></a>命名规范(尽量模仿OC系统命名)</h4><h5 id="属性、变量的命名"><a href="#属性、变量的命名" class="headerlink" title="属性、变量的命名"></a>属性、变量的命名</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIButton *removeBtn //移除按钮</div><div class="line">UILabel *ageLbl //年龄标签</div><div class="line">NSString *addressStr//地址字符串</div></pre></td></tr></table></figure>
-<ol>
-<li>遵守小驼峰命名规则</li>
-<li>变量的名称一般同时包含功能与类型</li>
-<li>系统常用类作实例变量声明时加入后缀</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">类型</th>
-<th style="text-align:center">缩写</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">NSString</td>
-<td style="text-align:center">Str</td>
-</tr>
-<tr>
-<td style="text-align:center">UIButton</td>
-<td style="text-align:center">Btn</td>
-</tr>
-<tr>
-<td style="text-align:center">UILabel</td>
-<td style="text-align:center">Lbl</td>
-</tr>
-<tr>
-<td style="text-align:center">UIImage</td>
-<td style="text-align:center">Img</td>
-</tr>
-<tr>
-<td style="text-align:center">UIImageView</td>
-<td style="text-align:center">ImagView</td>
-</tr>
-<tr>
-<td style="text-align:center">UIView</td>
-<td style="text-align:center">View</td>
-</tr>
-<tr>
-<td style="text-align:center">UIViewController</td>
-<td style="text-align:center">VC</td>
-</tr>
-<tr>
-<td style="text-align:center">NSArray</td>
-<td style="text-align:center">Array</td>
-</tr>
-<tr>
-<td style="text-align:center">NSMutableArray</td>
-<td style="text-align:center">Marray</td>
-</tr>
-<tr>
-<td style="text-align:center">NSDictionary</td>
-<td style="text-align:center">Dict</td>
-</tr>
-<tr>
-<td style="text-align:center">NSMutableDictionary</td>
-<td style="text-align:center">Mdict</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/26/优秀代码前奏/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/08/15/不要这么刺眼/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孙慕">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mumu@note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/15/不要这么刺眼/" itemprop="url">好想维护一份大神的代码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T00:00:00+08:00">
-                2017-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂谈日记/" itemprop="url" rel="index">
-                    <span itemprop="name">杂谈日记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/08/15/不要这么刺眼/" class="leancloud_visitors" data-flag-title="好想维护一份大神的代码">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>公司人员调整，一个iOS开发同事离职，然后又新招来个UI，一波改动来袭….之前界面修改都是给离职同事写的,维护别人代码了一周，今天周末，总结一下他代码中的一些问题，以及个人对如何编写易于维护的代码的一些心得。</p>
-<p>随着手机硬件提升，软件软件进一步优化，可以说，苹果开发对于新手来说越趋于简单，这里说的简单只是说写出个app，代码写成个饼，给时间都能调出想要的样子！对于一个开发者，最精简，最高效应该是我们追求的</p>
-<h3 id="维护中被恶心到的地方"><a href="#维护中被恶心到的地方" class="headerlink" title="维护中被恶心到的地方"></a>维护中被恶心到的地方</h3><ol>
-<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic1.png" alt=""><br>如上代码，我不止一次看到过。看到好像笑，这不是脱裤子放屁么，以前因为代码习惯，大可不必这样</p>
-<ul>
-<li>一个变量有且只有一个功能，尽量不要把一个变量用作多种用途</li>
-<li>变量在使用前应初始化，防止未初始化的变量被引用</li>
-<li>局部变量应该尽量接近使用它的地方</li>
-</ul>
-</li>
-<li><p><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.png" alt=""><br>初始化viewDidload里写一堆，当我们要找个tableView初始化的时候，在里面一顿翻。个人觉得将初始化封装在各自初始化方法，一些监听方法为了后面找到方便，可以加#pragma mark xxx; 就跟这里家里东西一样，自建看着也舒服呀<br>整理后的<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic2.1.png" alt=""><br>这样子写了下舒服多了</p>
-<ul>
-<li>一个函数的长度必须限制在50行以内</li>
-<li>一个函数只做一件事（单一原则）</li>
-</ul>
-</li>
-<li><p>合理的内存分配，下面代码<br><img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic3.png" alt=""><br>ARC下内存自动管理，很多时候内存都是会被回收，但是在没有必要创建将多出很多CPU指令，影响性能，尤其是上面这种反复调用的方法，很容易引起滑动列表卡顿，这种cell上的内容，再有重用情况下，一定要跟随Cell重用。</p>
-</li>
-</ol>
-<p>4.if后面加注解阅读性被增，如果遇到过被一个if搞得一脸闷逼的过，你应该能理解加上注解后维护起来会好受多了<br>   <img src="https://github.com/iossun/bolgImage/raw/master/%E5%A5%BD%E6%83%B3%E7%9C%8B%E7%9C%8B%E5%A4%A7%E7%A5%9E%E4%BB%A3%E7%A0%81/pic4.0.png" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/15/不要这么刺眼/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/07/19/上半年回顾/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孙慕">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mumu@note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/19/上半年回顾/" itemprop="url">上半年回顾</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T00:00:00+08:00">
-                2017-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/杂谈日记/" itemprop="url" rel="index">
-                    <span itemprop="name">杂谈日记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/07/19/上半年回顾/" class="leancloud_visitors" data-flag-title="上半年回顾">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>一晃上班年过去，感觉上半年干的很辛苦，却又没有什么收获。去年工作之余，还不断学习代码优化，性能优化；细读了《Effective objectivew》《objective-c 编程全解》；系统学习了swift,将网上OC编写的百思，用swift编写了一遍；学习了Charles，Reveal，Flurry…好多辅助开发软件使用;研究了openGL es，对手机越狱，完成敲壳……去年收获还是蛮多的，上半年显然不够充实自己。</p>
-<p>学习的态度感觉一样的，学习成果就少了很多，总结下原因：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/19/上半年回顾/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1903,7 +1851,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1914,7 +1862,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

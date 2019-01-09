@@ -370,8 +370,8 @@
 <p>​      频率越高，波长就越短。低频声响的波长则较长。</p>
 <p>​      声音还有一些性质：<strong>声音的传播介质  回声  共鸣</strong></p>
 <h2 id="数字音频"><a href="#数字音频" class="headerlink" title="数字音频"></a>数字音频</h2><p>​      大自然中的声音，他的形态是一种波。我们通过采样，将这种波量化成数据，记录下来，如下图所示：</p>
-<p><img src="./1122433-261c3646f3cf1b21.png" alt=""></p>
-<p><img src="./1122433-006d79c99d3ca6c5.png" alt=""></p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-006d79c99d3ca6c5.png" alt=""></p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-261c3646f3cf1b21.png" alt=""></p>
 <p>​      如上图所示，采样的数据并不能完整的还原出原来的波形，只能做到尽量接近原波形。并且采样率（采样的次数）越高，波形越接近原波形。不过采样的次数增多，必然会导致存储的数据量要增加，所以我们不可能无限提升采样率。经过长期的研究人们发现，当采样率等于波形中最高频率的2倍时，已经足够将波形还原到可接受的程度了。这个频率称为<a href="https://link.jianshu.com?t=http://baike.baidu.com/link?url=uznAc6udCar8O7I3kwBt_QZhRByp4_79Y-TaGDoCAmp_jCYyNCFqkLAdZ_mVwkmbKxuhLwEM4gErQy01HwkgL_" target="_blank" rel="external">奈奎斯特频率</a>。人耳能接受的最高频率为20kHz，所以只要采样率超过40kHz，就可以呈现出可接受的声音。目前常见的CD采样率为44.1kHz。</p>
 <p>​      除了采样率之外，音频采样还有一个重要参数叫做<a href="https://link.jianshu.com?t=http://zhidao.baidu.com/link?url=Af7OKj4bCFEp5LK3nGgIrrAOcv8wP0onN_u_fevah0ENxmSQl-HOSGeylSrpJrp6IO1ETCtGA6IKUCXhGiuAwHVvjovypCOYar_zOQaXnQa" target="_blank" rel="external">音频的位元深度</a>。表示用多少位(bit)定义线性维度上的离散度来保存一个音频样本。位数越高，离散度越多，表示的声音越精确（音质越好）。一般来说16bit比较常见，可以表示65536个离散度。</p>
 <p>​       一个音频文件的体积，有如下算法：<code>体积=采样率*位元深度*音道数*时间</code>。</p>
@@ -526,6 +526,392 @@
           
             <h5 id="iOS-执行shell"><a href="#iOS-执行shell" class="headerlink" title="iOS 执行shell"></a>iOS 执行shell</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">IPA_PATH=&quot;/Users/sunmu/Desktop/jenkins/ipa/FUP2A-ART/FUP2A.ipa&quot;</div><div class="line">security unlock-keychain -p 123456 ~/Library/Keychains/login.keychain</div><div class="line">xcodebuild archive -workspace /Users/sunmu/Desktop/jenkins/workspace/FUP2A-ART/FUP2A.xcworkspace -scheme FUP2A -configuration Release -sdk iphoneos -archivePath /Users/sunmu/Desktop/jenkins/xcarchive/FUP2A-ART.xcarchive</div><div class="line"></div><div class="line">xcodebuild -exportArchive -archivePath /Users/sunmu/Desktop/jenkins/xcarchive/FUP2A-ART.xcarchive -exportPath /Users/sunmu/Desktop/jenkins/ipa/FUP2A-ART -exportOptionsPlist /Users/sunmu/Desktop/jenkins/workspace/FULiveDemo/FULiveDemo/Info.plist -allowProvisioningUpdates</div><div class="line"></div><div class="line">#蒲公英打包</div><div class="line">curl -F &quot;file=@$&#123;IPA_PATH&#125;&quot; \</div><div class="line">-F &quot;uKey=264c4e784d1cb476257b6cd1987b0e9f&quot; \</div><div class="line">-F &quot;_api_key=5a68a054c714f02d7cad518b8cff00ca&quot; \</div><div class="line">-F &quot;isPublishToPublic=2&quot; \</div><div class="line">http://www.pgyer.com/apiv1/app/upload</div><div class="line"></div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=f483142b7ce6bc7f24da354a09ec7541af2e39f2ae0345c78cef1ddbf86be535&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [iOS\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/DigiMe-Art)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/DigiMe-Art/) \n &gt; * \u76ee\u524d\u53ea\u652f\u6301\u5185\u90e8\u6d4b\u8bd5\u8bbe\u5907\u548c\u90e8\u5206\u540c\u4e8b\u7684\u4e2a\u4eba\u8bbe\u5907\uff0c\u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=5eef86f931f40f803ae7a3b3395404aea36cd915d53d2ca846412499cf628595&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [iOS\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/DigiMe-Art)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/DigiMe-Art/) \n &gt; * \u76ee\u524d\u53ea\u652f\u6301\u5185\u90e8\u6d4b\u8bd5\u8bbe\u5907\u548c\u90e8\u5206\u540c\u4e8b\u7684\u4e2a\u4eba\u8bbe\u5907\uff0c\u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div></pre></td></tr></table></figure>
 <h5 id="Android-执行shell"><a href="#Android-执行shell" class="headerlink" title="Android 执行shell"></a>Android 执行shell</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">chmod +x gradlew</div><div class="line">./gradlew tasks </div><div class="line">./gradlew assembleDebug</div><div class="line"></div><div class="line">#蒲公英打包</div><div class="line">IPA_PATH=&quot;/Users/sunmu/Desktop/jenkins/workspace/FUP2ArtDemoDroid/app/build/outputs/apk/debug/app-debug.apk&quot;</div><div class="line">curl -F &quot;file=@$&#123;IPA_PATH&#125;&quot; \</div><div class="line">-F &quot;uKey=264c4e784d1cb476257b6cd1987b0e9f&quot; \</div><div class="line">-F &quot;_api_key=5a68a054c714f02d7cad518b8cff00ca&quot; \</div><div class="line">-F &quot;isPublishToPublic=2&quot; \</div><div class="line">http://www.pgyer.com/apiv1/app/upload</div><div class="line"></div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=f483142b7ce6bc7f24da354a09ec7541af2e39f2ae0345c78cef1ddbf86be535&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [Android\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/o7PH)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/o7PH/) \n &gt; * \u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div><div class="line">curl  &quot;https://oapi.dingtalk.com/robot/send?access_token=5eef86f931f40f803ae7a3b3395404aea36cd915d53d2ca846412499cf628595&quot; -H &quot;Content-Type: application/json&quot; -d &quot;&#123;\&quot;msgtype\&quot;: \&quot;markdown\&quot;, \&quot;markdown\&quot;: &#123;\&quot;title\&quot;: \&quot;FUP2A-ART\&quot;,\&quot;text\&quot;:\&quot; &gt; [Android\u70b9\u51fb\u8fd9\u91cc\u8fdb\u884c\u5b89\u88c5](https://www.pgyer.com/o7PH)\u6216\u624b\u673a\u626b\u63cf\u4e8c\u7ef4\u7801\u8fdb\u884c\u5b89\u88c5 \n &gt; ## ![this](https://www.pgyer.com/app/qrcode/o7PH/) \n &gt; * \u5982\u65e0\u6cd5\u5b89\u88c5\u8bf7\u8054\u7cfb\u79fb\u52a8\u5f00\u53d1\u90e8\u5b59\u6155\u540c\u5b66 \n \&quot;&#125;&#125;&quot;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2018/07/15/Obj-C规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="孙慕">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mumu@note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/15/Obj-C规范/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T03:23:58+08:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/15/Obj-C规范/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>title: OC代码规范<br>date: 2018.4.5<br>categories: Objective—C</p>
+<hr>
+<h2 id="提要"><a href="#提要" class="headerlink" title="提要"></a>提要</h2><ol>
+<li>所有规范（试行）基于苹果官方<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html" target="_blank" rel="external">编码准则</a>。若有冲突之处，以官方为主。</li>
+</ol>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p>Ⅰ、<a href="#Ⅰ">代码规范</a></p>
+<p>Ⅱ、<a href="#Ⅱ">文件规范</a></p>
+<p>Ⅲ、<a href="#Ⅲ">TODO:</a></p>
+<h1 id="Ⅰ、代码规范"><a href="#Ⅰ、代码规范" class="headerlink" title="Ⅰ、代码规范"></a>Ⅰ、<span id="Ⅰ">代码规范</span></h1><h2 id="一、命名规范"><a href="#一、命名规范" class="headerlink" title="一、命名规范"></a>一、命名规范</h2><ul>
+<li><p><strong>变量和属性:</strong>遵循小驼峰规则，且<code>*</code>紧跟变量</p>
+<blockquote>
+<ol>
+<li>NSString *userName;</li>
+<li>@property (nonatimic, strong) NSString *nickName;</li>
+<li>临时变量禁止使用下划线开头！因为Default Synthesis生成的成员变量就是下划线打头的，避免可能存在的冲突！</li>
+<li>关于NSString的定义：明显预知的类型可以不加后缀，如userName可以预判是String类型；但不可预判的必须加，如URL string和URL对象需要添加后缀。</li>
+<li>关于全局类的属性，变量。定义时需要无歧义描述，如数组定义：cells，cellArray。</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>属性的访问:</strong>需使用点语法执行</p>
+<blockquote>
+<p>self.userName = @”john”;</p>
+</blockquote>
+</li>
+<li><p><strong>方法的访问:</strong>需使用方括号访问</p>
+<blockquote>
+<p>count = [self.userName length];</p>
+</blockquote>
+</li>
+<li><p><strong>类名:</strong>遵循大驼峰式命名法，需要带上前缀。</p>
+<blockquote>
+<p>@interface UITextView</p>
+<p>视图类：<code>**View</code>；控制器类：<code>**Controller</code>；实体模型：<code>**Model</code>或者<code>**Entity</code>。依此类推之。</p>
+<p>类似的，对于Protocol、Struct、const命名规则，与之相同。</p>
+</blockquote>
+</li>
+<li><p><strong>方法名:</strong>的每一部分都必须遵循小驼峰命名法；若参数过长，则每个参数占用一行且以<code>:</code>对齐。（依据Xcode提示即可）</p>
+<blockquote>
+<p>- (NSRange)rangeOfString:(NSString *)aString options:(NSStringCompareOptions)mask;</p>
+<p>方法名详细参考:<a href="http://cocoadevcentral.com/articles/000083.php" target="_blank" rel="external">Cocoa Style for Objective-C: Part II</a></p>
+<p>特例：方法名以特殊大写字母开头。如PDFXXX、TIFFXX等。</p>
+<p>行为方法：以动词开头，宜使用诸如<code>can</code>、<code>should</code>、<code>will</code>等情态动词，避免使用<code>do</code>、<code>does</code>。</p>
+<p>返回值方法：避免使用<code>get</code>开头。</p>
+</blockquote>
+</li>
+<li><p><strong>构造方法:</strong>返回实例类型为<code>instancetype</code>而不再是<code>id</code>类型。</p>
+<blockquote>
+<p>便于编译器正确推断结果类型</p>
+</blockquote>
+</li>
+<li><p><strong>函数:</strong>其实就是所谓的C全局函数，一般采用<code>前缀+名字</code>的方式来命名,其中名字部分采用大驼峰式命名法。</p>
+<blockquote>
+<ol>
+<li>NSString *NSHomeDirectory(void);</li>
+<li>NSString <em>NSHomeDirectoryForUser(NSString </em>userName);</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>常量:</strong>使用静态变量的方式来定义数值或者字符串常量，而不要使用预编译的方式。好处是前者存在类型检查，而后者只是简单的文本替换。</p>
+<blockquote>
+<p>NSString * const kMyConstVar = @”myConstVar”;</p>
+</blockquote>
+</li>
+<li><p><strong>枚举:</strong>使用苹果提供的宏来定义枚举,NS_ENUM用来定义普通的枚举，NS_OPTIONS用来定义bitmask。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UIViewAnimationTransition) &#123;</div><div class="line"> 	   UIViewAnimationTransitionNone,</div><div class="line"> 	   UIViewAnimationTransitionFlipFromLeft,</div><div class="line"> 	   ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef NS_OPTIONS(NSUInteger, UIViewAutoresizing) &#123;</div><div class="line">    UIViewAutoresizingNone                 = 0,</div><div class="line">    UIViewAutoresizingFlexibleLeftMargin   = 1 &lt;&lt; 0,</div><div class="line">    UIViewAutoresizingFlexibleWidth        = 1 &lt;&lt; 1,</div><div class="line">    ...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Notification:</strong>通知必须以字符串常量的方式存在。<br>命名遵循如下组成结构<br><code>[Name of associated class] + [Did | Will] + [UniquePartOfName] + Notification</code>。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">//TBHDXXX.h</div><div class="line">	//如果通知名在外部需要使用，则需要在头文件中进行extern声明</div><div class="line">	extern NSString * const TBHDXXXDidReceivedNotification;</div></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//TBHDXXX.m</div><div class="line">NSString * const TBHDXXXDidReceivedNotification = @&quot;TBHDXXXDidReceivedNotification&quot;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>Exceptions:</strong>和上面的通知的命令方式很相似，遵循以下模式:<br><code>[Prefix] + [UniquePartOfName] + Exception</code>   </p>
+<blockquote>
+<ol>
+<li>NSRangeException</li>
+<li>NSInternalInconsistencyException</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>其它常量变量:</strong>遵循<code>[Prefix] + [UniquePartOfName]</code>的命名准则。</p>
+<blockquote>
+<p>FOUNDATION_EXPORT NSString * const NSURLErrorDomain;</p>
+</blockquote>
+</li>
+<li><p><strong>UserDefaults:</strong>中的key值命名。</p>
+</li>
+<li>关于警告的处理：工具类、方法不使用的，可以使用注释或者<code>DEPRECATED</code>等宏定义做警告处理，后续逐步丢弃掉。</li>
+<li><p>关于常量相关的区分细节：</p>
+<blockquote>
+<ol>
+<li>#define PI @”3.14”:宏定义。预处理器文本替换，无类型检查；占用代码段地址，大量宏会导致二进制文件过大。</li>
+<li>NSString *PI = @”3.14”:变量。共享内存空间；编译阶段进行类型检查。</li>
+<li>static const NSString *PI = @”3.14”:局部常量。共享内存空间；用static修饰后，不能提供外界访问。</li>
+<li>const NSString <em>PI = @”3.14”:全局常量1。共享内存空间；”\</em> PI”不能被修改， “PI”能被修改；无论定义在哪个文件夹，外部均能访问。（需要调用时声明extern NSString *PI）</li>
+<li>NSString const <em>PI = @”3.14”:全局常量2。共享内存空间；”\</em> PI”不能被修改， “PI”能被修改，同全局常量1。</li>
+<li>NSString <em> const </em>PI = @”3.14”:全局常量3。共享内存空间；”PI”不能被修改，”* PI”能被修改。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h2 id="二、格式规范"><a href="#二、格式规范" class="headerlink" title="二、格式规范"></a>二、格式规范</h2><ul>
+<li><p><strong>空格:</strong>合理使用空格，增加代码的可读性。</p>
+<blockquote>
+<ol>
+<li><code>NSArray *names = @[@&quot;a&quot;, @&quot;b&quot;];</code> ✓ </li>
+<li><code>NSArray *names = @[@&quot;a&quot;,@&quot;b&quot;];</code> ✗  </li>
+<li>Dictionary<br><code>NSDictionary *errorCodeMap = @{@&quot;0&quot;: @&quot;网络错误&quot;};</code>✓<br><code>NSDictionary *errorCodeMap = @{@&quot;0&quot;:@&quot;网络错误&quot;};</code>✗</li>
+<li>二元/三元运算符(Dot运算符例外,一元运算符以及强制类型转换无需空格)<br><code>if(a &amp;&amp; b) {}</code> ✓<br><code>if(a&amp;&amp;b) {}</code> ✗</li>
+<li>for循环中也应使用空格隔开<br><code>for (unsigned int i = 0; i &lt; 10; i++)...</code>✓<br><code>for (unsigned int i = 0;i &lt; 10;i++)...</code>✗</li>
+<li>方法声明中的 “－”和“＋”后面必须留空格<br><code>- (id)initWithCoder:(NSCoder *)aDecoder;</code> ✓<br><code>-(id)initWithCoder:(NSCoder *)aDecoder;</code> ✗</li>
+<li>方法调用的时候，receiver和method之间必须要有空格<br><code>[[NSUserDefaults standardUserDefaults] synchronize];</code>✓<br><code>[[NSUserDefaults standardUserDefaults]synchronize];</code>✗</li>
+<li>代码块的起始的<code>{</code>前要留一空格，else 前和<code>}</code>也要留一空格<br><code>if {..} else {..}</code></li>
+<li>注释内容和注释标志要有一个空格:<br><code>// momo</code></li>
+<li>逻辑比较复杂的功能修改，需要添加注释：时间，详细内容等。</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>回车换行</strong>：</p>
+<blockquote>
+<ol>
+<li>代码之间不需要多余的回车，不超过2行回车。</li>
+<li>不同方法体添加一行回车即可。</li>
+<li>方法体内不同逻辑块之间加一行回车即可。</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>{}大括号:</strong>左大括号不要另起一行，右大括号必须新起一行。即使只有一条语句。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(ok) &#123;</div><div class="line">	return success;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><strong>?:条件运算符:</strong>严禁嵌套使用，否则代码的可读性会下降。</p>
+<blockquote>
+<ol>
+<li><code>a ? a : b</code>(此种情况也可写成<code>a ?: b</code>)✓   </li>
+<li><code>a ? (b &gt; c ? b : c) : d</code> ✗</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>注释:</strong>注释本身也存在其相关语法，可以参考苹果的<a href="https://developer.apple.com/library/mac/documentation/developertools/Conceptual/HeaderDoc/intro/intro.html" target="_blank" rel="external">HeaderDoc User Guide</a>。</p>
+<blockquote>
+<ol>
+<li>不要进行大片的代码注释，直接删除它们。</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>函数注释:</strong>针对文件或者函数进行详细解释格式。</p>
+<blockquote>
+<p>基本涵盖：名称、描述、入参、出参、返回值</p>
+</blockquote>
+</li>
+<li><p><strong>Option + command + /</strong>：函数注释   以及h文件中类的注释。方法体、函数体内部业务逻辑较复杂的需要单独添加注释。<br>  ​    </p>
+<h2 id="三、语法规范"><a href="#三、语法规范" class="headerlink" title="三、语法规范"></a>三、语法规范</h2></li>
+<li><p><code>NSArray，NSDictionary， NSNumber</code>能够使用新的文法的地方就使用新的文法:</p>
+<blockquote>
+<ol>
+<li><code>NSNumber *price = @1000;</code>  </li>
+<li><code>NSArray *names = @[@&quot;a&quot;, @&quot;b&quot;];</code> </li>
+<li><code>NSDictionary *errorCodeMap = @{@&quot;0&quot;: @&quot;网络错误&quot;, @&quot;1&quot;: @&quot;连接超时&quot;};</code></li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>CGRect函数:</strong>使用<a href="http://developer.apple.com/library/ios/#documentation/graphicsimaging/reference/CGGeometry/Reference/reference.html" target="_blank" rel="external">CGRect函数</a>来获取CGRect结构体中的数据,因为CGRect函数在计算结果前会对变量进行检查，比如对长宽进行检查，是否为正。</p>
+<blockquote>
+<p><code>CGFloat height = CGRectGetHeight(frame);</code> ✓<br><code>CGFloat height = frame.size.height;</code> ✗</p>
+</blockquote>
+</li>
+<li><p><strong>单例模式:</strong>统一使用<code>dispatch_once</code>的方式，这种方式简单，性能好，线程安全。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">+ (MyClass *)sharedInstance&#123;</div><div class="line">   	//  Static local predicate must be initialized to 0</div><div class="line">   	static MyClass *sharedInstance = nil;</div><div class="line">   	static dispatch_once_t onceToken;</div><div class="line">   	dispatch_once(&amp;onceToken, ^&#123;</div><div class="line">     	  sharedInstance = [[MyClass alloc] init];</div><div class="line">       	// Do any other initialisation stuff here</div><div class="line">   	&#125;);</div><div class="line">   	return sharedInstance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Ⅱ、文件规范"><a href="#Ⅱ、文件规范" class="headerlink" title="Ⅱ、文件规范"></a><span id="Ⅱ">Ⅱ、文件规范</span></h1><h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><ul>
+<li><p><strong>Utility和Helper:</strong>一些工具或者辅助类文件名的后缀。</p>
+<blockquote>
+<p><code>Utility</code>或 <code>Util</code>: 一般在使用的时候无需实例化，直接使用其类方法，是无状的。（因为属于Common类文件，所以不推荐使用）</p>
+<p><code>Helper</code>或<code>Builder</code>: 可以实例化，有状态的</p>
+</blockquote>
+</li>
+<li><p><strong>导入:</strong>头文件中能够不import（使用class声明即可）的时候就严谨import。</p>
+</li>
+<li><p><strong>h文件:</strong>布局方案详细</p>
+<blockquote>
+<ol>
+<li>头文件{}外，空1行书写属性，如果需要分类区别，各类别之间空1行</li>
+<li>属性下面空1行开始写方法，如果需要分类区别，各类别之间空1行</li>
+<li>方法完成后，空1行@end</li>
+<li>如果需要声明protocol，空2行接着写。通常protocol写在@end后面，但是声明在  @interface之前</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>m文件:</strong>布局方案详细</p>
+<blockquote>
+<ol>
+<li>文件说明与头文件包含(#import)之间空1行</li>
+<li><p>头文件包含(#import)之间，如果需要分类区别，各类别之间空1行</p>
+</li>
+<li><p>方法与方法之间空1行</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ul>
+<li><p><strong>代码行数:</strong>一行最大为100列</p>
+</li>
+<li><p><strong>函数分组:</strong>使用类似<code>#pragma mark --- &lt;* text *&gt;---</code>方式进行分组</p>
+</li>
+</ul>
+<h4 id="分组详情"><a href="#分组详情" class="headerlink" title="分组详情:"></a>分组详情:</h4><ul>
+<li><p><strong>该分组模式业已提交code snippet，便于统一处理文件。</strong></p>
+<blockquote>
+<ul>
+<li>具体导入使用方法参考Github地址中<code>README说明</code>。</li>
+<li>github地址：<a href="https://github.com/PanZhow/snippets_tools" target="_blank" rel="external">snippets_tools</a></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong>根据<code>函数分组</code>方案，文件内部组织形式为：</strong></p>
+<ol>
+<li><code>- (void)dealloc{}</code></li>
+<li><p><code>#pragma mark --- public ---</code></p>
+<blockquote>
+<p>对外公开的方法，即在h文件中声明的方法</p>
+</blockquote>
+</li>
+<li><p><code>#pragma mark --- life cycle ---</code></p>
+<blockquote>
+<p><code>- (void)viewDidLoad{}</code></p>
+<p>一系列声明周期方法集合</p>
+</blockquote>
+</li>
+<li><p><code>#pragma mark --- delegate ---</code></p>
+<blockquote>
+<p>一系列<code>自定义/系统</code>代理方法</p>
+</blockquote>
+</li>
+<li><p><code>#pragma mark --- event ---</code></p>
+<blockquote>
+<p>如UIbutton点击事件</p>
+</blockquote>
+</li>
+<li><p><code>#pragma mark --- private ---</code></p>
+<blockquote>
+<p>相对<code>public</code>而言，只在m文件中使用的自定义方法</p>
+</blockquote>
+</li>
+<li><p><code>#pragma mark --- getter &amp; setter ---</code></p>
+<blockquote>
+<p>一系列<code>属性</code>定义方法</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="代码布局"><a href="#代码布局" class="headerlink" title="代码布局"></a>代码布局</h2><ul>
+<li><p>不想暴露于头文件的属性，可以使用类扩展(Class Extension，也即匿名Category)的方式进行声明。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//PZMyClass.m文件中</div><div class="line">@interface PZMyClass ()</div><div class="line"></div><div class="line">@property (nonatomic, strong) UIView *myView;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Ⅲ、TODO："><a href="#Ⅲ、TODO：" class="headerlink" title="Ⅲ、TODO："></a>Ⅲ、<span id="Ⅲ">TODO：</span></h1><p>后续需要继续完善的部分（红色分支）：</p>
+<p><img src="规范V1.0.png" alt="pic"></p>
 
           
         
@@ -1648,158 +2034,6 @@ tableView.estimatedSectionHeaderHeight = 0;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://iossun.github.io/2017/10/05/HTTP须知/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="孙慕">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://www.mny9.com:80/images/users/VFMhAQ0AADE0NDkwMjkwMjA4MDV6_20170628151324.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mumu@note">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/05/HTTP须知/" itemprop="url">HTTP须知</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-05T00:00:00+08:00">
-                2017-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Objective—C/" itemprop="url" rel="index">
-                    <span itemprop="name">Objective—C</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/10/05/HTTP须知/" class="leancloud_visitors" data-flag-title="HTTP须知">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>一、HTTP协议</strong></p>
-<p>HTTP本质上是一种协议，全称是Hypertext Transfer Protocol，即超文本传输协议。从名字上可以看出该协议用于规定客户端与服务端之间的传输规则，所传输的内容不局限于文本(其实可以传输任意类型的数据)。</p>
-<p>HTTP请求所必备的几大要素：请求行、请求头(headerField)、请求体(body)；同理，响应也有状态行、响应头、实体内容。接下来我们逐个展开。</p>
-<p>1、请求行<br>请求行包含请求方法(Method)、请求统一资源标识符(URI)、HTTP版本号，<br>请求方法就是我们所熟悉的POST、GET、HEAD、PUT等<br>URI就是URL中排除掉Host剩下的部分，也就是资源在服务器本地上的路径<br>HTTP版本号，目前主流的版本是1.1(1999年开始采用)，最新的版本是2.0(2015年5月发布)。不同版本之间差异下面会再展开</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/05/HTTP须知/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1849,7 +2083,7 @@ tableView.estimatedSectionHeaderHeight = 0;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

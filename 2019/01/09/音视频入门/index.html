@@ -99,13 +99,13 @@
 <meta property="og:url" content="https://iossun.github.io/2019/01/09/音视频入门/index.html">
 <meta property="og:site_name" content="mumu@note">
 <meta property="og:description" content="声音的物理性质​      声音是物体振动产生，声音是一种波，声波的三要素是频率、振幅和波形，频率代表音阶的高低，振幅代表响度，波形代表音色。 ​      频率越高，波长就越短。低频声响的波长则较长。 ​      声音还有一些性质：声音的传播介质  回声  共鸣 数字音频​      大自然中的声音，他的形态是一种波。我们通过采样，将这种波量化成数据，记录下来，如下图所示：   ​">
-<meta property="og:image" content="https://iossun.github.io/2019/01/09/音视频入门/1122433-261c3646f3cf1b21.png">
-<meta property="og:image" content="https://iossun.github.io/2019/01/09/音视频入门/1122433-006d79c99d3ca6c5.png">
-<meta property="og:updated_time" content="2019-01-09T01:51:27.000Z">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-006d79c99d3ca6c5.png">
+<meta property="og:image" content="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-261c3646f3cf1b21.png">
+<meta property="og:updated_time" content="2019-01-09T02:06:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="音视频入门了解">
 <meta name="twitter:description" content="声音的物理性质​      声音是物体振动产生，声音是一种波，声波的三要素是频率、振幅和波形，频率代表音阶的高低，振幅代表响度，波形代表音色。 ​      频率越高，波长就越短。低频声响的波长则较长。 ​      声音还有一些性质：声音的传播介质  回声  共鸣 数字音频​      大自然中的声音，他的形态是一种波。我们通过采样，将这种波量化成数据，记录下来，如下图所示：   ​">
-<meta name="twitter:image" content="https://iossun.github.io/2019/01/09/音视频入门/1122433-261c3646f3cf1b21.png">
+<meta name="twitter:image" content="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-006d79c99d3ca6c5.png">
 
 
 
@@ -369,8 +369,8 @@
 <p>​      频率越高，波长就越短。低频声响的波长则较长。</p>
 <p>​      声音还有一些性质：<strong>声音的传播介质  回声  共鸣</strong></p>
 <h2 id="数字音频"><a href="#数字音频" class="headerlink" title="数字音频"></a>数字音频</h2><p>​      大自然中的声音，他的形态是一种波。我们通过采样，将这种波量化成数据，记录下来，如下图所示：</p>
-<p><img src="./1122433-261c3646f3cf1b21.png" alt=""></p>
-<p><img src="./1122433-006d79c99d3ca6c5.png" alt=""></p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-006d79c99d3ca6c5.png" alt=""></p>
+<p><img src="https://github.com/iossun/bolgImage/raw/master/%E9%9F%B3%E8%A7%86%E9%A2%91%E5%85%A5%E9%97%A8/1122433-261c3646f3cf1b21.png" alt=""></p>
 <p>​      如上图所示，采样的数据并不能完整的还原出原来的波形，只能做到尽量接近原波形。并且采样率（采样的次数）越高，波形越接近原波形。不过采样的次数增多，必然会导致存储的数据量要增加，所以我们不可能无限提升采样率。经过长期的研究人们发现，当采样率等于波形中最高频率的2倍时，已经足够将波形还原到可接受的程度了。这个频率称为<a href="https://link.jianshu.com?t=http://baike.baidu.com/link?url=uznAc6udCar8O7I3kwBt_QZhRByp4_79Y-TaGDoCAmp_jCYyNCFqkLAdZ_mVwkmbKxuhLwEM4gErQy01HwkgL_" target="_blank" rel="external">奈奎斯特频率</a>。人耳能接受的最高频率为20kHz，所以只要采样率超过40kHz，就可以呈现出可接受的声音。目前常见的CD采样率为44.1kHz。</p>
 <p>​      除了采样率之外，音频采样还有一个重要参数叫做<a href="https://link.jianshu.com?t=http://zhidao.baidu.com/link?url=Af7OKj4bCFEp5LK3nGgIrrAOcv8wP0onN_u_fevah0ENxmSQl-HOSGeylSrpJrp6IO1ETCtGA6IKUCXhGiuAwHVvjovypCOYar_zOQaXnQa" target="_blank" rel="external">音频的位元深度</a>。表示用多少位(bit)定义线性维度上的离散度来保存一个音频样本。位数越高，离散度越多，表示的声音越精确（音质越好）。一般来说16bit比较常见，可以表示65536个离散度。</p>
 <p>​       一个音频文件的体积，有如下算法：<code>体积=采样率*位元深度*音道数*时间</code>。</p>
@@ -571,7 +571,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
